@@ -9,6 +9,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 /*File css dùng chung cho tất cả các trang*/
 /*thêm css thì nên thêm ghi chú để những người khác có hiểu css đó làm chức năng gì */
+
+/*=================================================LINK CSS============================================*/
+
+/*mn muốn gọi main.css thì copy link ở dưới*/
+/*<link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/resources/css/main.css"
+/>*/
+
+
+/*  ======= LINK BOOSTRAP =======
+<link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+/>
+
+
+======= LINK ICON =======
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+ />*/
+
+/*========================================================END LINK CSS=============================================*/
+
+
 .color-text-primary {
   color: #8c705c;
 }
@@ -95,6 +121,48 @@ a {
   border-color: #ff6b35;
   box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.25);
 }
+
+/*theo tôi thì footer nên dùng 1 form thôi nếu có điều chỉnh gì thì góp ý nhé*/
+/*<!-- Footer -->
+    <footer class="footer py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="d-flex justify-content-center mb-3">
+              <a href="#" class="text-decoration-none text-secondary"
+                >About Us</a
+              >
+              <a href="#" class="text-decoration-none text-secondary"
+                >Contact</a
+              >
+              <a href="#" class="text-decoration-none text-secondary">FAQ</a>
+              <a href="#" class="text-decoration-none text-secondary"
+                >Terms of Service</a
+              >
+              <a href="#" class="text-decoration-none text-secondary"
+                >Privacy Policy</a
+              >
+            </div>
+
+            <div class="d-flex justify-content-center mb-3 social-links">
+              <a href="#" class="text-secondary">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="#" class="text-secondary">
+                <i class="bi bi-twitter"></i>
+              </a>
+              <a href="#" class="text-secondary">
+                <i class="bi bi-instagram"></i>
+              </a>
+            </div>
+
+            <div class="text-secondary small">
+              &copy; 2025 SVMarket. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>*/
 
 /* Footer styles */
 .footer {
