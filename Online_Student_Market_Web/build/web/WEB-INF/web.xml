@@ -17,8 +17,8 @@
         <servlet-class>controller.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>democontroller</servlet-name>
-        <servlet-class>controller.democontroller</servlet-class>
+        <servlet-name>PersonalInformation</servlet-name>
+        <servlet-class>controller.PersonalInformation</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
@@ -29,8 +29,8 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>democontroller</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>PersonalInformation</servlet-name>
+        <url-pattern>/personalinformation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
