@@ -1,5 +1,6 @@
 <%-- Document : personalInformation Created on : Jun 9, 2025, 8:25:10 PM Author
-: Admin --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
+: Van Huy --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
   <head>

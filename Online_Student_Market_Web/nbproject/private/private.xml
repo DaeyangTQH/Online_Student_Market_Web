@@ -3,19 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/editlistingpage.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/redirect.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/PersonalInformation.java</file>
             <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/nbproject/build-impl.xml~</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/OrderManagement.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/conf/MANIFEST.MF</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/personalInformation.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/META-INF/context.xml</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/main.css</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/login.jsp</file>
             <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/personalinfomation.css</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/ordermanagement.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/META-INF/context.xml</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/personalInformation.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/conf/MANIFEST.MF</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/redirect.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/login.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/PersonalInformation.java</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/main.css</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/ordermanagement.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/editlistingpage.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/OrderManagement.java</file>
         </group>
     </open-files>
 </project-private>
