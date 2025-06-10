@@ -24,6 +24,10 @@
         <servlet-name>OrderManagement</servlet-name>
         <servlet-class>controller.OrderManagement</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>controller.CartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>OrderManagement</servlet-name>
         <url-pattern>/ordermanagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
