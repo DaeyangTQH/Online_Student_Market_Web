@@ -1,0 +1,35 @@
+body {
+    font-family: sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background: #eee;
+    padding: 10px;
+}
+.cart, .summary {
+    margin-top: 20px;
+}
+.item {
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+.summary {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+}
+button {
+    background-color: #efcbb5;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
