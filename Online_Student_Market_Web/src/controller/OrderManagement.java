@@ -53,7 +53,7 @@ public class OrderManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/ordermanagement.jsp").forward(request, response);
     } 
 
     /** 

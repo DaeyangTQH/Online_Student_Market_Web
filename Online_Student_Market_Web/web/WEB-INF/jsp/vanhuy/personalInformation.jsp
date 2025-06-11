@@ -22,7 +22,7 @@
 
     <link
       rel="stylesheet"
-      href="${pageContext.request.contextPath}/resources/css/personalinfomation.css"
+      href="${pageContext.request.contextPath}/resources/css/vanhuy/personalinfomation.css"
     />
 
     <style>
