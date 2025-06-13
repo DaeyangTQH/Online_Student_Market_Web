@@ -2,9 +2,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD:Online_Student_Market_Web/web/login.jsp
     <meta charset="UTF-8">
     <title>Login - SVMarket</title>
     <link rel="stylesheet" href="styles/login.css">
+=======
+    <title>SVMarket - Login</title>
+     <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+            />
+
+        <link
+            rel="stylesheet"
+            href="${pageContext.request.contextPath}/resources/css/main.css"
+            />
+
+        <link
+            rel="stylesheet"
+            href="${pageContext.request.contextPath}/resources/css/tson/style.css"
+            />
+>>>>>>> 4009e4cc39d4f2774012c3bb5845934e2ad9e09b:Online_Student_Market_Web/build/web/WEB-INF/jsp/t_son/login.jsp
 </head>
 <body>
 <header>
