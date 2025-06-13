@@ -1,44 +1,55 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SVMarket - Login</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>Login - SVMarket</title>
+    <link rel="stylesheet" href="styles/login.css">
 </head>
 <body>
-<div class="container">
-    <div class="header">
+<header>
+    <div class="navbar">
         <div class="logo">SVMarket</div>
-        <div class="nav">
+        <nav>
             <a href="#">Home</a>
             <a href="#">Categories</a>
             <a href="#">Sell</a>
-            <a href="register.jsp"><button class="signup">Sign up</button></a>
-        </div>
+            <a href="signup.jsp" class="signup-btn">Sign up</a>
+        </nav>
     </div>
+</header>
 
+<main class="login-container">
     <h1>Welcome back</h1>
-    <form action="login" method="post">
-        <label>Username or email</label><br>
-        <input type="text" name="username" placeholder="Enter your username or email" required><br>
+    <form action="login" method="post" class="login-form">
+        <label for="username">Username or email</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username or email" required>
 
-        <label>Password</label><br>
-        <input type="password" name="password" placeholder="Enter your password" required><br>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-        <a href="#">Forgot password?</a><br>
-        <button type="submit">Log in</button>
+        <div class="forgot-password">
+            <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">Log in</button>
     </form>
+</main>
 
-    <div class="footer">
+<footer>
+    <div class="footer-links">
         <a href="#">About SVMarket</a>
         <a href="#">Terms of Service</a>
         <a href="#">Privacy Policy</a>
         <a href="#">Contact Us</a>
-        <div class="socials">
-            <span>🌐</span><span>🐦</span><span>📷</span>
-        </div>
-        <p>© 2024 SVMarket. All rights reserved.</p>
     </div>
-</div>
+    <div class="social-icons">
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-instagram"></i>
+    </div>
+    <p>© 2024 SVMarket. All rights reserved.</p>
+</footer>
 </body>
 </html>
+
