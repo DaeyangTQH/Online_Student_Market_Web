@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/login.jsp</file>
-            <file>file:/C:/Users/admin/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/admin/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/LoginServlet.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/META-INF/context.xml</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/vanhuy/order.css</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/th_anh/stylecart.css</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/main.css</file>
             <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/login.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/CartServlet.java</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/ordermanagement.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/OrderManagement.java</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/vanhuy/personalinfomation.css</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/tson/login.css</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/home.jsp</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/tson/home.css</file>
+            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/js/personalinfomation.js</file>
         </group>
     </open-files>
 </project-private>
