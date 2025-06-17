@@ -71,7 +71,7 @@
         <i class="fa fa-twitter"></i>
         <i class="fa fa-instagram"></i>
     </div>
-    <p>© 2024 SVMarket. All rights reserved.</p>
+    <p>© 2025 SVMarket. All rights reserved.</p>
 </footer>
 </body>
 </html>
