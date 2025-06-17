@@ -46,15 +46,24 @@
             <div class="content-section">
                 <h2>Giỏ hàng</h2>
                 <div class="history-item justify-content-between">
-                    <div> Used Textbook – Introduction to Economics (x1)</div>
+                    <div class="item-info">
+                        <div>Used Textbook – Introduction to Economics</div>
+                        <div class="item-quantity">Quantity: 1</div>
+                    </div>
                     <span>$25</span>
                 </div>
                 <div class="history-item justify-content-between">
-                    <div>Scientific Calculator (x2)</div>
+                    <div class="item-info">
+                        <div>Scientific Calculator</div>
+                        <div class="item-quantity">Quantity: 2</div>
+                    </div>
                     <span>$30</span>
                 </div>
                 <div class="history-item justify-content-between">
-                    <div>Laptop Backpack (x1)</div>
+                    <div class="item-info">
+                        <div>Laptop Backpack</div>
+                        <div class="item-quantity">Quantity: 1</div>
+                    </div>
                     <span>$40</span>
                 </div>
 
