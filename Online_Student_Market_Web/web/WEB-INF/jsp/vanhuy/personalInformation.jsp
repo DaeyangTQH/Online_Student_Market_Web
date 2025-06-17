@@ -44,10 +44,10 @@
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
             <div class="fw-bold me-4">◼ SVMarket</div>
-            <div class="nav-item"><a href="#">Trang chủ</a></div>
-            <div class="nav-item"><a href="#">Danh mục</a></div>
+            <div class="nav-item"><a href="${pageContext.request.contextPath}/home">Trang chủ</a></div>
+            <div class="nav-item"><a href="">Danh mục</a></div>
             <div class="nav-item"><a href="#">Yêu thích</a></div>
-            <div class="nav-item"><a href="#">Giỏ hàng</a></div>
+            <div class="nav-item"><a href="${pageContext.request.contextPath}/cart">Giỏ hàng</a></div>
           </div>
           <div class="d-flex align-items-center">
             <div class="search-box me-3">
@@ -187,13 +187,13 @@
             </div>
 
             <div class="d-flex justify-content-center mb-3 social-links">
-              <a href="#" class="text-secondary">
+              <a href="https://www.facebook.com/tranquochai411" class="text-secondary">
                 <i class="bi bi-facebook"></i>
               </a>
               <a href="#" class="text-secondary">
                 <i class="bi bi-twitter"></i>
               </a>
-              <a href="#" class="text-secondary">
+              <a href="https://www.instagram.com/_haichann_/" class="text-secondary">
                 <i class="bi bi-instagram"></i>
               </a>
             </div>
