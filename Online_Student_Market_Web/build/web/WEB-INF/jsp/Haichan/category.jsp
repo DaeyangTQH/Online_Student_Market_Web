@@ -1,8 +1,4 @@
-<%-- 
-    Document   : category
-    Created on : Jun 14, 2025, 10:04:39 PM
-    Author     : Haichann
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
