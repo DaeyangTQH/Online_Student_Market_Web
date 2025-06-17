@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/home.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/LoginServlet.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/th_anh/stylecart.css</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/th_anh/cart.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/EditListing.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/editlisting.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/login.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/vietcuong/editlisting.css</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/ordermanagement.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/Home.java</file>
+        </group>
     </open-files>
 </project-private>
