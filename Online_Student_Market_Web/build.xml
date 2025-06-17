@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="Online_Student_Market_Web" default="default" basedir=".">
-    <description>Builds, tests, and runs the project Online_Student_Market_Web.</description>
+<project name="17_PRJ301_Assignment" default="default" basedir=".">
+    <description>Builds, tests, and runs the project 17_PRJ301_Assignment.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

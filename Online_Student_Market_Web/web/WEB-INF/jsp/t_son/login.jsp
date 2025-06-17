@@ -30,7 +30,7 @@
         <div class="logo">SVMarket</div>
         <nav>
             <a href="${pageContext.request.contextPath}/home">Home</a>
-            <a href="#">Categories</a>
+            <a href="${pageContext.request.contextPath}/category">Categories</a>
             <a href="#">Sell</a>
             <a href="signup.jsp" class="signup-btn">Sign up</a>
         </nav>
