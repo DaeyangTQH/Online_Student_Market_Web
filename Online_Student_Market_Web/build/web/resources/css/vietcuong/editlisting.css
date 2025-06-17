@@ -1,0 +1,98 @@
+/* ====== TOÀN BỘ TRANG ====== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    color: #222;
+}
+
+
+/* ====== NAVIGATION ====== */
+.navbar-nav .nav-link {
+    margin-right: 16px;
+    color: #333;
+}
+
+
+/* ====== AVATAR GÓC PHẢI ====== */
+.avatar-img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;     /* viền xám nhạt */
+    box-shadow: 0 0 0 3px #fff;    /* tạo cảm giác "nổi khối trắng" */
+    background-color: white;
+}
+
+
+/* ====== FORM INPUTS & TEXTAREA ====== */
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #eaded4;         /* viền mảnh, be nhạt */
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    color: #222;
+    transition: border-color 0.3s ease;
+}
+
+form input[type="text"]::placeholder,
+form textarea::placeholder {
+    color: #b6a99f; /* placeholder nhẹ, tinh tế */
+}
+
+form input[type="text"]:focus,
+form textarea:focus {
+    border-color: #c5a68c;
+    outline: none;
+}
+
+
+/* ====== VÙNG TẢI ẢNH ====== */
+.image-upload-box {
+    background-color: #fff;
+    border: 2px dashed #e6d5cb;    /* be nhạt */
+    border-radius: 12px;
+    padding: 40px 20px;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    text-align: center;
+}
+
+.image-upload-box:hover {
+    border-color: #c8a993;
+}
+
+
+/* ====== NÚT "CẬP NHẬT TIN ĐĂNG" ====== */
+form button[type="submit"] {
+    background-color: #f5e4d7;         /* màu be nền nhẹ */
+    color: #222;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 24px;              /* nút viên thuốc */
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #e9cdbc;
+}
+
+
+/* ====== FOOTER ====== */
+footer a {
+    text-decoration: none;
+    color: #777;
+    font-size: 14px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
