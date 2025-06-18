@@ -6,16 +6,9 @@
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/category.jsp</file>
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/productList.jsp</file>
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/Haichan/productList.css</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/product.jsp</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/Haichan/product.css</file>
-        </group>
-        <group>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/category.jsp</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/productList.jsp</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/product.jsp</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/Haichan/category.css</file>
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/main.css</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/tson/home.css</file>
+            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/productDAO.java</file>
+            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/categoryServlet.java</file>
         </group>
     </open-files>
 </project-private>
