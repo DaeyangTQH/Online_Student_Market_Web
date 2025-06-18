@@ -7,16 +7,26 @@ public class Category {
     private String category_description;
     private java.sql.Date created_at;
     private java.sql.Date updated_at;
+    private String category_image_url;
 
     public Category() {
     }
 
-    public Category(int category_id, String category_name, String category_description, java.sql.Date created_at, java.sql.Date updated_at) {
+    public Category(int category_id, String category_name, String category_description, java.sql.Date created_at, java.sql.Date updated_at, String category_image_url) {
         this.category_id = category_id;
         this.category_name = category_name;
         this.category_description = category_description;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        this.category_image_url = category_image_url;
+    }
+
+    public String getCategory_image_url() {
+        return category_image_url;
+    }
+
+    public void setCategory_image_url(String category_image_url) {
+        this.category_image_url = category_image_url;
     }
 
     public int getCategory_id() {

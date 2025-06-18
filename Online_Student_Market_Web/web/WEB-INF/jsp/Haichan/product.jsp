@@ -24,9 +24,9 @@
             href="${pageContext.request.contextPath}/resources/css/main.css"
             />
 
-        
+
     </head>
     <body>
-        
+
     </body>
 </html>

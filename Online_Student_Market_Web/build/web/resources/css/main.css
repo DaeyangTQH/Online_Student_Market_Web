@@ -34,6 +34,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 /*========================================================END LINK CSS=============================================*/
 
+html, body {
+    overflow-x: hidden;
+}
+/* Sticky footer */
 
 /* Header styles */
 .navbar {
@@ -78,34 +82,34 @@ nav a {
 
 
 .color-text-primary {
-  color: #8c705c;
+    color: #8c705c;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 /*Loại bỏ dấu gạch dưới thẻ a và reset lại color-text về màu đen*/
 a {
-  text-decoration: none;
-  color: black;
+    text-decoration: none;
+    color: black;
 }
 
 .avatar {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #ccc;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #ccc;
 }
 
 .header {
-  background-color: #ffffff;
-  padding: 15px 0;
-  border-bottom: 2px solid #ff6b35;
-  width: 100%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 2px solid #ff6b35;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* Navigation styles */
@@ -145,22 +149,22 @@ a {
 
 /* Main content area */
 .main-content {
-  background-color: #ffffff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-  margin: 20px 0;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
 }
 
 /* Form styles */
 .form-control {
-  border: 1px solid #ced4da;
-  border-radius: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
 }
 
 .form-control:focus {
-  border-color: #ff6b35;
-  box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.25);
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.25);
 }
 
 /*theo tôi thì footer nên dùng 1 form thôi nếu có điều chỉnh gì thì góp ý nhé*/
@@ -207,54 +211,77 @@ a {
 
 /* Footer styles */
 .footer {
-  letter-spacing: 0.8px;
-  background-color: #f8f9fa;
-  border-top: 2px solid #ff6b35;
-  padding-top: 30px;
-  padding-bottom: 20px;
+    letter-spacing: 0.8px;
+    background-color: #f8f9fa;
+    border-top: 2px solid #ff6b35;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 
 .footer a {
-  padding: 0 35px;
-  letter-spacing: 1px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
+    padding: 0 35px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .footer a:hover {
-  color: #ff6b35;
-  letter-spacing: 1.5px;
+    color: #ff6b35;
+    letter-spacing: 1.5px;
 }
 
 .footer a::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 1px;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ff6b35;
-  transition: all 0.3s ease;
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff6b35;
+    transition: all 0.3s ease;
 }
 
 .footer a:hover::after {
-  width: 70%;
+    width: 70%;
 }
 
 .footer .social-links a {
-  padding: 0 20px;
+    padding: 0 20px;
 }
 
 .footer .social-links a:hover i {
-  transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 .footer .social-links i {
-  font-size: 1.4rem;
-  transition: all 0.3s ease;
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
 }
+
+/* Đặt footer xuống chân trang*/
+html, body{
+    height: 100%;            
+    margin: 0;
+}
+
+body{
+    display: flex;           
+    flex-direction: column;
+    min-height: 100vh;      
+}
+
+  
+main{
+    flex: 1 0 auto;         
+}
+
+  
+.footer{
+    flex-shrink: 0;           
+}
+
 
 
 

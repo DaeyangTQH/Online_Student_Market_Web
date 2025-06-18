@@ -34,7 +34,7 @@
     </servlet>
     <servlet>
         <servlet-name>category</servlet-name>
-        <servlet-class>controller.Category</servlet-class>
+        <servlet-class>controller.categoryServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Product</servlet-name>

@@ -31,42 +31,25 @@
     </head>
     <body>
         <!-- Header -->
-        <div class="header">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <div class="fw-bold me-4">◼ SVMarket</div>
-                        <div class="nav-item"><a href="#">Trang chủ</a></div>
-                        <div class="nav-item"><a href="#">Danh mục</a></div>
-                        <div class="nav-item"><a href="#">Yêu thích</a></div>
-                        <div class="nav-item"><a href="#">Giỏ hàng</a></div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="search-box me-3">
-                            <i class="bi bi-search"></i>
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                class="border-0 bg-transparent"
-                                style="outline: none; width: 150px"
-                                />
-                        </div>
-                        <div class="me-3">
-                            <i class="bi bi-bell"></i>
-                        </div>
-                        <div class="avatar"></div>
-                    </div>
-                </div>
+        <header>
+            <div class="navbar">
+                <div class="logo">SVMarket</div>
+                <nav>
+                    <a href="${pageContext.request.contextPath}/home">Home</a>
+                    <a href="#">Categories</a>
+                    <a href="#">Sell</a>
+                    <a href="signup.jsp" class="signup-btn">Sign up</a>
+                </nav>
             </div>
-        </div>
-        <!--End Header-->
+        </header>
+        <!-- End header -->
         
         <!--Content-->
-        
+        <main>
         <div class="container mt-4">
             
         </div>
-        
+        </main>
         <!--End Content-->
 
         <!-- Footer -->
