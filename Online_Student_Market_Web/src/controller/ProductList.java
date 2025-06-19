@@ -4,6 +4,7 @@
  */
 package controller;
 
+import DAO.Holder;
 import DAO.productDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,8 +39,23 @@ public class ProductList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Product> proList = new ArrayList<>();
+        String cidParam = request.getParameter("cid");
+        int cid = 0;
+        Holder<String> catName = new Holder<>();
+
+        if (cidParam != null && !cidParam.isBlank()) {
+            try {
+                cid = Integer.parseInt(cidParam);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        List<Product> proList = dao.getProductByCategoryID(cid, catName);
+        
         request.setAttribute("productlist", proList);
+        request.setAttribute("categoryName", catName.value);
+        request.setAttribute("cid", cid);        
+
         request.getRequestDispatcher("WEB-INF/jsp/Haichan/productList.jsp").forward(request, response);
     }
 

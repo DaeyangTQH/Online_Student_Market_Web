@@ -41,7 +41,7 @@
                 <div class="row g-4">
                     <c:forEach items="${category}" var="c">
                         <div class="col-6 col-md-4 col-lg-2">
-                            <a href="${pageContext.request.contextPath}/products?cid=${c.category_id}"
+                            <a href="${pageContext.request.contextPath}/productList?cid=${c.category_id}"
                                class="category-item d-block text-center text-decoration-none">
                                 <!-- khung vuông 1:1 -->
                                 <div class="ratio ratio-1x1 overflow-hidden rounded-3">

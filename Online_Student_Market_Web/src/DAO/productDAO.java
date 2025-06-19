@@ -4,7 +4,6 @@
  */
 package DAO;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
@@ -16,6 +15,20 @@ import java.sql.*;
  */
 public class productDAO extends DBcontext {
 
+    private Product mapRow(ResultSet rs) throws SQLException {
+        return new Product(
+                rs.getInt("product_id"),
+                rs.getInt("category_id"),
+                rs.getString("product_name"),
+                rs.getString("description"),
+                rs.getBigDecimal("price"),
+                rs.getInt("stock_quantity"),
+                rs.getString("image_url"),
+                rs.getDate("created_at"),
+                rs.getDate("updated_at")
+        );
+    }
+
     public List<Product> getAll() {
         List<Product> proList = new ArrayList<>();
         String sql = "select * from Product";
@@ -25,18 +38,32 @@ public class productDAO extends DBcontext {
             ResultSet proSet = getProFromDB.executeQuery();
 
             while (proSet.next()) {
-                Product p = new Product(
-                        proSet.getInt("product_id"),
-                        proSet.getInt("category_id"),
-                        proSet.getString("product_name"),
-                        proSet.getString("description"),
-                        proSet.getBigDecimal("price"),
-                        proSet.getInt("stock_quantity"),
-                        proSet.getString("image_url"),
-                        proSet.getDate("created_at"),
-                        proSet.getDate("updated_at")
-                );
-                proList.add(p);
+                
+                proList.add(mapRow(proSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return proList;
+    }
+
+    public List<Product> getProductByCategoryID(int categoryID, Holder<String> catName) {
+        List<Product> proList = new ArrayList<>();
+        String sql = """
+                     select p.*, c.category_name from Product p
+                     join Category c
+                     on p.category_id = c.category_id
+                     where p.category_id = ?""";
+        try {
+            PreparedStatement getProByCatID = connection.prepareStatement(sql);
+            getProByCatID.setInt(1, categoryID);
+            ResultSet proSet = getProByCatID.executeQuery();
+            while (proSet.next()) {
+                if(catName == null){
+                    catName.value = proSet.getString("category_name");
+                }
+                proList.add(mapRow(proSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();

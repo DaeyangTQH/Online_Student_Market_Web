@@ -36,10 +36,7 @@
         <servlet-name>category</servlet-name>
         <servlet-class>controller.categoryServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>Product</servlet-name>
-        <servlet-class>controller.Product</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>ProductList</servlet-name>
         <servlet-class>controller.ProductList</servlet-class>
@@ -76,10 +73,7 @@
         <servlet-name>category</servlet-name>
         <url-pattern>/category</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Product</servlet-name>
-        <url-pattern>/product</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/productList</url-pattern>
