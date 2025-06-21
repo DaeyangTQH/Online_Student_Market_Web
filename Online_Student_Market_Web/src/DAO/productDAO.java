@@ -4,10 +4,12 @@
  */
 package DAO;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
-import java.sql.*;
 
 /**
  *
@@ -38,7 +40,7 @@ public class productDAO extends DBcontext {
             ResultSet proSet = getProFromDB.executeQuery();
 
             while (proSet.next()) {
-                
+
                 proList.add(mapRow(proSet));
             }
         } catch (SQLException e) {
@@ -60,7 +62,7 @@ public class productDAO extends DBcontext {
             getProByCatID.setInt(1, categoryID);
             ResultSet proSet = getProByCatID.executeQuery();
             while (proSet.next()) {
-                if(catName == null){
+                if (catName.value == null) {
                     catName.value = proSet.getString("category_name");
                 }
                 proList.add(mapRow(proSet));
@@ -71,4 +73,20 @@ public class productDAO extends DBcontext {
 
         return proList;
     }
+
+    public Product getProductByID(int productID) {
+        String sql = "select * from Product where product_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, productID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return mapRow(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

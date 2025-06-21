@@ -52,39 +52,46 @@
         <main>
             <div class="container py-5">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Danh mục</a></li>
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="category">Danh mục</a></li>
                         <li class="breadcrumb-item active" aria-current="page">${categoryName}</li>
                     </ol>
                 </nav>
-                <h2 class="fw-bold mb-4">${categoryName}</h2>
+                <h2 class="fw-bold m-0">${categoryName}</h2>
+
                 <div class="row g-4">
                     <c:forEach items="${productlist}" var="p">
                         <div class="col-6 col-md-4 col-lg-3">
-                            <div class="product-card text-center">
-                                <div class="ratio ratio-1x1 mb-2">
-                                    <img class="product-img w-100 h-100 object-fit-cover rounded-3"
-                                         src="${empty p.image_url ? 'https://source.unsplash.com/400x400?product' : p.image_url}"
-                                         alt="${p.product_name}">
+                            <a href="${pageContext.request.contextPath}/product?id=${p.product_id}" class="product-link">
+                                <div class="product-card text-center">
+                                    <div class="ratio ratio-1x1 mb-2">
+                                        <img class="product-img w-100 h-100 object-fit-cover rounded-3"
+                                             src="${empty p.image_url ? 'https://i.pinimg.com/736x/06/06/fb/0606fbfad46069334cfc398ed9e96cab.jpg' : p.image_url}"
+                                             alt="${p.product_name}">
+                                    </div>
+                                    <div class="product-name fw-semibold">${p.product_name}</div>
+                                    <div class="product-price text-muted">
+                                        <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="$"/>
+                                    </div>
                                 </div>
-                                <div class="product-name fw-semibold">${p.product_name}</div>
-                                <div class="product-price text-muted">
-                                    <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="$"/>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </c:forEach>
                 </div>
                 <!-- Pagination -->
                 <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
                     <ul class="pagination">
-                        <li class="page-item disabled"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                        <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                            <a class="page-link" href="?cid=${cid}&page=${currentPage - 1}"><i class="bi bi-chevron-left"></i></a>
+                        </li>
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                <a class="page-link" href="?cid=${cid}&page=${i}">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                            <a class="page-link" href="?cid=${cid}&page=${currentPage + 1}"><i class="bi bi-chevron-right"></i></a>
+                        </li>
                     </ul>
                 </nav>
             </div>

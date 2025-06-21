@@ -36,7 +36,6 @@
         <servlet-name>category</servlet-name>
         <servlet-class>controller.categoryServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>ProductList</servlet-name>
         <servlet-class>controller.ProductList</servlet-class>
@@ -44,6 +43,10 @@
     <servlet>
         <servlet-name>SignUp</servlet-name>
         <servlet-class>controller.SignUp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>productDetail</servlet-name>
+        <servlet-class>controller.productDetail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
@@ -73,7 +76,6 @@
         <servlet-name>category</servlet-name>
         <url-pattern>/category</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/productList</url-pattern>
@@ -81,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>SignUp</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productDetail</servlet-name>
+        <url-pattern>/product</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
