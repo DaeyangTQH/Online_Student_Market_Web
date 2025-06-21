@@ -25,21 +25,11 @@
       href="${pageContext.request.contextPath}/resources/css/vanhuy/personalinfomation.css"
     />
 
-    <style>
-      /* Override Bootstrap's background colors */
-      .bg-light {
-        background-color: #fff6f0 !important;
-      }
-
-      .card,
-      .list-group-item {
-        background-color: #fff6f0;
-      }
-    </style>
+    
   </head>
   <body>
     <!-- Header -->
-    <div class="header">
+    <header class="header">
       <div class="container">
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
@@ -66,7 +56,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </header>
 
     <!-- Main Content -->
     

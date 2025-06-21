@@ -55,7 +55,7 @@
     </form>
 
     <div class="login-link">
-        <p>Already have an account? <a href="login.jsp">Log in here</a></p>
+        <p>Already have an account? <a href="${pageContext.request.contextPath}">Log in here</a></p>
     </div>
 </main>
 
