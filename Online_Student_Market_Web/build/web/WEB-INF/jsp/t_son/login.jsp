@@ -32,7 +32,7 @@
             <a href="${pageContext.request.contextPath}/home">Home</a>
             <a href="${pageContext.request.contextPath}/category">Categories</a>
             <a href="#">Sell</a>
-            <a href="signup.jsp" class="signup-btn">Sign up</a>
+            <a href="${pageContext.request.contextPath}/signup" class="signup-btn">Sign up</a>
         </nav>
     </div>
 </header>
