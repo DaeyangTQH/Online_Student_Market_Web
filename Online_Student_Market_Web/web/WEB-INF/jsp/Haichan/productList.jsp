@@ -54,15 +54,16 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-1">
                         <li class="breadcrumb-item"><a href="category">Danh mục</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">${categoryName}</li>
+                        <li class="breadcrumb-item active catName" aria-current="page">${categoryName}</li>
                     </ol>
                 </nav>
-                <h2 class="fw-bold m-0">${categoryName}</h2>
+                 
+                <h2 class="fw-bold m-0 catName">${categoryName}</h2>
 
                 <div class="row g-4">
                     <c:forEach items="${productlist}" var="p">
                         <div class="col-6 col-md-4 col-lg-3">
-                            <a href="${pageContext.request.contextPath}/product?id=${p.product_id}" class="product-link">
+                            <a href="${pageContext.request.contextPath}/product?pid=${p.product_id}" class="product-link">
                                 <div class="product-card text-center">
                                     <div class="ratio ratio-1x1 mb-2">
                                         <img class="product-img w-100 h-100 object-fit-cover rounded-3"

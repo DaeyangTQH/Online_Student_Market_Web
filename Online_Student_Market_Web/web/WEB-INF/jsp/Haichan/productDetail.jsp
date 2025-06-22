@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,7 +26,7 @@
             rel="stylesheet"
             href="${pageContext.request.contextPath}/resources/css/main.css"
             />
-        
+
         <link
             rel="stylesheet"
             href="${pageContext.request.contextPath}/resources/css/Haichan/productDetail.css"
@@ -46,13 +49,46 @@
         <!-- End header -->
 
         <!-- content -->
-        <main>
-            
+        <main class="container my-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/productList?cid=${product.category_id}">${categoryName}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">${product.product_name}</li>
+                </ol>
+            </nav>
+
+            <div class="row product-container">
+                <div class="col-md-6">
+                    <div class="product-image-container">
+                        <img src="${product.image_url}" class="img-fluid product-image" alt="${product.product_name}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-details">
+                        <h1 class="product-title">${product.product_name}</h1>
+                        <p class="product-price fw-bold"><fmt:formatNumber value="${product.price}" type="number" pattern="#,##0"/> ₫</p>
+                        <p class="product-description">${product.description}</p>
+
+                        <div class="product-meta">
+                            <p><strong>Stock:</strong> ${product.stock_quantity} available</p>
+                        </div>
+                        
+                        <form action="${pageContext.request.contextPath}/cart" method="post" class="mt-4">
+                            <input type="hidden" name="productId" value="${product.product_id}">
+                            <div class="d-flex">
+                                <input type="number" name="quantity" class="form-control quantity-input" value="1" min="1" max="${product.stock_quantity}">
+                                <button type="submit" class="btn btn-primary btn-add-to-cart ms-2">Add to Cart</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </main>
         <!-- content -->
 
         <!-- Footer -->
-        <footer class="footer py-4">
+        <footer class="footer py-4 mt-5">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center">
