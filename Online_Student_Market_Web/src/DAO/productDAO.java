@@ -88,5 +88,11 @@ public class productDAO extends DBcontext {
         }
         return null;
     }
+    
+    public static void main(String[] args) {
+        productDAO check = new productDAO();
+        
+        System.out.println(check.getProductByID(1).getCreated_at());
+    }
 
 }
