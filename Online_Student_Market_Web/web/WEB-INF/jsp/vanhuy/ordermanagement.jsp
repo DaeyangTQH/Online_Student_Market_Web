@@ -31,15 +31,30 @@
     </head>
     <body>
         <!-- Header -->
-        <header>
-            <div class="navbar">
-                <div class="logo">SVMarket</div>
-                <nav>
-                    <a href="${pageContext.request.contextPath}/home">Home</a>
-                    <a href="#">Categories</a>
-                    <a href="#">Sell</a>
-                    <a href="signup.jsp" class="signup-btn">Sign up</a>
-                </nav>
+         <header>
+            <div class="d-flex justify-content-between align-items-center navbar">
+                <div class="d-flex align-items-center">
+                    <div class="logo">SVMarket</div>
+                    <div class="nav-item"><a href="${pageContext.request.contextPath}/home">Trang chủ</a></div>
+                    <div class="nav-item"><a href="">Danh mục</a></div>
+                    <div class="nav-item"><a href="#">Yêu thích</a></div>
+                    <div class="nav-item"><a href="${pageContext.request.contextPath}/cart">Giỏ hàng</a></div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="search-box me-3">
+                        <i class="bi bi-search"></i>
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            class="border-0 bg-transparent"
+                            style="outline: none; width: 150px"
+                            />
+                    </div>
+                    <div class="me-3">
+                        <i class="bi bi-bell"></i>
+                    </div>
+                    <div class="avatar"></div>
+                </div>
             </div>
         </header>
         <!-- End header -->
