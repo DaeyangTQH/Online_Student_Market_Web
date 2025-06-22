@@ -15,7 +15,8 @@ public class User {
     public User() {
     }
 
-    public User(int user_id, String username, String password_hash, String full_name, String email, String phone_number, String role, java.sql.Date created_at, java.sql.Date updated_at) {
+    public User(int user_id, String username, String password_hash, String full_name, String email, String phone_number,
+            String role, java.sql.Date created_at, java.sql.Date updated_at) {
         this.user_id = user_id;
         this.username = username;
         this.password_hash = password_hash;
