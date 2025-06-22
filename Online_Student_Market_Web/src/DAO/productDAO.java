@@ -74,25 +74,22 @@ public class productDAO extends DBcontext {
         return proList;
     }
 
-    public Product getProductByID(int productID) {
-        String sql = "select * from Product where product_id = ?";
+    public Product getProductByID(int productID, Holder<String> catName) {
+        String sql = "select p.*, c.category_name from Product p "
+                + "join Category c on p.category_id = c.category_id "
+                + "where product_id = ? ";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, productID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            if (rs.next() && catName.value == null) {
+                catName.value = rs.getString("category_name");
                 return mapRow(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-    }
-    
-    public static void main(String[] args) {
-        productDAO check = new productDAO();
-        
-        System.out.println(check.getProductByID(1).getCreated_at());
     }
 
 }

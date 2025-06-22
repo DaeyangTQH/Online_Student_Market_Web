@@ -6,6 +6,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Jun 17, 2025, 1:45:10 PM
     Author     : Haichann
 */
+.catName{
+    margin-bottom: 1rem !important;
+}
+.breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
 
 .product-card {
     background: none;
