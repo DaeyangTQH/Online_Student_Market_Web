@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -91,34 +92,7 @@
         </div>
 
         <%-- PHẦN FOOTER (chân trang) --%>
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <%-- Các đường dẫn thông tin chính --%>
-                        <div class="d-flex justify-content-center mb-3">
-                            <a href="#" class="text-decoration-none text-secondary">About Us</a>
-                            <a href="#" class="text-decoration-none text-secondary">Contact</a>
-                            <a href="#" class="text-decoration-none text-secondary">FAQ</a>
-                            <a href="#" class="text-decoration-none text-secondary">Terms of Service</a>
-                            <a href="#" class="text-decoration-none text-secondary">Privacy Policy</a>
-                        </div>
-
-                        <%-- Icon mạng xã hội --%>
-                        <div class="d-flex justify-content-center mb-3 social-links">
-                            <a href="#" class="text-secondary"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="text-secondary"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="text-secondary"><i class="bi bi-instagram"></i></a>
-                        </div>
-
-                        <%-- Bản quyền --%>
-                        <div class="text-secondary small">
-                            &copy; 2025 SVMarket. All rights reserved.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <c:import url="/WEB-INF/jsp/common/footer.jsp"/>
 
     </body>
 </html>
