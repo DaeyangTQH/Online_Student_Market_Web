@@ -1,5 +1,6 @@
 <%-- Document : personalInformation Created on : Jun 9, 2025, 8:25:10 PM Author
 : Van Huy --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,32 +29,8 @@
 
     </head>
     <body>
-        <header>
-            <div class="d-flex justify-content-between align-items-center navbar">
-                <div class="d-flex align-items-center">
-                    <div class="logo">SVMarket</div>
-                    <div class="nav-item"><a href="${pageContext.request.contextPath}/home">Trang chủ</a></div>
-                    <div class="nav-item"><a href="">Danh mục</a></div>
-                    <div class="nav-item"><a href="#">Yêu thích</a></div>
-                    <div class="nav-item"><a href="${pageContext.request.contextPath}/cart">Giỏ hàng</a></div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <div class="search-box me-3">
-                        <i class="bi bi-search"></i>
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            class="border-0 bg-transparent"
-                            style="outline: none; width: 150px"
-                            />
-                    </div>
-                    <div class="me-3">
-                        <i class="bi bi-bell"></i>
-                    </div>
-                    <div class="avatar"></div>
-                </div>
-            </div>
-        </header>
+        <!-- include header -->
+        <c:import url="/WEB-INF/jsp/common/header.jsp"/>
 
         <!-- Main Content -->
 
@@ -153,46 +130,7 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <div class="d-flex justify-content-center mb-3">
-                            <a href="#" class="text-decoration-none text-secondary"
-                               >About Us</a
-                            >
-                            <a href="#" class="text-decoration-none text-secondary"
-                               >Contact</a
-                            >
-                            <a href="#" class="text-decoration-none text-secondary">FAQ</a>
-                            <a href="#" class="text-decoration-none text-secondary"
-                               >Terms of Service</a
-                            >
-                            <a href="#" class="text-decoration-none text-secondary"
-                               >Privacy Policy</a
-                            >
-                        </div>
-
-                        <div class="d-flex justify-content-center mb-3 social-links">
-                            <a href="https://www.facebook.com/tranquochai411" class="text-secondary">
-                                <i class="bi bi-facebook"></i>
-                            </a>
-                            <a href="#" class="text-secondary">
-                                <i class="bi bi-twitter"></i>
-                            </a>
-                            <a href="https://www.instagram.com/_haichann_/" class="text-secondary">
-                                <i class="bi bi-instagram"></i>
-                            </a>
-                        </div>
-
-                        <div class="text-secondary small">
-                            &copy; 2025 SVMarket. All rights reserved.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+       <c:import url="/WEB-INF/jsp/common/footer.jsp"/>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

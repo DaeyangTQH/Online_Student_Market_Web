@@ -48,6 +48,18 @@
         <servlet-name>productDetail</servlet-name>
         <servlet-class>controller.productDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeAccount</servlet-name>
+        <servlet-class>controller.HomeAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InfoUser</servlet-name>
+        <servlet-class>controller.InfoUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -87,6 +99,18 @@
     <servlet-mapping>
         <servlet-name>productDetail</servlet-name>
         <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeAccount</servlet-name>
+        <url-pattern>/homeaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InfoUser</servlet-name>
+        <url-pattern>/infouser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -36,6 +36,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 html, body {
     overflow-x: hidden;
+    font-family: 'Segoe UI', sans-serif;
 }
 /* Sticky footer */
 
@@ -128,8 +129,14 @@ a {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+.search-box {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
 /* Navigation styles */
-/*.nav-item {
+.nav-item {
   margin: 0 25px;
 }
 
@@ -161,7 +168,7 @@ a {
 
 .nav-item a:hover::after {
   width: 100%;
-}*/
+}
 
 /* Main content area */
 .main-content {
@@ -228,7 +235,7 @@ a {
 /* Footer styles */
 .footer {
     letter-spacing: 0.8px;
-    background-color: #f8f9fa;
+    background-color: #d0d0d0;
     padding-top: 30px;
     padding-bottom: 20px;
     flex-shrink: 0;
@@ -283,7 +290,7 @@ html, body{
 }
 
 body{
-    display: flex;
+/*    display: flex;*/
     flex-direction: column;
     min-height: 100vh;
 }
