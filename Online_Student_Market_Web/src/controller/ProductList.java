@@ -7,7 +7,6 @@ package controller;
 import DAO.Holder;
 import DAO.productDAO;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +22,7 @@ public class ProductList extends HttpServlet {
 
     private productDAO dao;
 
+    @Override
     public void init() {
         dao = new productDAO();
     }
@@ -50,11 +50,31 @@ public class ProductList extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        List<Product> proList = dao.getProductByCategoryID(cid, catName);
-        
-        request.setAttribute("productlist", proList);
+        List<Product> allProducts = dao.getProductByCategoryID(cid, catName);
+
+        int pageSize = 8;
+        int page = 1;
+        String pageParam = request.getParameter("page");
+        if (pageParam != null) {
+            try {
+                page = Integer.parseInt(pageParam);
+            } catch (NumberFormatException e) {
+                page = 1; 
+            }
+        }
+
+        int totalProducts = allProducts.size();
+        int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+        int start = (page - 1) * pageSize;
+        int end = Math.min(start + pageSize, totalProducts);
+
+        List<Product> pageProducts = allProducts.subList(start, end);
+
+        request.setAttribute("productlist", pageProducts);
         request.setAttribute("categoryName", catName.value);
-        request.setAttribute("cid", cid);        
+        request.setAttribute("cid", cid);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
 
         request.getRequestDispatcher("WEB-INF/jsp/Haichan/productList.jsp").forward(request, response);
     }

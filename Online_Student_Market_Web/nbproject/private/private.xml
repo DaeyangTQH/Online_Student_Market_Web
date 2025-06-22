@@ -2,24 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group/>
+        <group/>
 
         <group>
+
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/category.jsp</file>
+
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/productList.jsp</file>
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/ProductList.java</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/main.css</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/th_anh/stylecart.css</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/categoryServlet.java</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/productDAO.java</file>
-        </group>
-        <group>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/category.jsp</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/productList.jsp</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/ProductList.java</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/Holder.java</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/main.css</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/productDAO.java</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/src/model/Product.java</file>
+            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/product.jsp</file>
+            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project1/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/Haichan/category.css</file>
         </group>
         <group/>
         <group/>
