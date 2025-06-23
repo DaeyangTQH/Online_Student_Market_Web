@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +56,7 @@
     </form>
 
     <div class="login-link">
-        <p>Already have an account? <a href="login.jsp">Log in here</a></p>
+        <p>Already have an account? <a href="${pageContext.request.contextPath}">Log in here</a></p>
     </div>
 </main>
 

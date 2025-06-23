@@ -34,11 +34,7 @@
     </servlet>
     <servlet>
         <servlet-name>category</servlet-name>
-        <servlet-class>controller.Category</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Product</servlet-name>
-        <servlet-class>controller.Product</servlet-class>
+        <servlet-class>controller.categoryServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductList</servlet-name>
@@ -47,6 +43,18 @@
     <servlet>
         <servlet-name>SignUp</servlet-name>
         <servlet-class>controller.SignUp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>productDetail</servlet-name>
+        <servlet-class>controller.productDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InfoUser</servlet-name>
+        <servlet-class>controller.InfoUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
@@ -77,16 +85,24 @@
         <url-pattern>/category</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Product</servlet-name>
-        <url-pattern>/product</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/productList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignUp</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productDetail</servlet-name>
+        <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InfoUser</servlet-name>
+        <url-pattern>/infouser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

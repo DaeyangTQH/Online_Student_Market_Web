@@ -1,0 +1,16 @@
+html,body{
+    overflow-x:hidden;
+    font-family:system-ui,Segoe UI,sans-serif
+}
+.category-img{
+    object-fit:cover;
+    transition:.25s
+}
+.category-item:hover .category-img{
+    transform:translateY(-4px);
+    box-shadow:0 8px 24px rgba(0,0,0,.06)
+}
+.category-title{
+    font-weight:500;
+    color:#212529
+}

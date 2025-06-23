@@ -139,6 +139,16 @@ body {
 .footer .bi {
   font-size: 1.2rem;
 }
+
+.item-quantity{
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 2px;
+}
+.item-info{
+    max-width: 75%;
+}
+
 .item-info {
     max-width: 75%;
 }
@@ -148,3 +158,4 @@ body {
     color: #666;
     margin-top: 4px;
 }
+

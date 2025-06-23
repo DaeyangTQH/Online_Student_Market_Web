@@ -3,7 +3,7 @@
     Created on : Jun 9, 2025, 10:34:14 PM
     Author     : Van Huy
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -31,83 +31,18 @@
     </head>
     <body>
         <!-- Header -->
-        <div class="header">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <div class="fw-bold me-4">◼ SVMarket</div>
-                        <div class="nav-item"><a href="#">Trang chủ</a></div>
-                        <div class="nav-item"><a href="#">Danh mục</a></div>
-                        <div class="nav-item"><a href="#">Yêu thích</a></div>
-                        <div class="nav-item"><a href="#">Giỏ hàng</a></div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="search-box me-3">
-                            <i class="bi bi-search"></i>
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                class="border-0 bg-transparent"
-                                style="outline: none; width: 150px"
-                                />
-                        </div>
-                        <div class="me-3">
-                            <i class="bi bi-bell"></i>
-                        </div>
-                        <div class="avatar"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--End Header-->
+         <c:import url="/WEB-INF/jsp/common/header.jsp"/>
+        <!-- End header -->
         
         <!--Content-->
-        
+        <main>
         <div class="container mt-4">
             
         </div>
-        
+        </main>
         <!--End Content-->
 
         <!-- Footer -->
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <div class="d-flex justify-content-center mb-3">
-                            <a href="#" class="text-decoration-none text-secondary"
-                               >About Us</a
-                            >
-                            <a href="#" class="text-decoration-none text-secondary"
-                               >Contact</a
-                            >
-                            <a href="#" class="text-decoration-none text-secondary">FAQ</a>
-                            <a href="#" class="text-decoration-none text-secondary"
-                               >Terms of Service</a
-                            >
-                            <a href="#" class="text-decoration-none text-secondary"
-                               >Privacy Policy</a
-                            >
-                        </div>
-
-                        <div class="d-flex justify-content-center mb-3 social-links">
-                            <a href="#" class="text-secondary">
-                                <i class="bi bi-facebook"></i>
-                            </a>
-                            <a href="#" class="text-secondary">
-                                <i class="bi bi-twitter"></i>
-                            </a>
-                            <a href="#" class="text-secondary">
-                                <i class="bi bi-instagram"></i>
-                            </a>
-                        </div>
-
-                        <div class="text-secondary small">
-                            &copy; 2025 SVMarket. All rights reserved.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <c:import url="/WEB-INF/jsp/common/footer.jsp"/>
     </body>
 </html>

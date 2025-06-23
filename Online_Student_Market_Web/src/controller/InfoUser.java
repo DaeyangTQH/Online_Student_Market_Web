@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 /**
  *
- * @author Haichann
+ * @author Admin
  */
-public class Category extends HttpServlet {
+public class InfoUser extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +35,10 @@ public class Category extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet category</title>");  
+            out.println("<title>Servlet InfoUser</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet category at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet InfoUser at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,7 +55,7 @@ public class Category extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/jsp/Haichan/category.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/info_account.jsp").forward(request, response);
     } 
 
     /** 

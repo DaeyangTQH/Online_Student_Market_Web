@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
     <head>
         <title>Giỏ hàng</title>
@@ -18,29 +19,9 @@
     </head>
 
     <body>
-        <div class="header py-3">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <div class="fw-bold me-4">◼ SVMarket</div>
-                        <div class="nav-item"><a href="#">Trang chủ</a></div>
-                        <div class="nav-item"><a href="#">Danh mục</a></div>
-                        <div class="nav-item"><a href="#">Yêu thích</a></div>
-                        <div class="nav-item"><a href="#">Giỏ hàng</a></div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="search-box me-3 d-flex align-items-center">
-                            <i class="bi bi-search me-2"></i>
-                            <input type="text" placeholder="Search" class="form-control border-0 bg-transparent p-0" style="width: 150px" />
-                        </div>
-                        <div class="me-3">
-                            <i class="bi bi-bell fs-5"></i>
-                        </div>
-                        <div class="avatar bg-secondary rounded-circle" style="width: 32px; height: 32px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--header-->
+        <c:import url="/WEB-INF/jsp/common/header.jsp"/>
+        <!--end header-->
 
         <div class="container my-5">
             <div class="content-section">
@@ -79,29 +60,9 @@
                 </div>
             </div>
         </div>
-
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <div class="d-flex justify-content-center mb-3 flex-wrap gap-3">
-                            <a href="#">About Us</a>
-                            <a href="#">Contact</a>
-                            <a href="#">FAQ</a>
-                            <a href="#">Terms of Service</a>
-                            <a href="#">Privacy Policy</a>
-                        </div>
-                        <div class="d-flex justify-content-center mb-3 gap-3 social-links">
-                            <a href="#" class="text-secondary"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="text-secondary"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="text-secondary"><i class="bi bi-instagram"></i></a>
-                        </div>
-                        <div class="text-secondary small">
-                            &copy; 2025 SVMarket. All rights reserved.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        
+        <!--footer-->
+        <c:import url="/WEB-INF/jsp/common/footer.jsp"/>
+        <!--end footer-->   
     </body>
 </html>

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -29,66 +30,28 @@
             <div class="navbar">
                 <div class="logo">SVMarket</div>
                 <nav>
-                    <a href="#">Trang chủ</a>
-                    <a href="#">Danh mục</a>
-                    <a href="#">Bán</a>
-                    <a href="${pageContext.request.contextPath}/login" class="login-btn">Đăng nhập</a>
+                    <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
+                    <a href="${pageContext.request.contextPath}/category">Danh mục</a>
+                    <a href="#" class="me-4">Bán</a>
+                    <c:choose>
+                        <c:when test="${sessionScope.isLoggedIn}">
+                            <a href="${pageContext.request.contextPath}/infouser"><span class="">Xin chào, ${sessionScope.user.username}</span></a>
+                            <a href="${pageContext.request.contextPath}/logout" class="login-btn">Đăng xuất</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${pageContext.request.contextPath}/login" class="login-btn">Đăng nhập</a>
+                        </c:otherwise>
+                    </c:choose>
                 </nav>
             </div>
         </header>
 
         <!-- Main content -->
         <main class="home-container">
-            <!-- Tìm kiếm -->
-            <div class="search-container">
-                <form action="search.jsp" method="GET">
-                    <input type="text" name="query" placeholder="Tìm kiếm sản phẩm...">
-                    <button type="submit" class="search-btn">Tìm</button>
-                </form>
-            </div>
-
-            <!-- Sản phẩm nổi bật -->
-            <section class="featured-products">
-                <h2>Sản phẩm nổi bật</h2>
-                <div class="product-list">
-                    <!-- Sử dụng tag <c:forEach> để lặp qua sản phẩm từ servlet hoặc controller -->
-                    <c:forEach var="product" items="${products}">
-                        <div class="product-item">
-                            <img src="${product.image}" alt="${product.name}">
-                            <h3>${product.name}</h3>
-                            <p>${product.description}</p>
-                        </div>
-                    </c:forEach>
-                </div>
-            </section>
-
-            <!-- Danh mục -->
-            <section class="categories">
-                <h2>Danh mục</h2>
-                <div class="category-list">
-                    <a href="#">Sách học</a>
-                    <a href="#">Đồ điện tử</a>
-                    <a href="#">Quần áo</a>
-                    <a href="#">Thể thao</a>
-                    <a href="#">Khác</a>
-                </div>
-            </section>
+           
         </main>
 
-        <!-- Footer -->
-        <footer>
-            <div class="footer-links">
-                <a href="#">Về SVMarket</a>
-                <a href="#">Trung tâm trợ giúp</a>
-                <a href="#">Điều khoản dịch vụ</a>
-                <a href="#">Chính sách bảo mật</a>
-            </div>
-            <div class="social-icons">
-                <i class="fa fa-facebook"></i>
-                <i class="fa fa-twitter"></i>
-                <i class="fa fa-instagram"></i>
-            </div>
-            <p>© 2024 SVMarket. Mọi quyền được bảo lưu.</p>
-        </footer>
+        <!-- include footer -->
+        <c:import url="/WEB-INF/jsp/common/footer.jsp"/>
     </body>
 </html>

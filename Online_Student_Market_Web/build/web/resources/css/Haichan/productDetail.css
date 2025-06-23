@@ -1,0 +1,100 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 17, 2025, 1:44:58 PM
+    Author     : Haichann
+*/
+
+body {
+    background-color: #f8f9fa;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.product-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    margin-top: 1.5rem;
+}
+
+.product-image-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-details {
+    padding: 1rem;
+}
+
+.product-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #343a40;
+}
+
+.product-price {
+    font-size: 2rem;
+    color: #28a745;
+    margin-bottom: 1.5rem;
+}
+
+.product-description {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.product-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.quantity-input {
+    max-width: 80px;
+    text-align: center;
+}
+
+.btn-add-to-cart {
+    background-color: #007bff;
+    border-color: #007bff;
+    min-width: 150px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-add-to-cart:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.price-label {
+    margin-bottom: 0.25rem;
+    color: #333;
+    font-size: 1rem;
+}
+
+.price-value {
+    font-size: 2rem;
+    margin: 0;
+}
+
