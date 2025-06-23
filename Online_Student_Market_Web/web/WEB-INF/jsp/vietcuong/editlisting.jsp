@@ -46,7 +46,7 @@
         </nav>
 
         <%-- PHẦN FORM CHỈNH SỬA TIN --%>
-        <div class="container py-5">
+        <div class="container py-5 mx-auto" style="max-width: 600px;">
             <h2 class="fw-bold mb-4">Chỉnh sửa tin đăng</h2>
             <form>
                 <%-- Nhập tiêu đề tin --%>

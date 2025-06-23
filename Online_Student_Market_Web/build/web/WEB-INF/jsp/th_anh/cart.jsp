@@ -44,7 +44,7 @@
 
         <div class="container my-5">
             <div class="content-section">
-                <h2>Giỏ hàng</h2>
+                <h2>Shopping cart</h2>
                 <div class="history-item justify-content-between">
                     <div class="item-info">
                         <div>Used Textbook – Introduction to Economics</div>
@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="content-section mt-4">
-                    <h5>Tóm tắt đơn hàng</h5>
+                    <h5>Order summary</h5>
                     <p>🧾 Subtotal: <strong>$95</strong></p>
                     <p>🚚 Shipping: <strong>Free</strong></p>
                     <p>💳 Total: <strong>$95</strong></p>
