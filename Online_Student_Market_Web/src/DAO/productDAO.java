@@ -92,4 +92,52 @@ public class productDAO extends DBcontext {
         return null;
     }
 
+    public List<Product> getProductBySort(String typeSort, double minPrice, double maxPrice) {
+        List<Product> list = new ArrayList<>();
+        String sql = """
+                     select * from Product
+                     where price between ? and ?
+                     order by price ?;""";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setDouble(0, minPrice);
+            ps.setDouble(1, maxPrice);
+            ps.setString(2, typeSort);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    
+    public List<Product> findProduct(Integer categoryID, Double minPrice, Double maxPrice, String sortDir, int limit, int offset){
+        List<Product> productList = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("Select * from Product p where ");
+        List<Object> params = new ArrayList<>();
+        
+        if(categoryID != null){
+            sql.append("p.category_id = ? ");
+            params.add(categoryID);
+        }
+        
+        if(minPrice != null){
+            sql.append("and p.price >= ? ");
+            params.add(minPrice);
+        }
+        
+        if(maxPrice != null){
+            sql.append("and p.price <= ? ");
+            params.add(maxPrice);
+        }
+        
+        
+        
+        return productList;
+    }
+
 }

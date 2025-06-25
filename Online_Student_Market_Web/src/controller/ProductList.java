@@ -7,6 +7,7 @@ package controller;
 import DAO.Holder;
 import DAO.productDAO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,20 +28,18 @@ public class ProductList extends HttpServlet {
         dao = new productDAO();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cidParam = request.getParameter("cid");
+        String typeSort = request.getParameter("type");
+        String minPrice_raw = request.getParameter("minPrice");
+        String maxPrice_raw = request.getParameter("maxPrice");
+
         int cid = 0;
+        double minPrice = Double.MIN_VALUE;
+        double maxPrice = Double.MAX_VALUE;
+        List<Product> pageProducts = new ArrayList<>();
         Holder<String> catName = new Holder<>();
 
         if (cidParam != null && !cidParam.isBlank()) {
@@ -51,15 +50,15 @@ public class ProductList extends HttpServlet {
             }
         }
         List<Product> allProducts = dao.getProductByCategoryID(cid, catName);
-
-        int pageSize = 8;
+        
+        int pageSize = 15;
         int page = 1;
         String pageParam = request.getParameter("page");
         if (pageParam != null) {
             try {
                 page = Integer.parseInt(pageParam);
             } catch (NumberFormatException e) {
-                page = 1; 
+                page = 1;
             }
         }
 
@@ -68,7 +67,18 @@ public class ProductList extends HttpServlet {
         int start = (page - 1) * pageSize;
         int end = Math.min(start + pageSize, totalProducts);
 
-        List<Product> pageProducts = allProducts.subList(start, end);
+        if (maxPrice_raw != null && !maxPrice_raw.isBlank() && minPrice_raw != null && !minPrice_raw.isBlank()) {
+            try {
+                minPrice = Double.parseDouble(minPrice_raw);
+                maxPrice = Double.parseDouble(maxPrice_raw);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            List<Product> sortedProduct = dao.getProductBySort(typeSort, minPrice, maxPrice);
+            pageProducts = sortedProduct;
+        } else {
+            pageProducts = allProducts.subList(start, end);
+        }
 
         request.setAttribute("productlist", pageProducts);
         request.setAttribute("categoryName", catName.value);
@@ -79,28 +89,10 @@ public class ProductList extends HttpServlet {
         request.getRequestDispatcher("WEB-INF/jsp/Haichan/productList.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
