@@ -31,49 +31,6 @@ public class productDAO extends DBcontext {
         );
     }
 
-    public List<Product> getAll() {
-        List<Product> proList = new ArrayList<>();
-        String sql = "select * from Product";
-
-        try {
-            PreparedStatement getProFromDB = connection.prepareStatement(sql);
-            ResultSet proSet = getProFromDB.executeQuery();
-
-            while (proSet.next()) {
-
-                proList.add(mapRow(proSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return proList;
-    }
-
-    public List<Product> getProductByCategoryID(int categoryID, Holder<String> catName) {
-        List<Product> proList = new ArrayList<>();
-        String sql = """
-                     select p.*, c.category_name from Product p
-                     join Category c
-                     on p.category_id = c.category_id
-                     where p.category_id = ?""";
-        try {
-            PreparedStatement getProByCatID = connection.prepareStatement(sql);
-            getProByCatID.setInt(1, categoryID);
-            ResultSet proSet = getProByCatID.executeQuery();
-            while (proSet.next()) {
-                if (catName.value == null) {
-                    catName.value = proSet.getString("category_name");
-                }
-                proList.add(mapRow(proSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return proList;
-    }
-
     public Product getProductByID(int productID, Holder<String> catName) {
         String sql = "select p.*, c.category_name from Product p "
                 + "join Category c on p.category_id = c.category_id "
@@ -92,52 +49,119 @@ public class productDAO extends DBcontext {
         return null;
     }
 
-    public List<Product> getProductBySort(String typeSort, double minPrice, double maxPrice) {
-        List<Product> list = new ArrayList<>();
-        String sql = """
-                     select * from Product
-                     where price between ? and ?
-                     order by price ?;""";
+    public List<Product> findProduct(Integer categoryID, Double minPrice, Double maxPrice, String sortDir, int limit, int offset, Holder<String> catName) {
+        List<Product> productList = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT p.*, c.category_name FROM Product p "
+                + "JOIN Category c ON p.category_id = c.category_id WHERE 1=1 ");
+        List<Object> params = new ArrayList<>();
+
+        if (categoryID != null) {
+            sql.append("AND p.category_id = ? ");
+            params.add(categoryID);
+        }
+
+        if (minPrice != null) {
+            sql.append("AND p.price >= ? ");
+            params.add(minPrice);
+        }
+
+        if (maxPrice != null) {
+            sql.append("AND p.price <= ? ");
+            params.add(maxPrice);
+        }
+
+        if (sortDir != null && (sortDir.equalsIgnoreCase("desc") || sortDir.equalsIgnoreCase("asc"))) {
+            sql.append("ORDER BY p.price ").append(sortDir).append(" ");
+        } else {
+            sql.append("ORDER BY p.product_id "); 
+        }
+
+        sql.append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        params.add(offset);
+        params.add(limit);
 
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setDouble(0, minPrice);
-            ps.setDouble(1, maxPrice);
-            ps.setString(2, typeSort);
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(mapRow(rs));
+                if (catName.value == null) {
+                    catName.value = rs.getString("category_name");
+                }
+                productList.add(mapRow(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
-    }
-    
-    
-    public List<Product> findProduct(Integer categoryID, Double minPrice, Double maxPrice, String sortDir, int limit, int offset){
-        List<Product> productList = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("Select * from Product p where ");
-        List<Object> params = new ArrayList<>();
-        
-        if(categoryID != null){
-            sql.append("p.category_id = ? ");
-            params.add(categoryID);
-        }
-        
-        if(minPrice != null){
-            sql.append("and p.price >= ? ");
-            params.add(minPrice);
-        }
-        
-        if(maxPrice != null){
-            sql.append("and p.price <= ? ");
-            params.add(maxPrice);
-        }
-        
-        
-        
         return productList;
     }
 
+    public int countProduct(Integer categoryID, Double minPrice, Double maxPrice) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM Product p WHERE 1=1 ");
+        List<Object> params = new ArrayList<>();
+
+        if (categoryID != null) {
+            sql.append("AND p.category_id = ? ");
+            params.add(categoryID);
+        }
+
+        if (minPrice != null) {
+            sql.append("AND p.price >= ? ");
+            params.add(minPrice);
+        }
+
+        if (maxPrice != null) {
+            sql.append("AND p.price <= ? ");
+            params.add(maxPrice);
+        }
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public Double getMinPrice(Integer categoryID) {
+        String sql = "SELECT MIN(price) FROM Product" + (categoryID != null ? " WHERE category_id = ?" : "");
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            if (categoryID != null) ps.setInt(1, categoryID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (SQLException e) { e.printStackTrace(); }
+        return 0.0;
+    }
+
+    public Double getMaxPrice(Integer categoryID) {
+        String sql = "SELECT MAX(price) FROM Product" + (categoryID != null ? " WHERE category_id = ?" : "");
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            if (categoryID != null) ps.setInt(1, categoryID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (SQLException e) { e.printStackTrace(); }
+        return 0.0;
+    }
+
+    public static void main(String[] args) {
+        productDAO dao = new productDAO();
+        List<Product> list = new ArrayList<>();
+        Holder<String> catName = new Holder<>();
+        list = dao.findProduct(1, null, null, null, 15, 0, catName);
+        
+        double min = dao.getMinPrice(1);
+        System.out.println(min);
+    }
 }
