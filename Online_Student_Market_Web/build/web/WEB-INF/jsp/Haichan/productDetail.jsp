@@ -42,7 +42,6 @@
         <main class="container my-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/home">Home</a></li>
                     <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/productList?cid=${product.category_id}">${categoryName}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">${product.product_name}</li>
                 </ol>
