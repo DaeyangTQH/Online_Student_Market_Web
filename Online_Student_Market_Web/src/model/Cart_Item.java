@@ -1,16 +1,16 @@
 package model;
 
-public class CartItem {
+public class Cart_Item {
 
     private int cart_item_id;
     private int cart_id;
     private int product_id;
     private int quantity;
 
-    public CartItem() {
+    public Cart_Item() {
     }
 
-    public CartItem(int cart_item_id, int cart_id, int product_id, int quantity) {
+    public Cart_Item(int cart_item_id, int cart_id, int product_id, int quantity) {
         this.cart_item_id = cart_item_id;
         this.cart_id = cart_id;
         this.product_id = product_id;
@@ -47,5 +47,15 @@ public class CartItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "CartItem{"
+                + "cart_item_id=" + cart_item_id
+                + ", cart_id=" + cart_id
+                + ", product_id=" + product_id
+                + ", quantity=" + quantity
+                + '}';
     }
 }

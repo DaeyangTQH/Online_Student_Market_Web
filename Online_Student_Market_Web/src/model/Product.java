@@ -100,4 +100,8 @@ public class Product {
     public void setUpdated_at(java.sql.Date updated_at) {
         this.updated_at = updated_at;
     }
+
+    public void setQuantity(int quantity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
