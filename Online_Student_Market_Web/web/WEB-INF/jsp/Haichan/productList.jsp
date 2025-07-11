@@ -47,44 +47,84 @@
                         <li class="breadcrumb-item active catName" aria-current="page">${categoryName}</li>
                     </ol>
                 </nav>
-                 
-                <h2 class="fw-bold m-0 catName">${categoryName}</h2>
-
-                <div class="row g-4">
-                    <c:forEach items="${productlist}" var="p">
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <a href="${pageContext.request.contextPath}/product?pid=${p.product_id}" class="product-link">
-                                <div class="product-card text-center">
-                                    <div class="ratio ratio-1x1 mb-2">
-                                        <img class="product-img w-100 h-100 object-fit-cover rounded-3"
-                                             src="${empty p.image_url ? 'https://i.pinimg.com/736x/06/06/fb/0606fbfad46069334cfc398ed9e96cab.jpg' : p.image_url}"
-                                             alt="${p.product_name}">
+                <h2 class="fw-bold m-0 catName mb-4">${categoryName}</h2>
+                <div class="row">
+                    <!-- Sidebar Filter -->
+                    <aside class="col-lg-3 mb-4 mb-lg-0">
+                        <div class="card shadow-sm sticky-top" style="top: 90px;">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3"><i class="bi bi-funnel"></i> Bộ lọc</h5>
+                                <form class="row g-3" method="get" action="">
+                                    <input type="hidden" name="cid" value="${cid}"/>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label">Nhập khoảng giá phù hợp với bạn:</label>
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <input type="number" class="form-control text-end" id="minPriceInput" name="minPrice"
+                                                   style="max-width:120px"
+                                                   value="${not empty param.minPrice ? param.minPrice : ''}"
+                                                   min="${minPriceValue}" max="${maxPriceValue}" placeholder="${minPriceValue}">
+                                            <span>~</span>
+                                            <input type="number" class="form-control text-end" id="maxPriceInput" name="maxPrice"
+                                                   style="max-width:120px"
+                                                   value="${not empty param.maxPrice ? param.maxPrice : ''}"
+                                                   min="${minPriceValue}" max="${maxPriceValue}" placeholder="${maxPriceValue}">
+                                        </div>
                                     </div>
-                                    <div class="product-name fw-semibold">${p.product_name}</div>
-                                    <div class="product-price text-muted">
-                                        <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="$"/>
+                                    <div class="col-12">
+                                        <label for="type" class="form-label">Sắp xếp giá</label>
+                                        <select class="form-select" id="type" name="type">
+                                            <option value="" ${empty param.type ? 'selected' : ''}>Mặc định</option>
+                                            <option value="asc" ${param.type == 'asc' ? 'selected' : ''}>Tăng dần</option>
+                                            <option value="desc" ${param.type == 'desc' ? 'selected' : ''}>Giảm dần</option>
+                                        </select>
                                     </div>
-                                </div>
-                            </a>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary w-100"><i class="bi bi-funnel"></i> Lọc</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </c:forEach>
+                    </aside>
+                    <!-- Product List -->
+                    <section class="col-lg-9">
+                        <div class="row g-4">
+                            <c:forEach items="${productlist}" var="p">
+                                <div class="col-6 col-md-4 col-lg-3">
+                                    <a href="${pageContext.request.contextPath}/product?pid=${p.product_id}" class="product-link">
+                                        <div class="product-card text-center">
+                                            <div class="ratio ratio-1x1 mb-2">
+                                                <img class="product-img w-100 h-100 object-fit-cover rounded-3"
+                                                     src="${empty p.image_url ? 'https://i.pinimg.com/736x/06/06/fb/0606fbfad46069334cfc398ed9e96cab.jpg' : p.image_url}"
+                                                     alt="${p.product_name}">
+                                            </div>
+                                            <div class="product-name fw-semibold">${p.product_name}</div>
+                                            <div class="product-price text-muted">
+                                                <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="đ"/>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <!-- Pagination -->
+                        <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
+                            <ul class="pagination">
+                                <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="?cid=${cid}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${currentPage - 1}"><i class="bi bi-chevron-left"></i></a>
+                                </li>
+                                <c:forEach begin="1" end="${totalPages}" var="i">
+                                    <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                        <a class="page-link" href="?cid=${cid}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
+                                <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                    <a class="page-link" href="?cid=${cid}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${currentPage + 1}"><i class="bi bi-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </section>
+                    <!-- End Product List -->
                 </div>
-                <!-- Pagination -->
-                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
-                    <ul class="pagination">
-                        <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                            <a class="page-link" href="?cid=${cid}&page=${currentPage - 1}"><i class="bi bi-chevron-left"></i></a>
-                        </li>
-                        <c:forEach begin="1" end="${totalPages}" var="i">
-                            <li class="page-item ${currentPage == i ? 'active' : ''}">
-                                <a class="page-link" href="?cid=${cid}&page=${i}">${i}</a>
-                            </li>
-                        </c:forEach>
-                        <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
-                            <a class="page-link" href="?cid=${cid}&page=${currentPage + 1}"><i class="bi bi-chevron-right"></i></a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </main>
         <!-- content -->
@@ -93,5 +133,11 @@
         <c:import url="/WEB-INF/jsp/common/footer.jsp"/>
 
         <!--Footer styles--> 
+        <style>
+            .px-2 {
+                position: relative;
+                height: auto;
+            }
+        </style>
     </body>
 </html>
