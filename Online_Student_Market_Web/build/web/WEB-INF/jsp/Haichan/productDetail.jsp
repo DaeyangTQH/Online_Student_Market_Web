@@ -67,6 +67,7 @@
                             <input type="hidden" name="productId" value="${product.product_id}">
                             <div class="d-flex">
                                 <input type="number" name="quantity" class="form-control quantity-input" value="1" min="1" max="${product.stock_quantity}">
+                                
                                 <button type="submit" class="btn btn-primary btn-add-to-cart ms-2">Add to Cart</button>
                             </div>
                         </form>
