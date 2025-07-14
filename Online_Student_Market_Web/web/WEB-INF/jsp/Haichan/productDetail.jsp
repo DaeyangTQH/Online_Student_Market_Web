@@ -63,7 +63,7 @@
                             <p><strong>Stock:</strong> ${product.stock_quantity} available</p>
                         </div>
                         
-                        <form action="${pageContext.request.contextPath}/cart" method="post" class="mt-4">
+                        <form action="${pageContext.request.contextPath}/cart?pid=${product.product_id}" method="post" class="mt-4">
                             <input type="hidden" name="productId" value="${product.product_id}">
                             <div class="d-flex">
                                 <input type="number" name="quantity" class="form-control quantity-input" value="1" min="1" max="${product.stock_quantity}">
