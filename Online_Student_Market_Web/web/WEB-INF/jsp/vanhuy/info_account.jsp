@@ -37,7 +37,7 @@
 
         <c:choose>
             <c:when test="${sessionScope.isLoggedIn}">
-                <!-- Welcome Section for Logged In User -->
+                
                 <div class="welcome-section">
                     <div class="welcome-image">
                         <i class="bi bi-person-check welcome-icon"></i>
