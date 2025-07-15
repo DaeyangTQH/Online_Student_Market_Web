@@ -1,1 +1,2 @@
 controller.EditListing=javax.servlet.annotation.WebServlet
+controller.RemoveCartItemServlet=javax.servlet.annotation.WebServlet
