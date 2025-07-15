@@ -75,87 +75,172 @@
 
 
  
+//package controller;
+//
+//import java.io.IOException;
+//import java.io.PrintWriter;
+//import javax.servlet.ServletException;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+///**
+// *
+// * @author ThuyAnh
+// */
+//public class CartServlet extends HttpServlet {
+//
+//    /**
+//     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+//     * methods.
+//     *
+//     * @param request servlet request
+//     * @param response servlet response
+//     * @throws ServletException if a servlet-specific error occurs
+//     * @throws IOException if an I/O error occurs
+//     */
+//    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        response.setContentType("text/html;charset=UTF-8");
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet CartServlet</title>");
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet CartServlet at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
+//    }
+//
+//    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+//    /**
+//     * Handles the HTTP <code>GET</code> method.
+//     *
+//     * @param request servlet request
+//     * @param response servlet response
+//     * @throws ServletException if a servlet-specific error occurs
+//     * @throws IOException if an I/O error occurs
+//     */
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        // processRequest(request, response);
+//        request.getRequestDispatcher("/WEB-INF/jsp/th_anh/cart.jsp").forward(request, response);
+//
+//    }
+//
+//    /**
+//     * Handles the HTTP <code>POST</code> method.
+//     *
+//     * @param request servlet request
+//     * @param response servlet response
+//     * @throws ServletException if a servlet-specific error occurs
+//     * @throws IOException if an I/O error occurs
+//     */
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        //processRequest(request, response);
+//        doGet(request, response);
+//
+//    }
+//
+//    /**
+//     * Returns a short description of the servlet.
+//     *
+//     * @return a String containing servlet description
+//     */
+//    @Override
+//    public String getServletInfo() {
+//        return "Short description";
+//    }// </editor-fold>
+//
+//}
 package controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import DAO.Holder;
+import DAO.productDAO;
+import Model.Cart_Item;
+import Model.Product;
+
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-/**
- *
- * @author ThuyAnh
- */
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CartServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CartServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CartServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    private productDAO dao;
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // processRequest(request, response);
-        request.getRequestDispatcher("/WEB-INF/jsp/th_anh/cart.jsp").forward(request, response);
-
+    public void init() throws ServletException {
+        dao = new productDAO();
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        doGet(request, response);
 
+        HttpSession session = request.getSession(true);
+
+        // B1: Lấy dữ liệu từ form
+        String pid_raw = request.getParameter("productId");
+        String quantity_raw = request.getParameter("quantity");
+
+        int productId = 0;
+        int quantity = 1;
+
+        try {
+            productId = Integer.parseInt(pid_raw);
+            quantity = Integer.parseInt(quantity_raw);
+            if (quantity < 1) quantity = 1;
+        } catch (NumberFormatException e) {
+            response.sendRedirect("productList");
+            return;
+        }
+
+        // B2: Lấy sản phẩm từ DB
+        Product product = dao.getProductByID(productId, new Holder<>());
+        if (product == null) {
+            response.sendRedirect("productList");
+            return;
+        }
+
+        // B3: Lấy giỏ hàng từ session
+        List<Cart_Item> cart = (List<Cart_Item>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+
+        // B4: Kiểm tra sản phẩm đã có trong giỏ chưa
+        boolean found = false;
+        for (Cart_Item item : cart) {
+            if (item.getProduct_id() == productId) {
+                item.setQuantity(item.getQuantity() + quantity);
+                found = true;
+                break;
+            }
+        }
+
+        // B5: Nếu chưa có thì thêm mới
+        if (!found) {
+            Cart_Item newItem = new Cart_Item(
+                0, // cart_item_id
+                0, // cart_id
+                product.getProduct_id(),
+                quantity,
+                product // truyền luôn cả Product
+            );
+            cart.add(newItem);
+        }
+
+        // B6: Cập nhật session và chuyển về cart.jsp
+        session.setAttribute("cart", cart);
+        response.sendRedirect(request.getContextPath() + "/cart.jsp");
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
+
