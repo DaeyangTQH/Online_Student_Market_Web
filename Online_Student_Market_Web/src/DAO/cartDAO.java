@@ -1,6 +1,6 @@
 package DAO;
 
-import model.Cart_Item;
+import Model.Cart_Item;
 
 import java.sql.*;
 import java.util.ArrayList;
