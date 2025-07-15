@@ -1,1 +1,2 @@
+controller.CartServlet=javax.servlet.annotation.WebServlet
 controller.EditListing=javax.servlet.annotation.WebServlet

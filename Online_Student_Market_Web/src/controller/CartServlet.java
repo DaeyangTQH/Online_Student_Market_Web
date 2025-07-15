@@ -1,7 +1,80 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+//package controller;
+//
+//import DAO.productDAO;
+//import DAO.Holder;
+//import model.Cart_Item;
+//import model.Product;
+//
+//import javax.servlet.ServletException;
+//
+//import javax.servlet.http.*;
+//import java.io.IOException;
+//import java.util.*;
+//
+//public class CartServlet extends HttpServlet {
+//
+//    private productDAO dao;
+//
+//    @Override
+//    public void init() {
+//        dao = new productDAO();
+//    }
+//
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        HttpSession session = request.getSession(true);
+//
+//        // Lấy thông tin sản phẩm từ form
+//        int productId = Integer.parseInt(request.getParameter("productId"));
+//        int quantity = Integer.parseInt(request.getParameter("quantity"));
+//
+//        // Dùng Holder rỗng để lấy Product (bỏ qua tên category)
+//        Holder<String> dummyCatName = new Holder<>();
+//        Product p = dao.getProductByID(productId, dummyCatName);
+//
+////        if (p == null) {
+////            response.sendRedirect("error.jsp");
+////            return;
+////        }
+//
+//        // Lấy giỏ hàng từ session
+//        List<Cart_Item> cart = (List<Cart_Item>) session.getAttribute("cart");
+//        if (cart == null) {
+//            cart = new ArrayList<>();
+//        }
+//
+//        boolean found = false;
+//        for (Cart_Item item : cart) {
+//            if (item.getProduct_id() == productId) {
+//                item.setQuantity(item.getQuantity() + quantity);
+//                found = true;
+//                break;
+//            }
+//        }
+//
+//        if (!found) {
+//            Cart_Item newItem = new Cart_Item(
+//                    0, // cart_item_id
+//                    0, // cart_id
+//                    p.getProduct_id(),
+//                    quantity,
+//                    p.getProduct_name(),
+//                    p.getPrice().doubleValue(),
+//                    p.getImage_url()
+//            );
+//            cart.add(newItem);
+//        }
+//
+//        session.setAttribute("cart", cart);
+//        response.sendRedirect("cart.jsp");
+//    }
+//}
+
+
+
+
+ 
 package controller;
 
 import java.io.IOException;

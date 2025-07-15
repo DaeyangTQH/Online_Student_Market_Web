@@ -28,17 +28,16 @@
     </head>
     <body>
         <c:import url="/WEB-INF/jsp/common/header.jsp"/>
-
         <div class="container my-5" style="max-width: 700px;">
             <div class="content-section">
                 <h2>🛒 Giỏ hàng</h2>
 
                 <c:choose>
-                    <c:when test="${empty cartItems}">
+                    <c:when test="${empty sessionScope.cart}">
                         <p>Không có sản phẩm nào trong giỏ hàng.</p>
                     </c:when>
                     <c:otherwise>
-                        <c:forEach var="item" items="${cartItems}">
+                        <c:forEach var="item" items="${sessionScope.cart}">
                             <div class="history-item d-flex justify-content-between align-items-center mb-3">
                                 <div class="d-flex align-items-center" style="flex: 1;">
                                     <img src="${item.image_url}" alt="${item.product_name}" class="product-img">
