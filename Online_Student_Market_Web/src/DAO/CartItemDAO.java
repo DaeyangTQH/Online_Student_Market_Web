@@ -42,4 +42,48 @@ public class CartItemDAO extends DBcontext {
 
         return list;
     }
+
+   public void deleteCartItemById(int cartItemId) {
+        String sql = "DELETE FROM cart_item WHERE cart_item_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, cartItemId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addOrUpdateCartItem(int cartId, int productId, int quantity) {
+    String selectSql = "SELECT cart_item_id, quantity FROM cart_item WHERE cart_id = ? AND product_id = ?";
+    String updateSql = "UPDATE cart_item SET quantity = ? WHERE cart_item_id = ?";
+    String insertSql = "INSERT INTO cart_item (cart_id, product_id, quantity) VALUES (?, ?, ?)";
+
+    try (PreparedStatement ps1 = connection.prepareStatement(selectSql)) {
+        ps1.setInt(1, cartId);
+        ps1.setInt(2, productId);
+        ResultSet rs = ps1.executeQuery();
+
+        if (rs.next()) {
+            // đã tồn tại -> cập nhật
+            int cartItemId = rs.getInt("cart_item_id");
+            int currentQty = rs.getInt("quantity");
+            try (PreparedStatement ps2 = connection.prepareStatement(updateSql)) {
+                ps2.setInt(1, currentQty + quantity);
+                ps2.setInt(2, cartItemId);
+                ps2.executeUpdate();
+            }
+        } else {
+            // chưa có -> thêm mới
+            try (PreparedStatement ps3 = connection.prepareStatement(insertSql)) {
+                ps3.setInt(1, cartId);
+                ps3.setInt(2, productId);
+                ps3.setInt(3, quantity);
+                ps3.executeUpdate();
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
 }
