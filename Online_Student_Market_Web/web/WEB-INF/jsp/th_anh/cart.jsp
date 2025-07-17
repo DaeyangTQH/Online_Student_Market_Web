@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <div>$<span class="item-price">${item.product.price * item.quantity}</span></div>
+                                    <div>đ<span class="item-price">${item.product.price * item.quantity}</span></div>
                                     <form action="${pageContext.request.contextPath}/removeCartItem" method="post"
                                           onsubmit="return confirm('Bạn có chắc muốn xoá sản phẩm này không?');">
                                         <input type="hidden" name="cartItemId" value="${item.product.product_id}" />
@@ -73,9 +73,9 @@
                         <!-- ✅ Tóm tắt -->
                         <div class="content-section mt-4 text-center">
                             <h5>Tóm tắt đơn hàng</h5>
-                            <p>🧾 Tạm tính: <strong id="subtotal">$0</strong></p>
+                            <p>🧾 Tạm tính: <strong id="subtotal">đ0</strong></p>
                             <p>🚚 Phí ship: <strong>Miễn phí</strong></p>
-                            <p>💳 Tổng thanh toán: <strong id="total">$0</strong></p>
+                            <p>💳 Tổng thanh toán: <strong id="total">đ0</strong></p>
 
                             <form action="${pageContext.request.contextPath}/personalinformation" method="post">
                                 <button type="submit" class="save-btn mt-3">Tiến hành thanh toán</button>
@@ -100,8 +100,8 @@
                     const span = input.closest('.history-item').querySelector('.item-price');
                     span.textContent = (price * quantity).toFixed(2);
                 });
-                document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
-                document.getElementById('total').textContent = '$' + subtotal.toFixed(2);
+                document.getElementById('subtotal').textContent = 'đ' + subtotal.toFixed(2);
+                document.getElementById('total').textContent = 'đ' + subtotal.toFixed(2);
             }
 
             function increaseQty(btn) {

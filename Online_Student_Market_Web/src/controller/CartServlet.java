@@ -35,6 +35,19 @@ public class CartServlet extends HttpServlet {
         String pid_raw = request.getParameter("productId");
         String quantity_raw = request.getParameter("quantity");
 
+        // ✅ Kiểm tra đăng nhập
+        Object user = session.getAttribute("user"); // hoặc "account" tùy theo hệ thống
+        if (user == null) {
+            // Ghi lại sản phẩm cần thêm sau đăng nhập
+            session.setAttribute("message", "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
+            session.setAttribute("pendingProductId", pid_raw);
+            session.setAttribute("pendingQuantity", quantity_raw);
+            session.setAttribute("redirectBackToCart", true);
+
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
         int productId = 0;
         int quantity = 1;
 
@@ -71,7 +84,7 @@ public class CartServlet extends HttpServlet {
 
         if (!found) {
             Cart_Item newItem = new Cart_Item(
-                    productId, // ✅ dùng productId làm cart_item_id tạm
+                    productId,
                     0,
                     productId,
                     quantity,
