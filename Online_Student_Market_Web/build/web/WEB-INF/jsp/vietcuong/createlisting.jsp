@@ -83,13 +83,27 @@
         </c:if>
 
         <div class="mb-3">
+            <label class="form-label">Số lượng tồn kho</label>
+            <input type="number" name="stock" class="form-control" placeholder="Nhập số lượng..." min="1" value="${param.stock != null ? param.stock : ''}" required />
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Giá</label>
             <input type="text" name="price" class="form-control" placeholder="Nhập giá..." value="${param.price != null ? param.price : ''}" required />
         </div>
 
         <div class="mb-4">
             <label class="form-label">Danh mục</label>
-            <input type="text" name="category" class="form-control" placeholder="Nhập danh mục..." value="${param.category != null ? param.category : ''}" required />
+            <c:choose>
+                <c:when test="${not empty categoryName}">
+                    <input type="text" class="form-control" value="${categoryName}" readonly disabled />
+                    <input type="hidden" name="category" value="${categoryName}" />
+                    <input type="hidden" name="cid" value="${cid}" />
+                </c:when>
+                <c:otherwise>
+                    <input type="text" name="category" class="form-control" placeholder="Nhập danh mục..." value="${param.category != null ? param.category : ''}" required />
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <div class="d-flex justify-content-center gap-3">

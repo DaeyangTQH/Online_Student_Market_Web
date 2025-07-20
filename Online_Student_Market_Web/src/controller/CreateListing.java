@@ -1,7 +1,12 @@
 package controller;
 
+import DAO.categoryDAO;
+import DAO.CreateDAO;
+import Model.Category;
+import Model.Product;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,12 +24,30 @@ public class CreateListing extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String cidParam = request.getParameter("cid");
+        if (cidParam != null && !cidParam.isBlank()) {
+            try {
+                int cid = Integer.parseInt(cidParam);
+                categoryDAO dao = new categoryDAO();
+                Category cat = dao.getCategoryById(cid);
+                if (cat != null) {
+                    request.setAttribute("categoryName", cat.getCategory_name());
+                    request.setAttribute("cid", cid);
+                }
+            } catch (NumberFormatException e) {
+                // ignore
+            }
+        }
         request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/createlisting.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
 
@@ -67,11 +90,30 @@ public class CreateListing extends HttpServlet {
         String uploadedImages = request.getParameter("uploadedImages");
         String[] imageUrls = uploadedImages != null ? uploadedImages.split(",") : new String[0];
 
-        // TODO: lưu vào DB nếu cần
+        String stockStr = request.getParameter("stock");
+        String cidStr = request.getParameter("cid");
 
-        request.setAttribute("uploadedImages", Arrays.asList(imageUrls));
-        request.setAttribute("message", "Tạo tin đăng mới và tải ảnh thành công!");
-        request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/createlisting.jsp").forward(request, response);
+        int cid = 0;
+        try { cid = Integer.parseInt(cidStr); } catch (Exception e) { }
+        int stock = 1;
+        try { stock = Integer.parseInt(stockStr); } catch (Exception e) { }
+        BigDecimal priceVal = BigDecimal.ZERO;
+        try { priceVal = new BigDecimal(price); } catch (Exception e) { }
+        String imageUrl = (imageUrls.length > 0) ? imageUrls[0] : null;
+
+        // Lưu vào DB
+        Product product = new Product();
+        product.setCategory_id(cid);
+        product.setProduct_name(title);
+        product.setDescription(description);
+        product.setPrice(priceVal);
+        product.setStock_quantity(stock);
+        product.setImage_url(imageUrl);
+        CreateDAO dao = new CreateDAO();
+        dao.insertProduct(product);
+
+        // Redirect về trang danh mục
+        response.sendRedirect(request.getContextPath() + "/productList?cid=" + cid);
     }
 
     private String getExtension(String filename) {

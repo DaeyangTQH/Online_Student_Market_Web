@@ -44,6 +44,11 @@
     </div>
 </nav>
 
+<c:if test="${sessionScope.user == null || sessionScope.user.role != 'ADMIN'}">
+    <div class="alert alert-danger mt-5">Bạn không có quyền truy cập trang này.</div>
+    <c:redirect url="${pageContext.request.contextPath}/"/>
+</c:if>
+
 <div class="container py-5 mx-auto" style="max-width: 600px;">
     <h2 class="fw-bold mb-4">Chỉnh sửa tin đăng</h2>
 
@@ -54,12 +59,12 @@
     <form action="${pageContext.request.contextPath}/editlisting" method="post">
         <div class="mb-3">
             <label class="form-label">Tiêu đề</label>
-            <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề..." value="${param.title != null ? param.title : ''}" required />
+            <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề..." value="${not empty product ? product.product_name : (param.title != null ? param.title : '')}" required />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Mô tả</label>
-            <textarea name="description" class="form-control" rows="4" placeholder="Nhập mô tả..." required>${param.description != null ? param.description : ''}</textarea>
+            <textarea name="description" class="form-control" rows="4" placeholder="Nhập mô tả..." required>${not empty product ? product.description : (param.description != null ? param.description : '')}</textarea>
         </div>
 
         <div class="mb-4">
@@ -89,14 +94,20 @@
         </c:if>
 
         <div class="mb-3">
+            <label class="form-label">Số lượng tồn kho</label>
+            <input type="number" name="stock" class="form-control" placeholder="Nhập số lượng..." min="1" value="${not empty product ? product.stock_quantity : (param.stock != null ? param.stock : '')}" required />
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Giá</label>
-            <input type="text" name="price" class="form-control" placeholder="Nhập giá..." value="${param.price != null ? param.price : ''}" required />
+            <input type="text" name="price" class="form-control" placeholder="Nhập giá..." value="${not empty product ? product.price : (param.price != null ? param.price : '')}" required />
         </div>
 
         <div class="mb-4">
             <label class="form-label">Danh mục</label>
-            <input type="text" name="category" class="form-control" placeholder="Nhập danh mục..." value="${param.category != null ? param.category : ''}" required />
+            <input type="text" name="category" class="form-control" placeholder="Nhập danh mục..." value="${not empty product ? product.category_id : (param.category != null ? param.category : '')}" required />
         </div>
+        <input type="hidden" name="pid" value="${not empty product ? product.product_id : ''}" />
 
         <div class="d-flex justify-content-between gap-3">
             <button type="submit" name="action" value="save" class="btn btn-success px-4 rounded-pill flex-fill">Lưu bài đăng</button>

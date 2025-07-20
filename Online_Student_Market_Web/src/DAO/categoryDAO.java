@@ -35,6 +35,28 @@ public class categoryDAO extends DBcontext {
         return catList;
     }
     
+    public Category getCategoryById(int id) {
+        String sql = "select * from Category where category_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Category(
+                    rs.getInt("category_id"),
+                    rs.getString("category_name"),
+                    rs.getString("category_description"),
+                    rs.getDate("created_at"),
+                    rs.getDate("updated_at"),
+                    rs.getString("category_image_url")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public static void main(String[] args) {
         categoryDAO dao = new categoryDAO();
         List<Category> list = dao.getAll();

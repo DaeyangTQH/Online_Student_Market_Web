@@ -11,6 +11,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import DAO.CreateDAO;
+import Model.User;
+import Model.Product;
+import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 
 /**
  *
@@ -66,7 +71,29 @@ public class OrderManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        // Xử lý Buy Now
+        String productIdRaw = request.getParameter("productId");
+        String quantityRaw = request.getParameter("quantity");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (productIdRaw != null && quantityRaw != null && user != null) {
+            try {
+                int productId = Integer.parseInt(productIdRaw);
+                int quantity = Integer.parseInt(quantityRaw);
+                if (quantity < 1) quantity = 1;
+                // Lấy thông tin sản phẩm
+                Product product = new DAO.productDAO().getProductByID(productId, new DAO.Holder<>());
+                if (product != null) {
+                    // Tạo đơn hàng mới
+                    CreateDAO dao = new CreateDAO();
+                    dao.createOrderForBuyNow(user.getUser_id(), product, quantity);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // Forward về trang quản lý đơn hàng
+        request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/ordermanagement.jsp").forward(request, response);
     }
 
     /** 

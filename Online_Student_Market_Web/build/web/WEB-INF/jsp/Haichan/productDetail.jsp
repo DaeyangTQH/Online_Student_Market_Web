@@ -63,14 +63,21 @@
                             <p><strong>Stock:</strong> ${product.stock_quantity} available</p>
                         </div>
                         
-                        <form action="${pageContext.request.contextPath}/cart?pid=${product.product_id}" method="post" class="mt-4">
-                            <input type="hidden" name="productId" value="${product.product_id}">
-                            <div class="d-flex">
-                                <input type="number" name="quantity" class="form-control quantity-input" value="1" min="1" max="${product.stock_quantity}">
-                                
-                                <button type="submit" class="btn btn-primary btn-add-to-cart ms-2">Add to Cart</button>
-                            </div>
-                        </form>
+                        <div class="d-flex flex-row align-items-center gap-2 mt-4">
+                            <form action="${pageContext.request.contextPath}/cart?pid=${product.product_id}" method="post" class="d-flex flex-row align-items-center gap-2 m-0 p-0">
+                                <input type="hidden" name="productId" value="${product.product_id}">
+                                <input type="number" name="quantity" class="form-control quantity-input" value="1" min="1" max="${product.stock_quantity}" style="max-width: 100px;">
+                                <button type="submit" class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+                            </form>
+                            <form action="${pageContext.request.contextPath}/personalinformation" method="post" class="m-0 p-0">
+                                <input type="hidden" name="productId" value="${product.product_id}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="btn btn-success">Buy Now</button>
+                            </form>
+                            <c:if test="${sessionScope.user != null && sessionScope.user.role == 'ADMIN'}">
+                                <a href="${pageContext.request.contextPath}/editlisting?pid=${product.product_id}" class="btn btn-warning">Chỉnh sửa</a>
+                            </c:if>
+                        </div>
                     </div>
                 </div>
             </div>

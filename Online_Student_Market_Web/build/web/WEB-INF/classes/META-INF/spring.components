@@ -1,2 +1,3 @@
-controller.EditListing=javax.servlet.annotation.WebServlet
+controller.CreateListing=javax.servlet.annotation.WebServlet,javax.servlet.annotation.MultipartConfig
+controller.EditListing=javax.servlet.annotation.WebServlet,javax.servlet.annotation.MultipartConfig
 controller.RemoveCartItemServlet=javax.servlet.annotation.WebServlet
