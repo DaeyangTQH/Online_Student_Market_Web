@@ -2,82 +2,132 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
+import DAO.productDAO;
+import DAO.CreateDAO;
+import Model.Product;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.*;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-/**
- *
- * @author DELL
- */
-@WebServlet(name="EditListing", urlPatterns={"/editlisting"})
+@WebServlet(name = "EditListing", urlPatterns = {"/editlisting"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1,  // 1MB
+        maxFileSize = 1024 * 1024 * 5,        // 5MB mỗi ảnh
+        maxRequestSize = 1024 * 1024 * 25     // 25MB tổng cộng
+)
 public class EditListing extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditListing</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditListing at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-         request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/editlisting.jsp").forward(request, response);
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException {
+        String pidRaw = request.getParameter("pid");
+        if (pidRaw != null) {
+            try {
+                int pid = Integer.parseInt(pidRaw);
+                Product product = new productDAO().getProductByID(pid, new DAO.Holder<>());
+                if (product != null) {
+                    request.setAttribute("product", product);
+                }
+            } catch (Exception e) { e.printStackTrace(); }
+        }
+        request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/editlisting.jsp").forward(request, response);
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
     @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
+        String action = request.getParameter("action");
+
+        if ("upload".equals(action)) {
+            handleImageUpload(request, response);
+        } else {
+            handleFormSubmission(request, response);
+        }
+    }
+
+    private void handleImageUpload(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Part filePart = request.getPart("file");
+        String fileName = UUID.randomUUID() + getExtension(filePart.getSubmittedFileName());
+
+        String uploadPath = getServletContext().getRealPath("/uploads");
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdirs();
+
+        filePart.write(uploadPath + File.separator + fileName);
+
+        response.setContentType("application/json");
+        response.getWriter().write("{\"url\":\"uploads/" + fileName + "\"}");
+    }
+
+    private void handleFormSubmission(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        String action = request.getParameter("action");
+        String pidRaw = request.getParameter("pid");
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String price = request.getParameter("price");
+        String category = request.getParameter("category");
+        String stockStr = request.getParameter("stock");
+        String uploadedImages = request.getParameter("uploadedImages");
+        String[] imageUrls = uploadedImages != null ? uploadedImages.split(",") : new String[0];
+
+        if ("delete".equals(action) && pidRaw != null) {
+            try {
+                int pid = Integer.parseInt(pidRaw);
+                int cid = Integer.parseInt(category); // category_id
+                new CreateDAO().deleteProduct(pid);
+                // Redirect về trang danh mục sản phẩm
+                response.sendRedirect(request.getContextPath() + "/productList?cid=" + cid);
+                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if ("save".equals(action) && pidRaw != null) {
+            try {
+                int pid = Integer.parseInt(pidRaw);
+                int stock = Integer.parseInt(stockStr);
+                java.math.BigDecimal priceVal = new java.math.BigDecimal(price);
+                int cid = Integer.parseInt(category); // category_id
+                String imageUrl = (imageUrls.length > 0) ? imageUrls[0] : null;
+                Model.Product product = new Model.Product();
+                product.setProduct_id(pid);
+                product.setProduct_name(title);
+                product.setDescription(description);
+                product.setPrice(priceVal);
+                product.setCategory_id(cid);
+                product.setStock_quantity(stock);
+                product.setImage_url(imageUrl);
+                new CreateDAO().updateProduct(product);
+                // Redirect về trang chi tiết sản phẩm
+                response.sendRedirect(request.getContextPath() + "/product?pid=" + pid);
+                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        request.setAttribute("uploadedImages", Arrays.asList(imageUrls));
+        request.setAttribute("message", "Cập nhật tin đăng và tải ảnh thành công!");
+        request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/editlisting.jsp").forward(request, response);
+    }
+
+    private String getExtension(String filename) {
+        return filename.substring(filename.lastIndexOf("."));
+    }
 }
+

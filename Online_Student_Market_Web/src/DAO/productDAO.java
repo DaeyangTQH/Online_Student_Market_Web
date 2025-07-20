@@ -16,6 +16,7 @@ import java.util.List;
  * @author Haichann
  */
 public class productDAO extends DBcontext {
+
     private Product mapRow(ResultSet rs) throws SQLException {
         return new Product(
                 rs.getInt("product_id"),
@@ -72,7 +73,7 @@ public class productDAO extends DBcontext {
         if (sortDir != null && (sortDir.equalsIgnoreCase("desc") || sortDir.equalsIgnoreCase("asc"))) {
             sql.append("ORDER BY p.price ").append(sortDir).append(" ");
         } else {
-            sql.append("ORDER BY p.product_id "); 
+            sql.append("ORDER BY p.product_id ");
         }
 
         sql.append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
@@ -136,10 +137,16 @@ public class productDAO extends DBcontext {
         String sql = "SELECT MIN(price) FROM Product" + (categoryID != null ? " WHERE category_id = ?" : "");
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            if (categoryID != null) ps.setInt(1, categoryID);
+            if (categoryID != null) {
+                ps.setInt(1, categoryID);
+            }
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getDouble(1);
-        } catch (SQLException e) { e.printStackTrace(); }
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0.0;
     }
 
@@ -147,10 +154,16 @@ public class productDAO extends DBcontext {
         String sql = "SELECT MAX(price) FROM Product" + (categoryID != null ? " WHERE category_id = ?" : "");
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            if (categoryID != null) ps.setInt(1, categoryID);
+            if (categoryID != null) {
+                ps.setInt(1, categoryID);
+            }
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getDouble(1);
-        } catch (SQLException e) { e.printStackTrace(); }
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0.0;
     }
 
@@ -162,7 +175,7 @@ public class productDAO extends DBcontext {
                 + "WHERE p.category_id = ? AND p.product_id != ? "
                 + "ORDER BY p.created_at DESC "
                 + "OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, categoryID);
@@ -184,41 +197,45 @@ public class productDAO extends DBcontext {
         if (productIDs == null || productIDs.isEmpty()) {
             return productList;
         }
-        
+
         StringBuilder sql = new StringBuilder("SELECT p.*, c.category_name FROM Product p "
                 + "JOIN Category c ON p.category_id = c.category_id "
                 + "WHERE p.product_id IN (");
-        
+
         for (int i = 0; i < productIDs.size(); i++) {
-            if (i > 0) sql.append(",");
+            if (i > 0) {
+                sql.append(",");
+            }
             sql.append("?");
         }
         sql.append(") ORDER BY CASE ");
-        
+
         for (int i = 0; i < productIDs.size(); i++) {
             sql.append("WHEN p.product_id = ? THEN ").append(i);
-            if (i < productIDs.size() - 1) sql.append(" ");
+            if (i < productIDs.size() - 1) {
+                sql.append(" ");
+            }
         }
         sql.append(" END ");
         sql.append("OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY");
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(sql.toString());
             int paramIndex = 1;
-            
+
             // Set product IDs for IN clause
             for (Integer productID : productIDs) {
                 ps.setInt(paramIndex++, productID);
             }
-            
+
             // Set product IDs for ORDER BY CASE
             for (Integer productID : productIDs) {
                 ps.setInt(paramIndex++, productID);
             }
-            
+
             // Set limit
             ps.setInt(paramIndex, limit);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 productList.add(mapRow(rs));
@@ -236,7 +253,7 @@ public class productDAO extends DBcontext {
                 + "JOIN Category c ON p.category_id = c.category_id "
                 + "ORDER BY NEWID() "
                 + "OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, limit);
@@ -250,13 +267,39 @@ public class productDAO extends DBcontext {
         return productList;
     }
 
+    public List<Product> getAllProducts() {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Product ORDER BY created_at DESC";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(
+                        rs.getInt("product_id"),
+                        rs.getInt("category_id"),
+                        rs.getString("product_name"),
+                        rs.getString("description"),
+                        rs.getBigDecimal("price"),
+                        rs.getInt("stock_quantity"),
+                        rs.getString("image_url"),
+                        rs.getDate("created_at"),
+                        rs.getDate("updated_at")
+                );
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         productDAO dao = new productDAO();
-        
+
         // Test related products
         List<Product> relatedProducts = dao.getRelatedProductsByCategory(1, 1, 4);
         System.out.println("Related products count: " + relatedProducts.size());
-        
+
         // Test recently viewed products
         List<Integer> recentlyViewed = new ArrayList<>();
         recentlyViewed.add(2);
@@ -264,7 +307,7 @@ public class productDAO extends DBcontext {
         recentlyViewed.add(4);
         List<Product> recentlyViewedProducts = dao.getRecentlyViewedProducts(recentlyViewed, 4);
         System.out.println("Recently viewed products count: " + recentlyViewedProducts.size());
-        
+
         // Test random products
         List<Product> randomProducts = dao.getRandomProducts(4);
         System.out.println("Random products count: " + randomProducts.size());

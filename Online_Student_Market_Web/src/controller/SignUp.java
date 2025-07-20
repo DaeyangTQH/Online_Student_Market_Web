@@ -5,6 +5,8 @@
 
 package controller;
 
+import DAO.UserDAO;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -68,11 +70,41 @@ public class SignUp extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException      if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
+    request.setCharacterEncoding("UTF-8");
+
+    String username = request.getParameter("username");
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
+    String confirmPassword = request.getParameter("confirm-password");
+
+    if (!password.equals(confirmPassword)) {
+        request.setAttribute("error", "Mật khẩu xác nhận không khớp.");
+        request.getRequestDispatcher("/WEB-INF/jsp/t_son/signup.jsp").forward(request, response);
+        return;
     }
+
+    UserDAO dao = new UserDAO();
+    if (dao.checkUserExists(username, email)) {
+        request.setAttribute("error", "Tên đăng nhập hoặc email đã tồn tại.");
+        request.getRequestDispatcher("/WEB-INF/jsp/t_son/signup.jsp").forward(request, response);
+        return;
+    }
+
+    User user = new User();
+    user.setUsername(username);
+    user.setEmail(email);
+    user.setPassword_hash(password);
+    user.setRole("user");
+
+    dao.insertUser(user);
+
+    response.sendRedirect(request.getContextPath() + "/login");
+}
+
 
     /**
      * Returns a short description of the servlet.

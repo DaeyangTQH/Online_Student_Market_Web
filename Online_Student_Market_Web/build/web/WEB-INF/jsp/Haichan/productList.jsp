@@ -47,7 +47,14 @@
                         <li class="breadcrumb-item active catName" aria-current="page">${categoryName}</li>
                     </ol>
                 </nav>
-                <h2 class="fw-bold m-0 catName mb-4">${categoryName}</h2>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="fw-bold m-0 catName">${categoryName}</h2>
+                    <c:if test="${sessionScope.user != null && sessionScope.user.role == 'ADMIN'}">
+                        <a href="createlisting?cid=${cid}" class="btn btn-success" style="height: 40px; display: flex; align-items: center; font-weight: 500;">
+                            <i class="bi bi-plus-circle me-2"></i> Tạo sản phẩm
+                        </a>
+                    </c:if>
+                </div>
                 <div class="row">
                     <!-- Sidebar Filter -->
                     <aside class="col-lg-3 mb-4 mb-lg-0">
