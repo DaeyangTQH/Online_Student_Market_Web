@@ -16,7 +16,6 @@ import java.util.List;
  * @author Haichann
  */
 public class productDAO extends DBcontext {
-
     private Product mapRow(ResultSet rs) throws SQLException {
         return new Product(
                 rs.getInt("product_id"),
