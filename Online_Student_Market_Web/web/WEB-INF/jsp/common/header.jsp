@@ -27,7 +27,7 @@
             <nav>
                 <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
                 <a href="${pageContext.request.contextPath}/category">Danh mục</a>
-                <a href="#" class="me-4">Bán</a>
+                <a href="${pageContext.request.contextPath}/cart" class="me-4">Giỏ hàng</a>
                 <c:choose>
                     <c:when test="${sessionScope.isLoggedIn}">
                         <a href="${pageContext.request.contextPath}/infouser" class="fw-bold"><span class="">Xin chào, ${sessionScope.user.username}</span></a>
