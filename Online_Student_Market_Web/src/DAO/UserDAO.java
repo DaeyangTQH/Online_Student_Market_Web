@@ -59,10 +59,10 @@ public class UserDAO extends DBcontext {
         }
         return null;
     }
-    
+
     public static void main(String[] args) {
         UserDAO check = new UserDAO();
-        
+
         System.out.println(check.getUserById(1));
     }
 }
