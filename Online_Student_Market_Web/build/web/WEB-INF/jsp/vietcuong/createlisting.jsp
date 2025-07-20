@@ -1,16 +1,10 @@
-<%-- 
-    Document   : editlisting
-    Created on : Jun 17, 2025, 1:46:57 PM
-    Author     : DELL
---%>
-
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Edit Listing page</title>
+    <title>Create Listing page</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vietcuong/editlisting.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -45,13 +39,13 @@
 </nav>
 
 <div class="container py-5 mx-auto" style="max-width: 600px;">
-    <h2 class="fw-bold mb-4">Chỉnh sửa tin đăng</h2>
+    <h2 class="fw-bold mb-4">Tạo tin đăng mới</h2>
 
     <c:if test="${not empty message}">
         <div class="alert alert-success">${message}</div>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/editlisting" method="post">
+    <form action="${pageContext.request.contextPath}/createlisting" method="post">
         <div class="mb-3">
             <label class="form-label">Tiêu đề</label>
             <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề..." value="${param.title != null ? param.title : ''}" required />
@@ -98,18 +92,14 @@
             <input type="text" name="category" class="form-control" placeholder="Nhập danh mục..." value="${param.category != null ? param.category : ''}" required />
         </div>
 
-        <div class="d-flex justify-content-between gap-3">
-            <button type="submit" name="action" value="save" class="btn btn-success px-4 rounded-pill flex-fill">Lưu bài đăng</button>
-            <button id="deleteBtn" type="submit" name="action" value="delete" class="btn btn-danger px-4 rounded-pill flex-fill">Xoá bài đăng</button>
-            <a href="${pageContext.request.contextPath}/editlisting" class="btn btn-secondary px-4 rounded-pill flex-fill text-center">Huỷ</a>
+        <div class="d-flex justify-content-center gap-3">
+            <button type="submit" name="action" value="create" class="btn btn-primary px-4 rounded-pill flex-fill" style="max-width: 250px;">Tạo mới</button>
+            <a href="${pageContext.request.contextPath}/" class="btn btn-secondary px-4 rounded-pill flex-fill text-center" style="max-width: 120px;">Huỷ</a>
         </div>
-        <script>
-            document.getElementById('deleteBtn').addEventListener('click', function(e) {
-                if (!confirm('Bạn có chắc chắn muốn xoá bài đăng này không?')) {
-                    e.preventDefault();
-                }
-            });
-        </script>
+        <style>
+            .gap-3 > * { margin-right: 16px; }
+            .gap-3 > *:last-child { margin-right: 0; }
+        </style>
     </form>
 </div>
 
@@ -133,14 +123,15 @@
 
             const formData = new FormData();
             formData.append("file", file);
+            formData.append("action", "upload"); // ✅ Thêm dòng này
 
             try {
-                const res = await fetch("${pageContext.request.contextPath}/editlisting?action=upload", {
+                const res = await fetch("${pageContext.request.contextPath}/createlisting", {
                     method: "POST",
                     body: formData
                 });
 
-                const data = await res.json();
+                const data = await res.json(); // sẽ lỗi nếu không phải JSON
                 uploadedImagesInput.value = data.url;
             } catch (err) {
                 alert("Lỗi upload ảnh: " + err);
@@ -151,4 +142,3 @@
 
 </body>
 </html>
-

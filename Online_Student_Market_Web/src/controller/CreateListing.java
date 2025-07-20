@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import java.io.File;
@@ -12,18 +8,18 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet(name = "EditListing", urlPatterns = {"/editlisting"})
+@WebServlet(name = "CreateListing", urlPatterns = {"/createlisting"})
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 1,  // 1MB
-        maxFileSize = 1024 * 1024 * 5,        // 5MB mỗi ảnh
-        maxRequestSize = 1024 * 1024 * 25     // 25MB tổng cộng
+    fileSizeThreshold = 1024 * 1024 * 1,  // 1MB
+    maxFileSize = 1024 * 1024 * 5,        // 5MB
+    maxRequestSize = 1024 * 1024 * 25     // 25MB
 )
-public class EditListing extends HttpServlet {
+public class CreateListing extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/editlisting.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/createlisting.jsp").forward(request, response);
     }
 
     @Override
@@ -41,17 +37,24 @@ public class EditListing extends HttpServlet {
 
     private void handleImageUpload(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Part filePart = request.getPart("file");
-        String fileName = UUID.randomUUID() + getExtension(filePart.getSubmittedFileName());
-
-        String uploadPath = getServletContext().getRealPath("/uploads");
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) uploadDir.mkdirs();
-
-        filePart.write(uploadPath + File.separator + fileName);
-
         response.setContentType("application/json");
-        response.getWriter().write("{\"url\":\"uploads/" + fileName + "\"}");
+        try {
+            Part filePart = request.getPart("file");
+            String fileName = UUID.randomUUID() + getExtension(filePart.getSubmittedFileName());
+
+            String uploadPath = getServletContext().getRealPath("/") + "uploads";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdirs();
+
+            filePart.write(uploadPath + File.separator + fileName);
+
+            String imageUrl = "uploads/" + fileName;
+            response.getWriter().write("{\"url\":\"" + imageUrl + "\"}");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"error\":\"Upload failed: " + e.getMessage().replace("\"", "'") + "\"}");
+        }
     }
 
     private void handleFormSubmission(HttpServletRequest request, HttpServletResponse response)
@@ -64,13 +67,14 @@ public class EditListing extends HttpServlet {
         String uploadedImages = request.getParameter("uploadedImages");
         String[] imageUrls = uploadedImages != null ? uploadedImages.split(",") : new String[0];
 
+        // TODO: lưu vào DB nếu cần
+
         request.setAttribute("uploadedImages", Arrays.asList(imageUrls));
-        request.setAttribute("message", "Cập nhật tin đăng và tải ảnh thành công!");
-        request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/editlisting.jsp").forward(request, response);
+        request.setAttribute("message", "Tạo tin đăng mới và tải ảnh thành công!");
+        request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/createlisting.jsp").forward(request, response);
     }
 
     private String getExtension(String filename) {
         return filename.substring(filename.lastIndexOf("."));
     }
 }
-
