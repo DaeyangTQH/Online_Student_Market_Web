@@ -250,6 +250,31 @@ public class productDAO extends DBcontext {
         }
         return productList;
     }
+    public List<Product> getAllProducts() {
+    List<Product> list = new ArrayList<>();
+    String sql = "SELECT * FROM Product ORDER BY created_at DESC";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Product p = new Product(
+                rs.getInt("product_id"),
+                rs.getInt("category_id"),
+                rs.getString("product_name"),
+                rs.getString("description"),
+                rs.getBigDecimal("price"),
+                rs.getInt("stock_quantity"),
+                rs.getString("image_url"),
+                rs.getDate("created_at"),
+                rs.getDate("updated_at")
+            );
+            list.add(p);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
 
     public static void main(String[] args) {
         productDAO dao = new productDAO();
