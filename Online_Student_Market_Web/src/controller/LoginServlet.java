@@ -1,8 +1,11 @@
 package controller;
 
+import DAO.CartDAO;
+import DAO.CartItemDAO;
 import DAO.UserDAO;
 import DAO.productDAO;
 import DAO.Holder;
+import Model.Cart;
 import Model.User;
 import Model.Product;
 import Model.Cart_Item;
@@ -33,8 +36,6 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
-
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -44,8 +45,17 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("isLoggedIn", true);
+            // 👉 Tạo hoặc lấy cart từ DB
+            CartDAO cartDAO = new CartDAO();
+            Cart cart = cartDAO.getCartByUserId(user.getUser_id());
+            if (cart == null) {
+                cart = cartDAO.createCartForUser(user.getUser_id());
+            }
 
-            // ✅ Kiểm tra nếu có sản phẩm cần thêm vào giỏ
+            // 👉 Lưu cart vào session nếu cần dùng tiếp
+            session.setAttribute("userCart", cart);
+
+            // 👉 Thêm sản phẩm chờ xử lý vào DB nếu có
             String pendingPid = (String) session.getAttribute("pendingProductId");
             String pendingQty = (String) session.getAttribute("pendingQuantity");
             Boolean backToCart = (Boolean) session.getAttribute("redirectBackToCart");
@@ -55,37 +65,13 @@ public class LoginServlet extends HttpServlet {
                     int productId = Integer.parseInt(pendingPid);
                     int quantity = Integer.parseInt(pendingQty);
 
-                    productDAO dao = new productDAO();
-                    Product product = dao.getProductByID(productId, new Holder<>());
-
-                    if (product != null) {
-                        List<Cart_Item> cart = (List<Cart_Item>) session.getAttribute("cart");
-                        if (cart == null) cart = new ArrayList<>();
-
-                        boolean found = false;
-                        for (Cart_Item item : cart) {
-                            if (item.getProduct().getProduct_id() == productId) {
-                                item.setQuantity(item.getQuantity() + quantity);
-                                found = true;
-                                break;
-                            }
-                        }
-
-                        if (!found) {
-                            Cart_Item newItem = new Cart_Item(
-                                productId, 0, productId, quantity, product
-                            );
-                            cart.add(newItem);
-                        }
-
-                        session.setAttribute("cart", cart);
-                    }
+                    CartItemDAO cartItemDAO = new CartItemDAO();
+                    cartItemDAO.addOrUpdateCartItem(cart.getCart_id(), productId, quantity);
 
                 } catch (NumberFormatException e) {
                     // ignore
                 }
 
-                // ✅ Xoá session tạm
                 session.removeAttribute("pendingProductId");
                 session.removeAttribute("pendingQuantity");
                 session.removeAttribute("redirectBackToCart");
@@ -94,7 +80,6 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
 
-            // ✅ Không có redirect đặc biệt → về home
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
             request.setAttribute("errorMessage", "Sai tài khoản hoặc mật khẩu.");

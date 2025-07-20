@@ -40,11 +40,11 @@
                 </c:if>
 
                 <c:choose>
-                    <c:when test="${empty sessionScope.cart}">
+                    <c:when test="${empty cartItems}">
                         <p>Không có sản phẩm nào trong giỏ hàng.</p>
                     </c:when>
                     <c:otherwise>
-                        <c:forEach var="item" items="${sessionScope.cart}">
+                        <c:forEach var="item" items="${cartItems}">
                             <div class="history-item d-flex justify-content-between align-items-center mb-3">
                                 <div class="d-flex align-items-center" style="flex: 1;">
                                     <img src="${item.product.image_url}" alt="${item.product.product_name}" class="product-img">

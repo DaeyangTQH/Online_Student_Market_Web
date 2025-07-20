@@ -1,11 +1,13 @@
 package controller;
 
-import Model.Cart_Item;
+import DAO.CartItemDAO;
+import DAO.CartDAO;
+import Model.User;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/removeCartItem")
 public class RemoveCartItemServlet extends HttpServlet {
@@ -14,22 +16,24 @@ public class RemoveCartItemServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String productIdStr = request.getParameter("cartItemId"); // thực chất là productId
+        String productIdStr = request.getParameter("cartItemId");
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
-        if (productIdStr != null) {
+        if (productIdStr != null && user != null) {
             try {
                 int productId = Integer.parseInt(productIdStr);
 
-                List<Cart_Item> cart = (List<Cart_Item>) session.getAttribute("cart");
-                if (cart != null) {
-                    cart.removeIf(item -> item.getProduct().getProduct_id() == productId);
-                    session.setAttribute("cart", cart);
-                }
+                CartDAO cartDAO = new CartDAO();
+                int cartId = cartDAO.getCartIdByUserId(user.getUser_id()); // lấy cartId từ userId
 
-            } catch (NumberFormatException e) {
+                CartItemDAO cartItemDAO = new CartItemDAO();
+                cartItemDAO.deleteCartItem(cartId, productId); // xóa dòng tương ứng trong DB
+
+                session.setAttribute("message", "✅ Đã xóa sản phẩm khỏi giỏ hàng.");
+            } catch (Exception e) {
                 e.printStackTrace();
-                session.setAttribute("message", "❌ ID sản phẩm không hợp lệ.");
+                session.setAttribute("message", "❌ Có lỗi xảy ra khi xoá.");
             }
         }
 
