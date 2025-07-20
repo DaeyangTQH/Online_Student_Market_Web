@@ -23,7 +23,7 @@
     
     <header>
         <div class="navbar">
-            <div class="logo">SVMarket</div>
+            <div class="logo"><a href="${pageContext.request.contextPath}/home">SVMarket</a></div>
             <nav>
                 <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
                 <a href="${pageContext.request.contextPath}/category">Danh mục</a>

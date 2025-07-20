@@ -6,12 +6,15 @@ package controller;
 
 import DAO.Holder;
 import DAO.productDAO;
+import Model.Product;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,9 +43,52 @@ public class productDetail extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        
         Product product = dao.getProductByID(productID, catName);
         request.setAttribute("product", product);
         request.setAttribute("categoryName", catName.value);
+        
+        // Lấy sản phẩm cùng category
+        if (product != null) {
+            List<Product> relatedProducts = dao.getRelatedProductsByCategory(product.getCategory_id(), productID, 8);
+            request.setAttribute("relatedProducts", relatedProducts);
+            
+            // Lấy sản phẩm đã xem gần đây
+            HttpSession session = request.getSession();
+            @SuppressWarnings("unchecked")
+            List<Integer> recentlyViewed = (List<Integer>) session.getAttribute("recentlyViewed");
+            
+            if (recentlyViewed == null) {
+                recentlyViewed = new ArrayList<>();
+            }
+            
+            // Thêm sản phẩm hiện tại vào danh sách đã xem
+            if (!recentlyViewed.contains(productID)) {
+                recentlyViewed.add(0, productID); // Thêm vào đầu danh sách
+                
+                // Giới hạn danh sách chỉ 10 sản phẩm
+                if (recentlyViewed.size() > 10) {
+                    recentlyViewed = recentlyViewed.subList(0, 10);
+                }
+                
+                session.setAttribute("recentlyViewed", recentlyViewed);
+            }
+            
+            // Lấy sản phẩm đã xem gần đây (trừ sản phẩm hiện tại)
+            List<Integer> recentlyViewedForQuery = new ArrayList<>(recentlyViewed);
+            recentlyViewedForQuery.remove(Integer.valueOf(productID));
+            
+            List<Product> recentlyViewedProducts;
+            if (!recentlyViewedForQuery.isEmpty()) {
+                recentlyViewedProducts = dao.getRecentlyViewedProducts(recentlyViewedForQuery, 8);
+            } else {
+                // Nếu không có sản phẩm đã xem, lấy sản phẩm ngẫu nhiên
+                recentlyViewedProducts = dao.getRandomProducts(8);
+            }
+            
+            request.setAttribute("recentlyViewedProducts", recentlyViewedProducts);
+        }
+        
         request.getRequestDispatcher("WEB-INF/jsp/Haichan/productDetail.jsp").forward(request, response);
     }
 

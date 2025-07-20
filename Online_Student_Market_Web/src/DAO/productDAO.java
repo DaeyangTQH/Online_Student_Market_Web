@@ -4,12 +4,12 @@
  */
 package DAO;
 
+import Model.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Product;
 
 /**
  *
@@ -155,13 +155,119 @@ public class productDAO extends DBcontext {
         return 0.0;
     }
 
+    // Lấy sản phẩm cùng category (trừ sản phẩm hiện tại)
+    public List<Product> getRelatedProductsByCategory(int categoryID, int currentProductID, int limit) {
+        List<Product> productList = new ArrayList<>();
+        String sql = "SELECT p.*, c.category_name FROM Product p "
+                + "JOIN Category c ON p.category_id = c.category_id "
+                + "WHERE p.category_id = ? AND p.product_id != ? "
+                + "ORDER BY p.created_at DESC "
+                + "OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryID);
+            ps.setInt(2, currentProductID);
+            ps.setInt(3, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                productList.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    // Lấy sản phẩm đã xem gần đây (dựa trên danh sách product IDs)
+    public List<Product> getRecentlyViewedProducts(List<Integer> productIDs, int limit) {
+        List<Product> productList = new ArrayList<>();
+        if (productIDs == null || productIDs.isEmpty()) {
+            return productList;
+        }
+        
+        StringBuilder sql = new StringBuilder("SELECT p.*, c.category_name FROM Product p "
+                + "JOIN Category c ON p.category_id = c.category_id "
+                + "WHERE p.product_id IN (");
+        
+        for (int i = 0; i < productIDs.size(); i++) {
+            if (i > 0) sql.append(",");
+            sql.append("?");
+        }
+        sql.append(") ORDER BY CASE ");
+        
+        for (int i = 0; i < productIDs.size(); i++) {
+            sql.append("WHEN p.product_id = ? THEN ").append(i);
+            if (i < productIDs.size() - 1) sql.append(" ");
+        }
+        sql.append(" END ");
+        sql.append("OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY");
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            
+            // Set product IDs for IN clause
+            for (Integer productID : productIDs) {
+                ps.setInt(paramIndex++, productID);
+            }
+            
+            // Set product IDs for ORDER BY CASE
+            for (Integer productID : productIDs) {
+                ps.setInt(paramIndex++, productID);
+            }
+            
+            // Set limit
+            ps.setInt(paramIndex, limit);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                productList.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    // Lấy sản phẩm ngẫu nhiên (để hiển thị khi không có sản phẩm đã xem)
+    public List<Product> getRandomProducts(int limit) {
+        List<Product> productList = new ArrayList<>();
+        String sql = "SELECT p.*, c.category_name FROM Product p "
+                + "JOIN Category c ON p.category_id = c.category_id "
+                + "ORDER BY NEWID() "
+                + "OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                productList.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
     public static void main(String[] args) {
         productDAO dao = new productDAO();
-        List<Product> list = new ArrayList<>();
-        Holder<String> catName = new Holder<>();
-        list = dao.findProduct(1, null, null, null, 15, 0, catName);
         
-        double min = dao.getMinPrice(1);
-        System.out.println(min);
+        // Test related products
+        List<Product> relatedProducts = dao.getRelatedProductsByCategory(1, 1, 4);
+        System.out.println("Related products count: " + relatedProducts.size());
+        
+        // Test recently viewed products
+        List<Integer> recentlyViewed = new ArrayList<>();
+        recentlyViewed.add(2);
+        recentlyViewed.add(3);
+        recentlyViewed.add(4);
+        List<Product> recentlyViewedProducts = dao.getRecentlyViewedProducts(recentlyViewed, 4);
+        System.out.println("Recently viewed products count: " + recentlyViewedProducts.size());
+        
+        // Test random products
+        List<Product> randomProducts = dao.getRandomProducts(4);
+        System.out.println("Random products count: " + randomProducts.size());
     }
 }
