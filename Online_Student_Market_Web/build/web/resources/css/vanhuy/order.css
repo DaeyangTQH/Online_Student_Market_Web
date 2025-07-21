@@ -6,4 +6,72 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Jun 10, 2025, 2:23:13 PM
     Author     : Van Huy
 */
+/* ====== Bộ khung chung ====== */
+.order-management .om-title {
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
 
+.order-management .nav-tabs {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.order-management .nav-tabs .nav-link {
+  border: none;
+  font-weight: 600;
+  color: #7a7a7a;
+}
+
+.order-management .nav-tabs .nav-link.active {
+  color: #000;
+  border-bottom: 3px solid #000;
+}
+
+/* ====== Card hiển thị đơn ====== */
+.order-card {
+  background: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.order-card .order-thumb {
+  width: 200px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ====== Danh sách gọn (đơn đang giao / đã giao) ====== */
+.order-list {
+  max-width: 380px;
+}
+
+.order-list-item {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.order-list-item img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.order-list-item p {
+  line-height: 1.25rem;
+}
+
+/* Nút mặc định */
+.btn-outline-dark.btn-sm {
+  padding: 0.25rem 1.25rem;
+  border-radius: 20px;
+}

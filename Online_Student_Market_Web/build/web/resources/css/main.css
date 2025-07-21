@@ -95,7 +95,7 @@ nav > a.active::after {
   width: 80%;
 }
 
-.login-btn {
+.login-btn, .signup-btn {
   padding: 8px 16px;
   background: #f6eee7;
   border-radius: 20px;

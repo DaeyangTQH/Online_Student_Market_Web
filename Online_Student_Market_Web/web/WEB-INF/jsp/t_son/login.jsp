@@ -26,26 +26,12 @@
                 />
         </head>
         <body>
-            <header>
-                <div class="navbar">
-                    <div class="logo">SVMarket</div>
-                    <nav>
-                        <a href="${pageContext.request.contextPath}/home">Home</a>
-                        <a href="${pageContext.request.contextPath}/category">Categories</a>
-                        <a href="#">Sell</a>
-                        <a href="${pageContext.request.contextPath}/signup" class="signup-btn"
-                           >Sign up</a
-                        >
-                    </nav>
-                </div>
-            </header>
+            <!-- Header -->
+            <c:import url="/WEB-INF/jsp/common/header.jsp"/>
+            <!-- End header -->
 
             <main class="login-container">
                 <h1>Welcome back</h1>
-                <c:if test="${not empty sessionScope.message}">
-                    <div class="alert alert-warning text-center">${sessionScope.message}</div>
-                    <c:remove var="message" scope="session"/>
-                </c:if>
 
                 <!-- Hiển thị thông báo lỗi nếu có -->
                 <c:if test="${not empty errorMessage}">
@@ -83,19 +69,6 @@
                 </form>
             </main>
 
-            <footer>
-                <div class="footer-links">
-                    <a href="#">About SVMarket</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Contact Us</a>
-                </div>
-                <div class="social-icons">
-                    <i class="fa fa-facebook"></i>
-                    <i class="fa fa-twitter"></i>
-                    <i class="fa fa-instagram"></i>
-                </div>
-                <p>© 2024 SVMarket. All rights reserved.</p>
-            </footer>
+            <c:import url="/WEB-INF/jsp/common/footer.jsp" />
         </body>
     </html>

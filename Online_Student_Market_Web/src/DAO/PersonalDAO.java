@@ -51,7 +51,7 @@ public class PersonalDAO extends DBcontext {
 
     public static void main(String[] args) {
         PersonalDAO person = new PersonalDAO();
-        int userId = 1;  // Test với user_id = 1
+        int userId = 1; // Test với user_id = 1
 
         List<UserOrderItem> items = person.getOrderItemsByUserId(userId);
 
