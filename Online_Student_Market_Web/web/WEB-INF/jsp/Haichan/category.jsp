@@ -27,7 +27,7 @@
         <!-- content -->
         <main>
             <div class="container py-5">
-                <h2 class="fw-bold mb-4">Categories</h2>
+                <h2 class="fw-bold mb-4">Danh mục</h2>
 
                 <div class="row g-4">
                     <c:forEach items="${category}" var="c">

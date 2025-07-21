@@ -89,6 +89,58 @@ public class UserDAO extends DBcontext {
         }
     }
 
+    // Lấy danh sách tất cả user (bao gồm cả trạng thái banned)
+    public java.util.List<User> getAllUsers() {
+        java.util.List<User> list = new java.util.ArrayList<>();
+        String sql = "SELECT *, CASE WHEN role = 'banned' THEN 1 ELSE 0 END AS banned FROM [User]";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUser_id(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword_hash(rs.getString("password_hash"));
+                user.setFull_name(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone_number(rs.getString("phone_number"));
+                user.setRole(rs.getString("role"));
+                user.setCreated_at(rs.getDate("created_at"));
+                user.setUpdated_at(rs.getDate("updated_at"));
+                // custom field for JSP
+                user.setBanned(rs.getInt("banned") == 1);
+                list.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // Ban user bằng cách set role = 'banned'
+    public void banUser(int userId) {
+        String sql = "UPDATE [User] SET role = 'banned', updated_at = GETDATE() WHERE user_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Unban user bằng cách set role = 'user'
+    public void unbanUser(int userId) {
+        String sql = "UPDATE [User] SET role = 'user', updated_at = GETDATE() WHERE user_id = ? AND role = 'banned'";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         UserDAO check = new UserDAO();
 

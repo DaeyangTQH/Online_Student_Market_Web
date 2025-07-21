@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import DAO.UserDAO;
@@ -33,11 +32,11 @@ public class LoginServlet extends HttpServlet {
     // + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
-     * 
-     * @param request  servlet request
+     *
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,11 +46,11 @@ public class LoginServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     * 
-     * @param request  servlet request
+     *
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -69,8 +68,13 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user);
             session.setAttribute("isLoggedIn", true);
 
-            // Redirect to home page
-            response.sendRedirect(request.getContextPath() + "/home");
+            // Redirect theo role
+            if ("admin".equalsIgnoreCase(user.getRole())) {
+                request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/Admin.jsp")
+                        .forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
         } else {
             // Đăng nhập thất bại
             request.setAttribute("errorMessage", "Sai tài khoản hoặc mật khẩu.");
@@ -81,7 +85,7 @@ public class LoginServlet extends HttpServlet {
 
     /**
      * Returns a short description of the servlet.
-     * 
+     *
      * @return a String containing servlet description
      */
     @Override
