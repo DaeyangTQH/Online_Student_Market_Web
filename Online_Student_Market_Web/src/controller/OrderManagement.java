@@ -56,6 +56,7 @@ public class OrderManagement extends HttpServlet {
                .forward(request, response);
     }
 
+
     // ---------------------------------------------------------------------
     // Helpers
     // ---------------------------------------------------------------------
@@ -63,6 +64,11 @@ public class OrderManagement extends HttpServlet {
      * Creates an order for the current user immediately ("Buy Now").
      */
     private void handleBuyNow(HttpServletRequest request, HttpSession session) {
+
+        // Xử lý Buy Now
+        String productIdRaw = request.getParameter("productId");
+        String quantityRaw = request.getParameter("quantity");
+
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return; // Not logged in – nothing to do.
@@ -80,6 +86,7 @@ public class OrderManagement extends HttpServlet {
             ex.printStackTrace(); // TODO: replace with proper logging
         }
     }
+
 
     /**
      * Prepares data for the checkout confirmation page.
@@ -106,4 +113,5 @@ public class OrderManagement extends HttpServlet {
     public String getServletInfo() {
         return "Handles order management actions such as checkout and Buy Now.";
     }
+
 }
