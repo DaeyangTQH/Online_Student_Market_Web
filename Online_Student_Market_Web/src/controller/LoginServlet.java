@@ -1,22 +1,25 @@
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+
 package controller;
 
-import DAO.CartDAO;
-import DAO.CartItemDAO;
 import DAO.UserDAO;
-import DAO.productDAO;
-import DAO.Holder;
-import Model.Cart;
 import Model.User;
-import Model.Product;
-import Model.Cart_Item;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
+/**
+ *
+ * @author admin
+ */
 public class LoginServlet extends HttpServlet {
 
     private UserDAO userDAO;
@@ -26,69 +29,64 @@ public class LoginServlet extends HttpServlet {
         userDAO = new UserDAO();
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     * 
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/jsp/t_son/login.jsp").forward(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     * 
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        // Validate user with database
         User user = userDAO.validateUser(username, password);
 
         if (user != null) {
+            // Đăng nhập thành công
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("isLoggedIn", true);
-            // 👉 Tạo hoặc lấy cart từ DB
-            CartDAO cartDAO = new CartDAO();
-            Cart cart = cartDAO.getCartByUserId(user.getUser_id());
-            if (cart == null) {
-                cart = cartDAO.createCartForUser(user.getUser_id());
-            }
 
-            // 👉 Lưu cart vào session nếu cần dùng tiếp
-            session.setAttribute("userCart", cart);
-
-            // 👉 Thêm sản phẩm chờ xử lý vào DB nếu có
-            String pendingPid = (String) session.getAttribute("pendingProductId");
-            String pendingQty = (String) session.getAttribute("pendingQuantity");
-            Boolean backToCart = (Boolean) session.getAttribute("redirectBackToCart");
-
-            if (backToCart != null && backToCart && pendingPid != null) {
-                try {
-                    int productId = Integer.parseInt(pendingPid);
-                    int quantity = Integer.parseInt(pendingQty);
-
-                    CartItemDAO cartItemDAO = new CartItemDAO();
-                    cartItemDAO.addOrUpdateCartItem(cart.getCart_id(), productId, quantity);
-
-                } catch (NumberFormatException e) {
-                    // ignore
-                }
-
-                session.removeAttribute("pendingProductId");
-                session.removeAttribute("pendingQuantity");
-                session.removeAttribute("redirectBackToCart");
-
-                response.sendRedirect(request.getContextPath() + "/cart");
-                return;
-            }
-
+            // Redirect to home page
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
+            // Đăng nhập thất bại
             request.setAttribute("errorMessage", "Sai tài khoản hoặc mật khẩu.");
-            request.getRequestDispatcher("/WEB-INF/jsp/t_son/login.jsp").forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/t_son/login.jsp");
+            rd.forward(request, response);
         }
     }
 
+    /**
+     * Returns a short description of the servlet.
+     * 
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Login Servlet for SVMarket";
-    }
+    }// </editor-fold>
+
 }

@@ -15,7 +15,8 @@ public class UserOrderItem {
     public UserOrderItem() {
     }
 
-    public UserOrderItem(int id, Date orderDate, String productName, String productImage, int quantity, double unitPrice, double totalPrice) {
+    public UserOrderItem(int id, Date orderDate, String productName, String productImage, int quantity,
+            double unitPrice, double totalPrice) {
         this.id = id;
         this.orderDate = orderDate;
         this.productName = productName;

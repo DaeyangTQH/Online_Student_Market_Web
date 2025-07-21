@@ -60,6 +60,35 @@ public class UserDAO extends DBcontext {
         return null;
     }
 
+    public boolean checkUserExists(String username, String email) {
+        String sql = "SELECT 1 FROM [User] WHERE username = ? OR email = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, email);
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // có bản ghi nào trùng thì true
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void insertUser(User user) {
+        String sql = "INSERT INTO [User] (username, email, password_hash, full_name, phone_number, role, created_at, updated_at) "
+                + "VALUES (?, ?, ?, NULL, NULL, ?, GETDATE(), GETDATE())";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword_hash());
+            ps.setString(4, user.getRole());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         UserDAO check = new UserDAO();
 

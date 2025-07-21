@@ -61,7 +61,8 @@ public class CartServlet extends HttpServlet {
         try {
             int productId = Integer.parseInt(pid_raw);
             int quantity = Integer.parseInt(quantity_raw);
-            if (quantity < 1) quantity = 1;
+            if (quantity < 1)
+                quantity = 1;
 
             Product product = productDao.getProductByID(productId, new Holder<>());
             if (product == null) {
@@ -77,10 +78,8 @@ public class CartServlet extends HttpServlet {
                 cart = cartDAO.createCartForUser(user.getUser_id());
             }
 
-            // 💥 CẦN lưu cartId vào session để lần sau GET sẽ lấy đúng
             session.setAttribute("cartId", cart.getCart_id());
 
-            // thêm hoặc cập nhật sản phẩm
             cartItemDAO.addOrUpdateCartItem(cart.getCart_id(), productId, quantity);
 
         } catch (NumberFormatException e) {
