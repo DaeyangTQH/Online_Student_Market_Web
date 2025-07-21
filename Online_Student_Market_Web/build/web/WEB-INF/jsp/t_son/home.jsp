@@ -3,6 +3,8 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
+  <head>
+
 <head>
 
     <meta charset="UTF-8" />
@@ -109,7 +111,6 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Footer -->
     <c:import url="/WEB-INF/jsp/common/footer.jsp" />
   </body>
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tson/home.css" />
 </head>
@@ -191,5 +192,4 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Footer -->
 <c:import url="/WEB-INF/jsp/common/footer.jsp"/>
 </body>
-
 </html>
