@@ -8,61 +8,77 @@
 body {
   font-family: "Arial", sans-serif;
   background-color: #f4f4f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-.container {
+.signup-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
+  margin: 50px auto;
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
   text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+  color: #333;
+  font-weight: 600;
+}
+
+.signup-form {
   margin-bottom: 20px;
-  font-size: 28px;
+}
+
+.signup-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
   color: #333;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"] {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
+.signup-form input:focus {
+  outline: none;
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.1);
 }
 
 input[type="checkbox"] {
   margin-right: 8px;
 }
 
-button[type="submit"] {
+.signup-btn {
   width: 100%;
-  padding: 12px;
-  background-color: #007bff;
+  padding: 14px;
+  background-color: #ff6b35;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   color: white;
   font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 20px 0;
+  transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-  background-color: #0056b3;
+.signup-btn:hover {
+  background-color: #e55a2b;
 }
 
 .social-login-buttons {
@@ -95,17 +111,25 @@ button[type="submit"]:hover {
   color: white;
 }
 
-.forgot-password {
+.login-link {
   text-align: center;
   margin-top: 20px;
 }
 
-.forgot-password a {
-  color: #007bff;
-  text-decoration: none;
+.login-link p {
+  color: #666;
+  margin: 0;
 }
 
-.forgot-password a:hover {
+.login-link a {
+  color: #ff6b35;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  color: #e55a2b;
   text-decoration: underline;
 }
 

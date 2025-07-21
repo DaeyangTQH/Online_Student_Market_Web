@@ -34,7 +34,17 @@
                         <a href="${pageContext.request.contextPath}/logout" class="login-btn">Đăng xuất</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="${pageContext.request.contextPath}/login" class="login-btn">Đăng nhập</a>
+                        <c:choose>
+                            <c:when test="${pageContext.request.servletPath == '/WEB-INF/jsp/t_son/login.jsp'}">
+                                <a href="${pageContext.request.contextPath}/signup" class="signup-btn">Đăng ký</a>
+                            </c:when>
+                            <c:when test="${pageContext.request.servletPath == '/WEB-INF/jsp/t_son/signup.jsp'}">
+                                <a href="${pageContext.request.contextPath}/login" class="login-btn">Đăng nhập</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${pageContext.request.contextPath}/login" class="login-btn">Đăng nhập</a>
+                            </c:otherwise>
+                        </c:choose>
                     </c:otherwise>
                 </c:choose>
             </nav>

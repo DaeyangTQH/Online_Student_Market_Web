@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import DAO.Holder;
 
 /**
  *
@@ -257,6 +258,29 @@ public class productDAO extends DBcontext {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                productList.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    // Lấy sản phẩm theo category với limit
+    public List<Product> getProductsByCategory(int categoryID, int limit) {
+        List<Product> productList = new ArrayList<>();
+        String sql = "SELECT p.*, c.category_name FROM Product p "
+                + "JOIN Category c ON p.category_id = c.category_id "
+                + "WHERE p.category_id = ? "
+                + "ORDER BY p.created_at DESC "
+                + "OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryID);
+            ps.setInt(2, limit);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 productList.add(mapRow(rs));

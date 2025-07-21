@@ -125,11 +125,9 @@ public class OrderManagement extends HttpServlet {
 
         // Chuyển tiếp tới trang quản lý đơn hàng
 
-    throws ServletException, IOException {
         // Xử lý Buy Now
         String productIdRaw = request.getParameter("productId");
         String quantityRaw = request.getParameter("quantity");
-        HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if (productIdRaw != null && quantityRaw != null && user != null) {
             try {
@@ -152,14 +150,5 @@ public class OrderManagement extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/ordermanagement.jsp").forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     * 
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
