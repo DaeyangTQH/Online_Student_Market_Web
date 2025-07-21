@@ -56,7 +56,10 @@
         <servlet-name>InfoUser</servlet-name>
         <servlet-class>controller.InfoUser</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>SearchServlet</servlet-name>
+        <servlet-class>controller.SearchServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -105,7 +108,10 @@
         <servlet-name>InfoUser</servlet-name>
         <url-pattern>/infouser</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>SearchServlet</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

@@ -4,10 +4,10 @@
  */
 package DAO;
 
-import Model.Product;
+import models.Product;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import Model.Order;
+import models.Order;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.math.BigDecimal;

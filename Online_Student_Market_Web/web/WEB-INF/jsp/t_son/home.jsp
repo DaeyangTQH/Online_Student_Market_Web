@@ -34,7 +34,7 @@
             <main class="home-container">
                 <!-- Tìm kiếm -->
                 <div class="search-container">
-                    <form action="search.jsp" method="GET">
+                    <form action="search" method="GET">
                         <input type="text" name="query" placeholder="Tìm kiếm sản phẩm..." />
                         <button type="submit" class="search-btn">Tìm</button>
                     </form>

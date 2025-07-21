@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.Cart;
+import models.Cart;
 
 /**
  *

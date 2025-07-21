@@ -6,7 +6,7 @@ package DAO;
 
 import java.util.ArrayList;
 import java.util.List;
-import Model.Category;
+import models.Category;
 import java.sql.*;
 
 /**
