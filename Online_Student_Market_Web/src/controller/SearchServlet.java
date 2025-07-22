@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import DAO.productDAO;
-import models.Product;
+import Model.Product;
 import java.util.List;
 
 /**

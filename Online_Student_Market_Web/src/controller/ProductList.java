@@ -2,7 +2,7 @@ package controller;
 
 import DAO.Holder;
 import DAO.productDAO;
-import models.Product;
+import Model.Product;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;

@@ -6,7 +6,7 @@
 package controller;
 
 import DAO.UserDAO;
-import models.User;
+import Model.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

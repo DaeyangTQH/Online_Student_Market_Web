@@ -1,6 +1,6 @@
 package DAO;
 
-import models.UserOrderItem;
+import Model.UserOrderItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Category;
+import Model.Category;
 import java.sql.*;
 
 

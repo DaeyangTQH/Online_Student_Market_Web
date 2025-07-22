@@ -1,6 +1,6 @@
 package DAO;
 
-import models.User;
+import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -108,7 +108,6 @@ public class UserDAO extends DBcontext {
                 user.setCreated_at(rs.getDate("created_at"));
                 user.setUpdated_at(rs.getDate("updated_at"));
                 // custom field for JSP
-                user.setBanned(rs.getInt("banned") == 1);
                 list.add(user);
             }
         } catch (SQLException e) {
