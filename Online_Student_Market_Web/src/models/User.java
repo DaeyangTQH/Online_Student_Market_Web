@@ -11,6 +11,7 @@ public class User {
     private String role;
     private java.sql.Date created_at;
     private java.sql.Date updated_at;
+    private boolean banned;
 
     public User() {
     }
@@ -98,5 +99,12 @@ public class User {
 
     public void setUpdated_at(java.sql.Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+    public void setBanned(boolean banned) {
+        this.banned = banned;
     }
 }

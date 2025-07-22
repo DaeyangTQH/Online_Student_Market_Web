@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import DAO.Holder;
 
 /**
  *
@@ -317,6 +316,7 @@ public class productDAO extends DBcontext {
         return list;
     }
 
+
     public List<Product> searchByTitle(String keyword) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM Product WHERE product_name LIKE ?";
@@ -331,6 +331,53 @@ public class productDAO extends DBcontext {
             e.printStackTrace();
         }
         return list;
+
+    // Thêm mới một sản phẩm
+    public void addProduct(int category_id, String product_name, String description, java.math.BigDecimal price, int stock_quantity, String image_url) {
+        String sql = "INSERT INTO Product (category_id, product_name, description, price, stock_quantity, image_url, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, GETDATE(), GETDATE())";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, category_id);
+            ps.setString(2, product_name);
+            ps.setString(3, description);
+            ps.setBigDecimal(4, price);
+            ps.setInt(5, stock_quantity);
+            ps.setString(6, image_url);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Sửa thông tin một sản phẩm
+    public void updateProduct(int product_id, int category_id, String product_name, String description, java.math.BigDecimal price, int stock_quantity, String image_url) {
+        String sql = "UPDATE Product SET category_id = ?, product_name = ?, description = ?, price = ?, stock_quantity = ?, image_url = ?, updated_at = GETDATE() WHERE product_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, category_id);
+            ps.setString(2, product_name);
+            ps.setString(3, description);
+            ps.setBigDecimal(4, price);
+            ps.setInt(5, stock_quantity);
+            ps.setString(6, image_url);
+            ps.setInt(7, product_id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Xóa một sản phẩm
+    public void deleteProduct(int product_id) {
+        String sql = "DELETE FROM Product WHERE product_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, product_id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {
