@@ -6,8 +6,8 @@ package controller;
 
 import DAO.categoryDAO;
 import DAO.productDAO;
-import Model.Category;
-import Model.Product;
+import models.Category;
+import models.Product;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;

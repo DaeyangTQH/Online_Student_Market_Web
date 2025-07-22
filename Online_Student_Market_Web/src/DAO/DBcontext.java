@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class DBcontext {
 
-    protected static Connection connection;
+protected static Connection connection;
 
     public DBcontext() {
         try {

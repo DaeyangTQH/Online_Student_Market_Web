@@ -4,10 +4,10 @@ import DAO.CartDAO;
 import DAO.CartItemDAO;
 import DAO.Holder;
 import DAO.productDAO;
-import Model.Cart;
-import Model.Cart_Item;
-import Model.Product;
-import Model.User;
+import models.Cart;
+import models.Cart_Item;
+import models.Product;
+import models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;

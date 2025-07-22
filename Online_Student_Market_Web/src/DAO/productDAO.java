@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.Product;
+import models.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -316,6 +316,22 @@ public class productDAO extends DBcontext {
         return list;
     }
 
+
+    public List<Product> searchByTitle(String keyword) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Product WHERE product_name LIKE ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+
     // Thêm mới một sản phẩm
     public void addProduct(int category_id, String product_name, String description, java.math.BigDecimal price, int stock_quantity, String image_url) {
         String sql = "INSERT INTO Product (category_id, product_name, description, price, stock_quantity, image_url, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, GETDATE(), GETDATE())";
@@ -361,6 +377,7 @@ public class productDAO extends DBcontext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void main(String[] args) {
