@@ -66,13 +66,14 @@
                         <div class="d-flex flex-row align-items-center gap-2 mt-4">
                             <form action="${pageContext.request.contextPath}/cart?pid=${product.product_id}" method="post" class="d-flex flex-row align-items-center gap-2 m-0 p-0">
                                 <input type="hidden" name="productId" value="${product.product_id}">
-                                <input type="number" name="quantity" class="form-control quantity-input" value="1" min="1" max="${product.stock_quantity}" style="max-width: 100px;">
+                                <input type="number" name="quantity" id="quantityInput" class="form-control quantity-input" value="1" min="1" max="${product.stock_quantity}" style="max-width: 100px;">
                                 <button type="submit" class="btn btn-primary btn-add-to-cart">Add to Cart</button>
                             </form>
                             <form action="${pageContext.request.contextPath}/personalinformation" method="post" class="m-0 p-0">
                                 <input type="hidden" name="productId" value="${product.product_id}">
-                                <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="btn btn-success">Buy Now</button>
+                                <input type="hidden" name="quantity" id="buyNowQuantity" value="1">
+                                <input type="hidden" name="action" value="Buy Now">
+                                <button type="submit" class="btn btn-success" onclick="syncQuantity()">Buy Now</button>
                             </form>
                             <c:if test="${sessionScope.user != null && sessionScope.user.role == 'ADMIN'}">
                                 <a href="${pageContext.request.contextPath}/editlisting?pid=${product.product_id}" class="btn btn-warning">Chỉnh sửa</a>
@@ -147,6 +148,12 @@
         <!--Footer styles-->
         
         <script>
+            function syncQuantity() {
+                const quantityInput = document.getElementById('quantityInput');
+                const buyNowQuantity = document.getElementById('buyNowQuantity');
+                buyNowQuantity.value = quantityInput.value;
+            }
+            
             function scrollProducts(sliderType, direction) {
                 const slider = document.getElementById(sliderType + '-slider');
                 const cardWidth = 280; // Width of each product card + margin

@@ -39,7 +39,7 @@
             <h2 class="mb-4">Thông tin cá nhân</h2>
 
             <!-- DEBUG INFO -->
-            <div class="alert alert-warning">
+<!--            <div class="alert alert-warning">
               <strong>DEBUG INFO (personalInformation.jsp):</strong><br />
               - User: ${not empty sessionScope.user ? sessionScope.user.username
               : 'NO USER'}<br />
@@ -47,7 +47,7 @@
               'NO CART'}<br />
               - Form will POST to:
               ${pageContext.request.contextPath}/ordermanagement
-            </div>
+            </div>-->
 
             <!-- Hiển thị thông báo lỗi -->
             <c:if test="${not empty requestScope.errorMessage}">
@@ -148,7 +148,8 @@
                 <input
                   type="submit"
                   class="save-btn"
-                  value="Lưu thay đổi và đặt hàng"
+                  name="action"
+                  value="Checkout"
                 />
               </div>
             </form>
