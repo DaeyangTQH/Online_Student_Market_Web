@@ -30,7 +30,7 @@ public class OrderManagement extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/ordermanagement.jsp")
-               .forward(request, response);
+                .forward(request, response);
     }
 
     // ---------------------------------------------------------------------
@@ -44,18 +44,29 @@ public class OrderManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = request.getSession(true);
+
+        // Get action from form submission (from personalInformation.jsp)
         String action = request.getParameter("action");
 
-        if ("buyNow".equals(action)) {
+        if (action == null) {
+            // Get action from session (stored by PersonalInformation servlet)
+            action = (String) session.getAttribute("checkoutAction");
+        }
+
+        if ("Buy Now".equals(action)) {
             handleBuyNow(request, session);
-        } else if ("checkout".equals(action)) {
+        } else if ("Checkout".equals(action)) {
             handleCheckout(request, session);
         }
 
-        request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/ordermanagement.jsp")
-               .forward(request, response);
-    }
+        // Clear temporary session data
+        session.removeAttribute("checkoutAction");
+        session.removeAttribute("buyNowProductId");
+        session.removeAttribute("buyNowQuantity");
 
+        request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/ordermanagement.jsp")
+                .forward(request, response);
+    }
 
     // ---------------------------------------------------------------------
     // Helpers
@@ -64,29 +75,42 @@ public class OrderManagement extends HttpServlet {
      * Creates an order for the current user immediately ("Buy Now").
      */
     private void handleBuyNow(HttpServletRequest request, HttpSession session) {
-
-        // Xử lý Buy Now
-        String productIdRaw = request.getParameter("productId");
-        String quantityRaw = request.getParameter("quantity");
-
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return; // Not logged in – nothing to do.
         }
 
         try {
-            int productId = Integer.parseInt(request.getParameter("productId"));
-            int quantity = Math.max(1, Integer.parseInt(request.getParameter("quantity")));
+            // Get product info from session (stored by PersonalInformation servlet)
+            String productIdRaw = (String) session.getAttribute("buyNowProductId");
+            String quantityRaw = (String) session.getAttribute("buyNowQuantity");
+
+            if (productIdRaw == null || quantityRaw == null) {
+                // Fallback: try to get from request parameters
+                productIdRaw = request.getParameter("productId");
+                quantityRaw = request.getParameter("quantity");
+            }
+
+            if (productIdRaw == null || quantityRaw == null) {
+                return; // No product info available
+            }
+
+            int productId = Integer.parseInt(productIdRaw);
+            int quantity = Math.max(1, Integer.parseInt(quantityRaw));
 
             Product product = productDao.getProductByID(productId, new Holder<>());
             if (product != null) {
                 new CreateDAO().createOrderForBuyNow(user.getUser_id(), product, quantity);
+
+                // Store product info for display
+                request.setAttribute("orderProduct", product);
+                request.setAttribute("orderQuantity", quantity);
+                request.setAttribute("orderType", "buyNow");
             }
         } catch (NumberFormatException ex) {
             ex.printStackTrace(); // TODO: replace with proper logging
         }
     }
-
 
     /**
      * Prepares data for the checkout confirmation page.
@@ -100,8 +124,22 @@ public class OrderManagement extends HttpServlet {
         CartItemDAO cartItemDAO = new CartItemDAO();
         List<Cart_Item> cartItems = cartItemDAO.getCart_ItemsByCartId(cartId);
         request.setAttribute("cartItems", cartItems);
+        request.setAttribute("orderType", "checkout");
 
-        // Echo form fields back to the page in case of validation errors.
+        // Process the actual checkout (create order from cart)
+        User user = (User) session.getAttribute("user");
+        if (user != null && !cartItems.isEmpty()) {
+            try {
+                new CreateDAO().createOrderFromCart(user.getUser_id(), cartItems);
+
+                // Clear cart after successful order
+                cartItemDAO.clearCart(cartId);
+            } catch (Exception ex) {
+                ex.printStackTrace(); // TODO: replace with proper logging
+            }
+        }
+
+        // Echo form fields back to the page for display
         request.setAttribute("fullName", request.getParameter("fullName"));
         request.setAttribute("phoneNumber", request.getParameter("phoneNumber"));
         request.setAttribute("email", request.getParameter("email"));

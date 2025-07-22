@@ -71,7 +71,8 @@
                             </form>
                             <form action="${pageContext.request.contextPath}/personalinformation" method="post" class="m-0 p-0">
                                 <input type="hidden" name="productId" value="${product.product_id}">
-                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="quantity" id="buyNowQuantity" value="1">
+                                <input type="hidden" name="action" value="Buy Now">
                                 <button type="submit" class="btn btn-success">Buy Now</button>
                             </form>
                             <c:if test="${sessionScope.user != null && sessionScope.user.role == 'ADMIN'}">
@@ -147,6 +148,28 @@
         <!--Footer styles-->
         
         <script>
+            // Đồng bộ quantity cho Buy Now
+            function syncQuantityForBuyNow() {
+                const quantityInput = document.querySelector('input[name="quantity"]:not([id="buyNowQuantity"])');
+                const buyNowQuantityInput = document.getElementById('buyNowQuantity');
+                
+                if (quantityInput && buyNowQuantityInput) {
+                    buyNowQuantityInput.value = quantityInput.value;
+                }
+            }
+            
+            // Lắng nghe thay đổi quantity
+            document.addEventListener('DOMContentLoaded', function() {
+                const quantityInput = document.querySelector('input[name="quantity"]:not([id="buyNowQuantity"])');
+                if (quantityInput) {
+                    quantityInput.addEventListener('change', syncQuantityForBuyNow);
+                    quantityInput.addEventListener('input', syncQuantityForBuyNow);
+                }
+                
+                // Đồng bộ lần đầu
+                syncQuantityForBuyNow();
+            });
+
             function scrollProducts(sliderType, direction) {
                 const slider = document.getElementById(sliderType + '-slider');
                 const cardWidth = 280; // Width of each product card + margin

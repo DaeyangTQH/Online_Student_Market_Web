@@ -77,12 +77,29 @@ public class PersonalInformation extends HttpServlet {
         User user = (User) session.getAttribute("user");
         
         if (user == null) {
-            session.setAttribute("message", "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
-            session.setAttribute("redirectBackToCart", true);
+            session.setAttribute("message", "Vui lòng đăng nhập để thực hiện giao dịch.");
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
         
+        // Lưu thông tin giao dịch vào session
+        String action = request.getParameter("action");
+        String productId = request.getParameter("productId");
+        String quantity = request.getParameter("quantity");
+        String from = request.getParameter("from");
+        
+        session.setAttribute("checkoutAction", action);
+        
+        if ("Buy Now".equals(action) && productId != null && quantity != null) {
+            // Buy Now flow
+            session.setAttribute("buyNowProductId", productId);
+            session.setAttribute("buyNowQuantity", quantity);
+        } else if ("Checkout".equals(action) && "cart".equals(from)) {
+            // Checkout from cart flow
+            // cartId should already be in session from CartServlet
+        }
+        
+        // Forward to form page
         doGet(request, response);
     }
 

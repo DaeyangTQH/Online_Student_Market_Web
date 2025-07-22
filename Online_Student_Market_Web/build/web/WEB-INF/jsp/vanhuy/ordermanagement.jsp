@@ -1,5 +1,6 @@
 <%-- Document : ordermanagement Created on : Jun 9, 2025, 10:34:14 PM Author :
 Van Huy --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -39,17 +40,57 @@ Van Huy --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
           <!-- Hiển thị thông tin đơn hàng được gửi từ OrderManagement.doPost -->
           <c:if test="${not empty fullName}">
-            <div class="alert alert-info mt-3">
-              <h5 class="mb-2">Thông tin đơn hàng</h5>
-              <p class="mb-1"><strong>Họ tên:</strong> ${fullName}</p>
-              <p class="mb-1"><strong>Số điện thoại:</strong> ${phoneNumber}</p>
-              <p class="mb-1"><strong>Email:</strong> ${email}</p>
-              <p class="mb-1">
-                <strong>Địa chỉ giao hàng:</strong> ${shippingAddress}
-              </p>
-              <p class="mb-0">
-                <strong>Phương thức thanh toán:</strong> ${paymentMethod}
-              </p>
+            <div class="alert alert-success mt-3">
+              <h5 class="mb-3">
+                <i class="bi bi-check-circle-fill"></i> 
+                Đặt hàng thành công!
+              </h5>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <h6 class="mb-2">Thông tin giao hàng</h6>
+                  <p class="mb-1"><strong>Họ tên:</strong> ${fullName}</p>
+                  <p class="mb-1"><strong>Số điện thoại:</strong> ${phoneNumber}</p>
+                  <p class="mb-1"><strong>Email:</strong> ${email}</p>
+                  <p class="mb-1"><strong>Địa chỉ giao hàng:</strong> ${shippingAddress}</p>
+                  <p class="mb-0"><strong>Phương thức thanh toán:</strong> ${paymentMethod}</p>
+                </div>
+                <div class="col-md-6">
+                  <h6 class="mb-2">Chi tiết đơn hàng</h6>
+                  
+                  <!-- Buy Now Order -->
+                  <c:if test="${orderType == 'buyNow' && not empty orderProduct}">
+                    <div class="order-item d-flex align-items-center mb-2">
+                      <img src="${orderProduct.image_url}" alt="${orderProduct.product_name}" 
+                           class="me-3" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                      <div>
+                        <p class="mb-0 fw-semibold">${orderProduct.product_name}</p>
+                        <p class="mb-0 text-muted small">Số lượng: ${orderQuantity}</p>
+                        <p class="mb-0 text-primary fw-bold">
+                          <fmt:formatNumber value="${orderProduct.price * orderQuantity}" type="number" pattern="#,##0"/> ₫
+                        </p>
+                      </div>
+                    </div>
+                  </c:if>
+                  
+                  <!-- Checkout Order -->
+                  <c:if test="${orderType == 'checkout' && not empty cartItems}">
+                    <c:forEach var="item" items="${cartItems}">
+                      <div class="order-item d-flex align-items-center mb-2">
+                        <img src="${item.product.image_url}" alt="${item.product.product_name}" 
+                             class="me-3" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                        <div>
+                          <p class="mb-0 fw-semibold">${item.product.product_name}</p>
+                          <p class="mb-0 text-muted small">Số lượng: ${item.quantity}</p>
+                          <p class="mb-0 text-primary fw-bold">
+                            <fmt:formatNumber value="${item.product.price * item.quantity}" type="number" pattern="#,##0"/> ₫
+                          </p>
+                        </div>
+                      </div>
+                    </c:forEach>
+                  </c:if>
+                </div>
+              </div>
             </div>
           </c:if>
 

@@ -106,4 +106,50 @@ public class CreateDAO extends DBcontext {
             e.printStackTrace();
         }
     }
+    
+    public void createOrderFromCart(int userId, java.util.List<Model.Cart_Item> cartItems) {
+        try {
+            // 1. Tính tổng tiền
+            java.math.BigDecimal total = java.math.BigDecimal.ZERO;
+            for (Model.Cart_Item item : cartItems) {
+                java.math.BigDecimal itemTotal = item.getProduct().getPrice().multiply(new java.math.BigDecimal(item.getQuantity()));
+                total = total.add(itemTotal);
+            }
+            
+            // 2. Tạo đơn hàng mới
+            String insertOrder = "INSERT INTO [Order] (user_id, total_amount, payment_method, order_date, status, shipping_address, created_at) VALUES (?, ?, N'COD', GETDATE(), N'PROCESSING', N'Chưa cập nhật', GETDATE())";
+            PreparedStatement psOrder = connection.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
+            psOrder.setInt(1, userId);
+            psOrder.setBigDecimal(2, total);
+            psOrder.executeUpdate();
+            
+            ResultSet rs = psOrder.getGeneratedKeys();
+            int orderId = 0;
+            if (rs.next()) orderId = rs.getInt(1);
+            
+            // 3. Thêm từng sản phẩm vào Order_Item và trừ kho
+            String insertItem = "INSERT INTO Order_Item (order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)";
+            PreparedStatement psItem = connection.prepareStatement(insertItem);
+            
+            String updateStock = "UPDATE Product SET stock_quantity = stock_quantity - ? WHERE product_id = ?";
+            PreparedStatement psStock = connection.prepareStatement(updateStock);
+            
+            for (Model.Cart_Item item : cartItems) {
+                // Thêm vào Order_Item
+                psItem.setInt(1, orderId);
+                psItem.setInt(2, item.getProduct().getProduct_id());
+                psItem.setInt(3, item.getQuantity());
+                psItem.setBigDecimal(4, item.getProduct().getPrice());
+                psItem.executeUpdate();
+                
+                // Trừ kho
+                psStock.setInt(1, item.getQuantity());
+                psStock.setInt(2, item.getProduct().getProduct_id());
+                psStock.executeUpdate();
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

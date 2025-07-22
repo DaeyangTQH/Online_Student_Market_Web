@@ -78,6 +78,8 @@
                             <p>💳 Tổng thanh toán: <strong id="total">đ0</strong></p>
 
                             <form action="${pageContext.request.contextPath}/personalinformation" method="post">
+                                <input type="hidden" name="action" value="Checkout">
+                                <input type="hidden" name="from" value="cart">
                                 <button type="submit" class="save-btn mt-3">Tiến hành thanh toán</button>
                             </form>
                         </div>

@@ -148,7 +148,8 @@
                 <input
                   type="submit"
                   class="save-btn"
-                  value="Lưu thay đổi và đặt hàng"
+                  name="action"
+                  value="Checkout"
                 />
               </div>
             </form>
