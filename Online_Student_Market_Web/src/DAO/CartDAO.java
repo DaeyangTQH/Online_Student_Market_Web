@@ -4,13 +4,15 @@
  */
 package DAO;
 
-import Model.Cart;
-
 /**
  *
  * @author ThuyAnh
  */
-import java.sql.*;
+import Model.Cart;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class CartDAO extends DBcontext {
 
@@ -30,7 +32,7 @@ public class CartDAO extends DBcontext {
     }
 
     public Cart createCartForUser(int userId) {
-        String sql = "INSERT INTO cart (user_id, created_at, updated_at) VALUES (?, CURRENT_DATE, CURRENT_DATE)";
+        String sql = "INSERT INTO cart (user_id, created_at, updated_at) VALUES (?, GETDATE(), GETDATE())";
         try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, userId);
             ps.executeUpdate();

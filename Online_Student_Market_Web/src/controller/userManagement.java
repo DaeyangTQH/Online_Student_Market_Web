@@ -8,13 +8,13 @@ package controller;
 import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -34,6 +34,22 @@ public class userManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        // Kiểm tra quyền admin
+        HttpSession session = request.getSession(false);
+        User user = null;
+        if (session != null) {
+            user = (User) session.getAttribute("user");
+        }
+        if (user == null) {
+            request.setAttribute("errorMessage", "Bạn cần đăng nhập để truy cập trang này!");
+            request.getRequestDispatcher("/WEB-INF/jsp/t_son/login.jsp").forward(request, response);
+            return;
+        }
+        if (user.getRole() == null || !user.getRole().equalsIgnoreCase("admin")) {
+            request.setAttribute("errorMessage", "Bạn không có quyền truy cập trang này!");
+            request.getRequestDispatcher("/WEB-INF/jsp/common/no_permission.jsp").forward(request, response);
+            return;
+        }
         List<User> users = dao.getAllUsers();
         request.setAttribute("users", users);
         request.getRequestDispatcher("/WEB-INF/jsp/vietcuong/userManagement.jsp").forward(request, response);
