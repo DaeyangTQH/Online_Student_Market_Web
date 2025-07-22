@@ -74,19 +74,25 @@ public class UserDAO extends DBcontext {
         return false;
     }
 
-    public void insertUser(User user) {
+    public int insertUser(User user) {
         String sql = "INSERT INTO [User] (username, email, password_hash, full_name, phone_number, role, created_at, updated_at) "
                 + "VALUES (?, ?, ?, NULL, NULL, ?, GETDATE(), GETDATE())";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword_hash());
             ps.setString(4, user.getRole());
-            ps.executeUpdate();
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) return -1;
+            java.sql.ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return -1;
     }
 
     // Lấy danh sách tất cả user (bao gồm cả trạng thái banned)

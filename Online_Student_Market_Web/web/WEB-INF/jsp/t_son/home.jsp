@@ -65,7 +65,7 @@
                     <h2>Sản phẩm nổi bật</h2>
                     <div class="product-list">
                         <c:forEach var="product" items="${featuredProducts}">
-                            <div class="product-item">
+                            <a class="product-item" href="${pageContext.request.contextPath}/product?pid=${product.product_id}">
                                 <c:choose>
                                     <c:when test="${not empty product.image_url}">
                                         <img src="${product.image_url}" alt="${product.product_name}" />
@@ -77,7 +77,7 @@
                                 <h3>${product.product_name}</h3>
                                 <p>${product.description}</p>
                                 <div class="product-price">${product.price} VNĐ</div>
-                            </div>
+                            </a>
                         </c:forEach>
                     </div>
                 </section>

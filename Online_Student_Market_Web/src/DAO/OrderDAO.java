@@ -3,6 +3,7 @@ package DAO;
 import Model.Order;
 import Model.OrderItem;
 import Model.Cart_Item;
+import Model.Product;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class OrderDAO extends DBcontext {
 
     // Tạo order mới và trả về order_id
     public int createOrder(Order order) {
-        String sql = "INSERT INTO [Order] (user_id, totalAmount, payment_method, order_date, status, shipping_address, created_at, updated_at) "
+        String sql = "INSERT INTO [Order] (user_id, total_amount, payment_method, order_date, status, shipping_address, created_at, updated_at) "
                 + "VALUES (?, ?, ?, ?, ?, ?, GETDATE(), GETDATE())";
 
         try {
@@ -41,7 +42,7 @@ public class OrderDAO extends DBcontext {
 
     // Thêm order items
     public boolean addOrderItems(int orderId, List<Cart_Item> cartItems) {
-        String sql = "INSERT INTO OrderItem (order_id, product_id, unit_price, quantity) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Order_Item (order_id, product_id, unit_price, quantity) VALUES (?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -81,7 +82,7 @@ public class OrderDAO extends DBcontext {
                 Order order = new Order();
                 order.setOrder_id(rs.getInt("order_id"));
                 order.setUser_id(rs.getInt("user_id"));
-                order.setTotalAmount(rs.getBigDecimal("totalAmount"));
+                order.setTotalAmount(rs.getBigDecimal("total_amount"));
                 order.setPayment_method(rs.getString("payment_method"));
                 order.setOrder_date(rs.getDate("order_date"));
                 order.setStatus(rs.getString("status"));
@@ -99,7 +100,7 @@ public class OrderDAO extends DBcontext {
     // Lấy order items của một order
     public List<OrderItem> getOrderItemsByOrderId(int orderId) {
         List<OrderItem> orderItems = new ArrayList<>();
-        String sql = "SELECT * FROM OrderItem WHERE order_id = ?";
+        String sql = "SELECT * FROM Order_Item WHERE order_id = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -143,6 +144,68 @@ public class OrderDAO extends DBcontext {
             e.printStackTrace();
             return false;
         }
+    }
+
+    // Tạo class để chứa thông tin order item + product
+    public static class OrderItemWithProduct {
+        private OrderItem orderItem;
+        private Product product;
+
+        public OrderItemWithProduct(OrderItem orderItem, Product product) {
+            this.orderItem = orderItem;
+            this.product = product;
+        }
+
+        public OrderItem getOrderItem() {
+            return orderItem;
+        }
+
+        public Product getProduct() {
+            return product;
+        }
+
+        public void setOrderItem(OrderItem orderItem) {
+            this.orderItem = orderItem;
+        }
+
+        public void setProduct(Product product) {
+            this.product = product;
+        }
+    }
+
+    // Lấy order items kèm thông tin sản phẩm
+    public List<OrderItemWithProduct> getOrderItemsWithProductInfo(int orderId) {
+        List<OrderItemWithProduct> items = new ArrayList<>();
+        String sql = "SELECT oi.*, p.product_name, p.image_url, p.price " +
+                "FROM Order_Item oi " +
+                "INNER JOIN Product p ON oi.product_id = p.product_id " +
+                "WHERE oi.order_id = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                OrderItem orderItem = new OrderItem();
+                orderItem.setOrder_item_id(rs.getInt("order_item_id"));
+                orderItem.setOrder_id(rs.getInt("order_id"));
+                orderItem.setProduct_id(rs.getInt("product_id"));
+                orderItem.setUnit_price(rs.getBigDecimal("unit_price"));
+                orderItem.setQuantity(rs.getInt("quantity"));
+
+                Product product = new Product();
+                product.setProduct_id(rs.getInt("product_id"));
+                product.setProduct_name(rs.getString("product_name"));
+                product.setImage_url(rs.getString("image_url"));
+                product.setPrice(rs.getBigDecimal("price"));
+
+                items.add(new OrderItemWithProduct(orderItem, product));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
     }
 
     public static void main(String[] args) {

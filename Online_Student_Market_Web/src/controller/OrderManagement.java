@@ -3,12 +3,16 @@ package controller;
 import DAO.CartItemDAO;
 import DAO.CreateDAO;
 import DAO.Holder;
+import DAO.OrderDAO;
 import DAO.productDAO;
 import Model.Cart_Item;
+import Model.Order;
 import Model.Product;
 import Model.User;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +33,40 @@ public class OrderManagement extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+                if (user != null) {
+            // Lấy danh sách đơn hàng của user
+            OrderDAO orderDAO = new OrderDAO();
+            List<Order> allOrders = orderDAO.getOrdersByUserId(user.getUser_id());
+            
+            // Lấy thông tin sản phẩm cho từng đơn hàng
+            Map<Integer, List<OrderDAO.OrderItemWithProduct>> orderItemsMap = new HashMap<>();
+            System.out.println("DEBUG: Total orders found: " + allOrders.size());
+            for (Order order : allOrders) {
+                List<OrderDAO.OrderItemWithProduct> items = orderDAO.getOrderItemsWithProductInfo(order.getOrder_id());
+                System.out.println("DEBUG: Order " + order.getOrder_id() + " has " + items.size() + " items");
+                orderItemsMap.put(order.getOrder_id(), items);
+            }
+            
+            request.setAttribute("allOrders", allOrders);
+            request.setAttribute("orderItemsMap", orderItemsMap);
+            
+            // Phân loại đơn hàng theo status
+            List<Order> pendingOrders = allOrders.stream()
+                    .filter(order -> "PROCESSING".equals(order.getStatus()))
+                    .collect(java.util.stream.Collectors.toList());
+            
+            List<Order> shippingOrders = allOrders.stream()
+                    .filter(order -> "SHIPPING".equals(order.getStatus()))
+                    .collect(java.util.stream.Collectors.toList());
+                    
+            request.setAttribute("pendingOrders", pendingOrders);
+            request.setAttribute("shippingOrders", shippingOrders);
+        }
+
         request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/ordermanagement.jsp")
                 .forward(request, response);
     }
@@ -44,107 +82,85 @@ public class OrderManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("user");
 
-        // Get action from form submission (from personalInformation.jsp)
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
         String action = request.getParameter("action");
 
-        if (action == null) {
-            // Get action from session (stored by PersonalInformation servlet)
-            action = (String) session.getAttribute("checkoutAction");
+        if ("Checkout".equals(action)) {
+            // Xử lý form từ personalInformation.jsp
+            handleFormSubmission(request, session, user);
         }
 
-        if ("Buy Now".equals(action)) {
-            handleBuyNow(request, session);
-        } else if ("Checkout".equals(action)) {
-            handleCheckout(request, session);
-        }
-
-        // Clear temporary session data
-        session.removeAttribute("checkoutAction");
-        session.removeAttribute("buyNowProductId");
-        session.removeAttribute("buyNowQuantity");
-
-        request.getRequestDispatcher("/WEB-INF/jsp/vanhuy/ordermanagement.jsp")
-                .forward(request, response);
+        // Redirect to GET để tránh resubmit
+        response.sendRedirect(request.getContextPath() + "/ordermanagement");
     }
 
     // ---------------------------------------------------------------------
     // Helpers
     // ---------------------------------------------------------------------
     /**
-     * Creates an order for the current user immediately ("Buy Now").
+     * Xử lý form submission từ personalInformation.jsp
      */
-    private void handleBuyNow(HttpServletRequest request, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return; // Not logged in – nothing to do.
-        }
+    private void handleFormSubmission(HttpServletRequest request, HttpSession session, User user) {
+        String fullName = request.getParameter("fullName");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String email = request.getParameter("email");
+        String shippingAddress = request.getParameter("shippingAddress");
+        String paymentMethod = request.getParameter("paymentMethod");
 
-        try {
-            // Get product info from session (stored by PersonalInformation servlet)
-            String productIdRaw = (String) session.getAttribute("buyNowProductId");
-            String quantityRaw = (String) session.getAttribute("buyNowQuantity");
-
-            if (productIdRaw == null || quantityRaw == null) {
-                // Fallback: try to get from request parameters
-                productIdRaw = request.getParameter("productId");
-                quantityRaw = request.getParameter("quantity");
-            }
-
-            if (productIdRaw == null || quantityRaw == null) {
-                return; // No product info available
-            }
-
-            int productId = Integer.parseInt(productIdRaw);
-            int quantity = Math.max(1, Integer.parseInt(quantityRaw));
-
-            Product product = productDao.getProductByID(productId, new Holder<>());
-            if (product != null) {
-                new CreateDAO().createOrderForBuyNow(user.getUser_id(), product, quantity);
-
-                // Store product info for display
-                request.setAttribute("orderProduct", product);
-                request.setAttribute("orderQuantity", quantity);
-                request.setAttribute("orderType", "buyNow");
-            }
-        } catch (NumberFormatException ex) {
-            ex.printStackTrace(); // TODO: replace with proper logging
-        }
-    }
-
-    /**
-     * Prepares data for the checkout confirmation page.
-     */
-    private void handleCheckout(HttpServletRequest request, HttpSession session) {
-        Integer cartId = (Integer) session.getAttribute("cartId");
-        if (cartId == null) {
+        // Validate form data
+        if (fullName == null || fullName.trim().isEmpty() ||
+                shippingAddress == null || shippingAddress.trim().isEmpty() ||
+                paymentMethod == null || paymentMethod.trim().isEmpty()) {
+            session.setAttribute("errorMessage", "Vui lòng điền đầy đủ thông tin.");
             return;
         }
 
-        CartItemDAO cartItemDAO = new CartItemDAO();
-        List<Cart_Item> cartItems = cartItemDAO.getCart_ItemsByCartId(cartId);
-        request.setAttribute("cartItems", cartItems);
-        request.setAttribute("orderType", "checkout");
+        CreateDAO createDAO = new CreateDAO();
+        String orderType = (String) session.getAttribute("orderType");
 
-        // Process the actual checkout (create order from cart)
-        User user = (User) session.getAttribute("user");
-        if (user != null && !cartItems.isEmpty()) {
-            try {
-                new CreateDAO().createOrderFromCart(user.getUser_id(), cartItems);
+        try {
+            if ("BUY_NOW".equals(orderType)) {
+                // Xử lý Buy Now
+                Product product = (Product) session.getAttribute("buyNowProduct");
+                Integer quantity = (Integer) session.getAttribute("buyNowQuantity");
 
-                // Clear cart after successful order
-                cartItemDAO.clearCart(cartId);
-            } catch (Exception ex) {
-                ex.printStackTrace(); // TODO: replace with proper logging
+                if (product != null && quantity != null) {
+                    createDAO.createOrderForBuyNow(user.getUser_id(), product, quantity, paymentMethod,
+                            shippingAddress);
+                    session.setAttribute("successMessage", "Đặt hàng thành công!");
+
+                    // Clear session data
+                    session.removeAttribute("buyNowProduct");
+                    session.removeAttribute("buyNowQuantity");
+                    session.removeAttribute("orderType");
+                }
+
+            } else if ("CHECKOUT".equals(orderType)) {
+                // Xử lý Checkout từ cart
+                @SuppressWarnings("unchecked")
+                List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("checkoutCartItems");
+                Integer cartId = (Integer) session.getAttribute("cartId");
+
+                if (cartItems != null && !cartItems.isEmpty() && cartId != null) {
+                    createDAO.createOrderFromCart(user.getUser_id(), cartItems, paymentMethod, shippingAddress, cartId);
+                    session.setAttribute("successMessage", "Đặt hàng thành công!");
+
+                    // Clear session data
+                    session.removeAttribute("checkoutCartItems");
+                    session.removeAttribute("cartId");
+                    session.removeAttribute("orderType");
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("errorMessage", "Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.");
         }
-
-        // Echo form fields back to the page for display
-        request.setAttribute("fullName", request.getParameter("fullName"));
-        request.setAttribute("phoneNumber", request.getParameter("phoneNumber"));
-        request.setAttribute("email", request.getParameter("email"));
-        request.setAttribute("shippingAddress", request.getParameter("shippingAddress"));
-        request.setAttribute("paymentMethod", request.getParameter("paymentMethod"));
     }
 
     @Override

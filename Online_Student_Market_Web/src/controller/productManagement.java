@@ -8,6 +8,7 @@ import DAO.categoryDAO;
 import DAO.productDAO;
 import Model.Category;
 import Model.Product;
+import Model.User;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "productManagement", urlPatterns = {"/productManagement"})
 public class productManagement extends HttpServlet {
@@ -29,6 +31,22 @@ public class productManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Kiểm tra quyền admin
+        HttpSession session = request.getSession(false);
+        User user = null;
+        if (session != null) {
+            user = (User) session.getAttribute("user");
+        }
+        if (user == null) {
+            request.setAttribute("errorMessage", "Bạn cần đăng nhập để truy cập trang này!");
+            request.getRequestDispatcher("/WEB-INF/jsp/t_son/login.jsp").forward(request, response);
+            return;
+        }
+        if (user.getRole() == null || !user.getRole().equalsIgnoreCase("admin")) {
+            request.setAttribute("errorMessage", "Bạn không có quyền truy cập trang này!");
+            request.getRequestDispatcher("/WEB-INF/jsp/common/no_permission.jsp").forward(request, response);
+            return;
+        }
         categoryDAO catDao = new categoryDAO();
         List<Category> categories = catDao.getAll();
         String categoryIdStr = request.getParameter("categoryId");

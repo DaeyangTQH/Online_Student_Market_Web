@@ -31,6 +31,9 @@
 
             <main class="signup-container">
                 <h1>Create a New Account</h1>
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger" role="alert">${error}</div>
+                </c:if>
                 <form action="signup" method="post" class="signup-form">
                     <label for="username">Username</label>
                     <input
