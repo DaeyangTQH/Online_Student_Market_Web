@@ -463,7 +463,7 @@ footer {
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip:text;
+  background-clip: text;
   animation: gradientFlow 3s ease-in-out infinite;
   position: relative;
   display: inline-block;
@@ -742,52 +742,4 @@ footer {
     transform: translate(-50%, -50%) scale(1.2);
     opacity: 0.8;
   }
-}
-.search-container.in-banner {
-    margin-top: 30px;
-    z-index: 2;
-    position: relative;
-}
-
-.search-container.in-banner form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    max-width: 600px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 20px;
-    border-radius: 50px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-}
-
-.search-container.in-banner input {
-    flex: 1;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    outline: none;
-    background-color: #fff;
-    color: #333;
-}
-
-.search-container.in-banner button {
-    padding: 14px 25px;
-    background-color: #ff6b35;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-}
-
-.search-container.in-banner button:hover {
-    background-color: #e55a2b;
-    transform: translateY(-2px);
 }
