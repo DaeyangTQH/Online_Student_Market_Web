@@ -84,7 +84,9 @@ public class UserDAO extends DBcontext {
             ps.setString(3, user.getPassword_hash());
             ps.setString(4, user.getRole());
             int affectedRows = ps.executeUpdate();
-            if (affectedRows == 0) return -1;
+            if (affectedRows == 0) {
+                return -1;
+            }
             java.sql.ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 return rs.getInt(1);
@@ -145,39 +147,75 @@ public class UserDAO extends DBcontext {
             e.printStackTrace();
         }
     }
-    public User findByEmail(String email) {
-    String sql = "SELECT * FROM [User] WHERE email = ?";
-    try {
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, email);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            User user = new User();
-            // set các trường...
-            return user;
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return null;
-}
 
-public boolean updatePasswordByEmail(String email, String newPassword) {
-    String sql = "UPDATE [User] SET password_hash = ?, updated_at = GETDATE() WHERE email = ?";
-    try {
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, newPassword); // nên mã hóa nếu dùng thật
-        ps.setString(2, email);
-        return ps.executeUpdate() > 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
+    public User findByEmail(String email) {
+        String sql = "SELECT * FROM [User] WHERE email = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUser_id(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword_hash(rs.getString("password_hash"));
+                user.setFull_name(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone_number(rs.getString("phone_number"));
+                user.setRole(rs.getString("role"));
+                user.setCreated_at(rs.getDate("created_at"));
+                user.setUpdated_at(rs.getDate("updated_at"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    return false;
-}
+
+    public boolean updatePasswordByEmail(String email, String newPassword) {
+        String sql = "UPDATE [User] SET password_hash = ?, updated_at = GETDATE() WHERE email = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, newPassword); // nên mã hóa nếu dùng thật
+            ps.setString(2, email);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM [User] WHERE email = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setUser_id(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword_hash(rs.getString("password_hash"));
+                user.setFull_name(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone_number(rs.getString("phone_number"));
+                user.setRole(rs.getString("role"));
+                user.setCreated_at(rs.getDate("created_at")); // dùng getTimestamp để phù hợp với datetime2
+                user.setUpdated_at(rs.getDate("updated_at"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         UserDAO check = new UserDAO();
 
         System.out.println(check.getUserById(1));
+        System.out.println(check.getUserByEmail("hhcc782005@gmail.com"));
     }
 }
