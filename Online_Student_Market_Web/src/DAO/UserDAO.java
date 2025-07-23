@@ -145,6 +145,35 @@ public class UserDAO extends DBcontext {
             e.printStackTrace();
         }
     }
+    public User findByEmail(String email) {
+    String sql = "SELECT * FROM [User] WHERE email = ?";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, email);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            User user = new User();
+            // set các trường...
+            return user;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+public boolean updatePasswordByEmail(String email, String newPassword) {
+    String sql = "UPDATE [User] SET password_hash = ?, updated_at = GETDATE() WHERE email = ?";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, newPassword); // nên mã hóa nếu dùng thật
+        ps.setString(2, email);
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 
     public static void main(String[] args) {
         UserDAO check = new UserDAO();
