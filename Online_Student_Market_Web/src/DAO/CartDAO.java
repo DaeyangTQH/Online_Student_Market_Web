@@ -8,7 +8,7 @@ package DAO;
  *
  * @author ThuyAnh
  */
-import Model.Cart;
+import model.Cart;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

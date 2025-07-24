@@ -5,7 +5,7 @@
 package DAO;
 
 import static DAO.DBcontext.connection;
-import Model.Product;
+import model.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
