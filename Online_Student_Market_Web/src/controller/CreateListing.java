@@ -2,8 +2,8 @@ package controller;
 
 import DAO.categoryDAO;
 import DAO.CreateDAO;
-import Model.Category;
-import Model.Product;
+import model.Category;
+import model.Product;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;

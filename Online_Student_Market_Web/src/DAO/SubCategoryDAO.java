@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.SubCategory;
+import model.SubCategory;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

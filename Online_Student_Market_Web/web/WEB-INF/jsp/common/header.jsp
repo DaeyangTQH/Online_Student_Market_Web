@@ -52,8 +52,29 @@
                 <a href="${pageContext.request.contextPath}/cart" class="me-4">Giỏ hàng</a>
                 <c:choose>
                     <c:when test="${sessionScope.isLoggedIn}">
-                        <a href="${pageContext.request.contextPath}/infouser" class="fw-bold"><span class="">Xin chào, ${sessionScope.user.username}</span></a>
-                        <a href="${pageContext.request.contextPath}/logout" class="login-btn">Đăng xuất</a>
+                        <div class="dropdown user-dropdown" style="display:inline-block; position:relative;">
+                            <a href="#" class="fw-bold dropdown-toggle user-dropdown-toggle" id="userDropdown" role="button" aria-expanded="false">
+                                <span class="">Xin chào, ${sessionScope.user.username}</span>
+                            </a>
+                            <ul class="dropdown-menu user-menu" aria-labelledby="userDropdown" style="min-width:200px;">
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/infouser">
+                                        <i class="bi bi-person-circle me-2"></i>Tài Khoản Của Tôi
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/ordermanagement">
+                                        <i class="bi bi-bag-check me-2"></i>Đơn Mua
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
+                                        <i class="bi bi-box-arrow-right me-2"></i>Đăng Xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </c:when>
                     <c:otherwise>
                         <c:choose>
@@ -169,6 +190,73 @@
             margin-left: 8px;
             font-size: 0.9em;
         }
+        /* User Dropdown Styles */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .user-dropdown .user-dropdown-toggle {
+            font-weight: 500;
+            color: #333;
+            background: none;
+            border: none;
+            outline: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: color 0.3s, background 0.3s;
+        }
+        .user-dropdown .user-dropdown-toggle:hover,
+        .user-dropdown .user-dropdown-toggle:focus {
+            color: #ff6b35;
+            background: #fff3eb;
+            text-decoration: none;
+        }
+        .user-dropdown .user-menu {
+            display: none;
+            position: absolute;
+            right: -50px;
+            left: unset;
+            top: 100%;
+            z-index: 1000;
+            background: #fff;
+            border: none;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            min-width: 220px;
+            padding: 0.5rem 0;
+            border-radius: 12px;
+            margin-top: 6px;
+            transition: box-shadow 0.25s;
+        }
+        .user-dropdown:hover > .user-menu {
+            display: block;
+        }
+        .user-menu .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 400;
+            border-radius: 8px;
+            margin: 2px 8px;
+            transition: background 0.25s, color 0.25s;
+        }
+        .user-menu .dropdown-item:hover,
+        .user-menu .dropdown-item:focus {
+            color: #ff6b35;
+            background: #fff3eb;
+            text-decoration: none;
+        }
+        .user-menu .dropdown-item i {
+            font-size: 16px;
+            width: 20px;
+        }
+        .user-menu .dropdown-divider {
+            margin: 8px 0;
+            border-top: 1px solid #eee;
+        }
         @media (max-width: 900px) {
             .category-dropdown .dropdown-menu,
             .dropdown-submenu > .subcategory-menu {
@@ -176,6 +264,9 @@
             }
             .subcategory-menu .dropdown-item {
                 padding-left: 1.2rem;
+            }
+            .user-dropdown .user-menu {
+                min-width: 180px;
             }
         }
     </style>

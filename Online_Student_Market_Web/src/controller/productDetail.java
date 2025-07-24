@@ -5,7 +5,7 @@
 package controller;
 
 import DAO.productDAO;
-import Model.Product;
+import model.Product;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +49,12 @@ public class productDetail extends HttpServlet {
         if (product != null) {
             // Lấy tên subcategory
             DAO.SubCategoryDAO subDao = new DAO.SubCategoryDAO();
-            Model.SubCategory sub = subDao.getSubCategoryById(product.getSubCategory_id());
+            model.SubCategory sub = subDao.getSubCategoryById(product.getSubCategory_id());
             if (sub != null) {
                 subCategoryName = sub.getSubCategory_name();
                 // Lấy tên category cha
                 DAO.categoryDAO catDao = new DAO.categoryDAO();
-                Model.Category cat = catDao.getCategoryById(sub.getCategory_id());
+                model.Category cat = catDao.getCategoryById(sub.getCategory_id());
                 if (cat != null) {
                     categoryName = cat.getCategory_name();
                 }

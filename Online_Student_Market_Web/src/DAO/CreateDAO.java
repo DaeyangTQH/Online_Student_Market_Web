@@ -4,11 +4,11 @@
  */
 package DAO;
 
-import Model.Product;
-import Model.Cart_Item;
+import model.Product;
+import model.Cart_Item;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import Model.Order;
+import model.Order;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.math.BigDecimal;

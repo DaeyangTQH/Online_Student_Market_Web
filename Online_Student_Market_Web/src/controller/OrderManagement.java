@@ -5,10 +5,10 @@ import DAO.CreateDAO;
 import DAO.Holder;
 import DAO.OrderDAO;
 import DAO.productDAO;
-import Model.Cart_Item;
-import Model.Order;
-import Model.Product;
-import Model.User;
+import model.Cart_Item;
+import model.Order;
+import model.Product;
+import model.User;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +62,7 @@ public class OrderManagement extends HttpServlet {
             List<Order> shippingOrders = allOrders.stream()
                     .filter(order -> "SHIPPING".equals(order.getStatus()))
                     .collect(java.util.stream.Collectors.toList());
-                    
+                       
             request.setAttribute("pendingOrders", pendingOrders);
             request.setAttribute("shippingOrders", shippingOrders);
         }
@@ -100,9 +100,7 @@ public class OrderManagement extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/ordermanagement");
     }
 
-    // ---------------------------------------------------------------------
-    // Helpers
-    // ---------------------------------------------------------------------
+   
     /**
      * Xử lý form submission từ personalInformation.jsp
      */

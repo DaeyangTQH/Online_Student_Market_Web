@@ -5,6 +5,7 @@
 
 package controller;
 
+import DAO.SearchDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import DAO.productDAO;
-import Model.Product;
+import model.Product;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public class SearchServlet extends HttpServlet {
     throws ServletException, IOException {
         String keyword = request.getParameter("query");
         if (keyword == null) keyword = "";
-        productDAO dao = new productDAO();
+        SearchDAO dao = new SearchDAO();
         List<Product> products = dao.searchByTitle(keyword);
         request.setAttribute("products", products);
         request.setAttribute("keyword", keyword);

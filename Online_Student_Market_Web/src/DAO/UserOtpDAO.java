@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.UserOtp;
+import model.UserOtp;
 import java.util.Date;
 import java.sql.*;
 import java.util.Random;

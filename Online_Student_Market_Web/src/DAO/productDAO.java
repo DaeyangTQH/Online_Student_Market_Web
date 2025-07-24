@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.Product;
+import model.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -303,22 +303,6 @@ public class productDAO extends DBcontext {
                         rs.getDate("updated_at")
                 );
                 list.add(p);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    public List<Product> searchByTitle(String keyword) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM Product WHERE product_name LIKE ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, "%" + keyword + "%");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(mapRow(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();

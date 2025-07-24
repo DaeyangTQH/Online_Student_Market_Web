@@ -1,9 +1,9 @@
 package DAO;
 
-import Model.Order;
-import Model.OrderItem;
-import Model.Cart_Item;
-import Model.Product;
+import model.Order;
+import model.OrderItem;
+import model.Cart_Item;
+import model.Product;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -207,6 +207,11 @@ public class OrderDAO extends DBcontext {
         }
         return items;
     }
+
+    // ...existing code...
+
+
+// ...existing code...
 
     public static void main(String[] args) {
         OrderDAO dao = new OrderDAO();

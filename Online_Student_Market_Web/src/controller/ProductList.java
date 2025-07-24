@@ -3,8 +3,8 @@ package controller;
 import DAO.Holder;
 import DAO.SubCategoryDAO;
 import DAO.productDAO;
-import Model.Product;
-import Model.SubCategory;
+import model.Product;
+import model.SubCategory;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -85,7 +85,7 @@ public class ProductList extends HttpServlet {
             if (sub != null) {
                 subCategoryName = sub.getSubCategory_name();
                 DAO.categoryDAO catDao = new DAO.categoryDAO();
-                Model.Category cat = catDao.getCategoryById(sub.getCategory_id());
+                model.Category cat = catDao.getCategoryById(sub.getCategory_id());
                 if (cat != null) {
                     catName.value = cat.getCategory_name();
                     cid = cat.getCategory_id();

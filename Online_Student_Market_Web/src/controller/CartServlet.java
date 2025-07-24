@@ -3,10 +3,10 @@ package controller;
 import DAO.CartDAO;
 import DAO.CartItemDAO;
 import DAO.productDAO;
-import Model.Cart;
-import Model.Cart_Item;
-import Model.Product;
-import Model.User;
+import model.Cart;
+import model.Cart_Item;
+import model.Product;
+import model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
