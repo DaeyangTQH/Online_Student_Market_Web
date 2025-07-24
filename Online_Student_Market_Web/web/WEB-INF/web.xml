@@ -79,6 +79,18 @@
     <servlet>
         <servlet-name>subCategory</servlet-name>
         <servlet-class>controller.subCategory</servlet-class>
+    
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OtpEmail</servlet-name>
+        <servlet-class>controller.OtpEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPassword</servlet-name>
+        <servlet-class>controller.ResetPassword</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
@@ -140,6 +152,7 @@
         <servlet-name>SubCategoryServlet</servlet-name>
         <url-pattern>/subcategory</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>orderadmin</servlet-name>
         <url-pattern>/adminorder</url-pattern>
@@ -148,6 +161,22 @@
         <servlet-name>subCategory</servlet-name>
         <url-pattern>/subcategoryadmin</url-pattern>
     </servlet-mapping>
+
+    
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgot-password</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OtpEmail</servlet-name>
+        <url-pattern>/otp_email</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/reset_password</url-pattern>
+    </servlet-mapping>
+
+
     <session-config>
         <session-timeout>
             30
