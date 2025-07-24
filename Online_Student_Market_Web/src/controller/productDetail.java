@@ -4,7 +4,6 @@
  */
 package controller;
 
-import DAO.Holder;
 import DAO.productDAO;
 import Model.Product;
 import java.io.IOException;
@@ -34,7 +33,6 @@ public class productDetail extends HttpServlet {
             throws ServletException, IOException {
         String productID_raw = request.getParameter("pid");
         int productID = 0;
-        Holder<String> catName = new Holder<>();
 
         if (productID_raw != null && !productID_raw.isBlank()) {
             try {
@@ -44,48 +42,62 @@ public class productDetail extends HttpServlet {
             }
         }
         
-        Product product = dao.getProductByID(productID, catName);
+        Product product = dao.getProductByID(productID);
         request.setAttribute("product", product);
-        request.setAttribute("categoryName", catName.value);
+        String categoryName = null;
+        String subCategoryName = null;
+        if (product != null) {
+            // Lấy tên subcategory
+            DAO.SubCategoryDAO subDao = new DAO.SubCategoryDAO();
+            Model.SubCategory sub = subDao.getSubCategoryById(product.getSubCategory_id());
+            if (sub != null) {
+                subCategoryName = sub.getSubCategory_name();
+                // Lấy tên category cha
+                DAO.categoryDAO catDao = new DAO.categoryDAO();
+                Model.Category cat = catDao.getCategoryById(sub.getCategory_id());
+                if (cat != null) {
+                    categoryName = cat.getCategory_name();
+                }
+            }
+        }
+        request.setAttribute("categoryName", categoryName);
+        request.setAttribute("subCategoryName", subCategoryName);
         
+        final int pid = productID;
         // Lấy sản phẩm cùng category
         if (product != null) {
-            List<Product> relatedProducts = dao.getRelatedProductsByCategory(product.getCategory_id(), productID, 8);
+            // Lấy sản phẩm cùng subcategory (trừ sản phẩm hiện tại)
+            List<Product> relatedProducts = dao.getProductsBySubCategoryId(product.getSubCategory_id());
+            relatedProducts.removeIf(p -> p.getProduct_id() == pid);
             request.setAttribute("relatedProducts", relatedProducts);
-            
             // Lấy sản phẩm đã xem gần đây
             HttpSession session = request.getSession();
             @SuppressWarnings("unchecked")
             List<Integer> recentlyViewed = (List<Integer>) session.getAttribute("recentlyViewed");
-            
             if (recentlyViewed == null) {
                 recentlyViewed = new ArrayList<>();
             }
-            
-            // Thêm sản phẩm hiện tại vào danh sách đã xem
-            if (!recentlyViewed.contains(productID)) {
-                recentlyViewed.add(0, productID); // Thêm vào đầu danh sách
-                
-                // Giới hạn danh sách chỉ 10 sản phẩm
+            // Thêm sản phẩm hiện tại vào danh sách đã xem (nếu chưa có)
+            if (!recentlyViewed.contains(pid)) {
+                recentlyViewed.add(0, pid);
                 if (recentlyViewed.size() > 10) {
                     recentlyViewed = recentlyViewed.subList(0, 10);
                 }
-                
                 session.setAttribute("recentlyViewed", recentlyViewed);
             }
-            
             // Lấy sản phẩm đã xem gần đây (trừ sản phẩm hiện tại)
-            List<Integer> recentlyViewedForQuery = new ArrayList<>(recentlyViewed);
-            recentlyViewedForQuery.remove(Integer.valueOf(productID));
-            
+            List<Integer> recentlyViewedForQuery = new ArrayList<>();
+            for (Integer id : recentlyViewed) {
+                if (id != pid) {
+                    recentlyViewedForQuery.add(id);
+                }
+            }
             List<Product> recentlyViewedProducts;
             if (!recentlyViewedForQuery.isEmpty()) {
                 recentlyViewedProducts = dao.getRecentlyViewedProducts(recentlyViewedForQuery, 8);
             } else {
-                // Nếu không có sản phẩm đã xem, lấy sản phẩm ngẫu nhiên
                 recentlyViewedProducts = dao.getRandomProducts(8);
             }
-            
             request.setAttribute("recentlyViewedProducts", recentlyViewedProducts);
         }
         

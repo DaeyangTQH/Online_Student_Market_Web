@@ -23,22 +23,29 @@
                 rel="stylesheet"
                 href="${pageContext.request.contextPath}/resources/css/tson/home.css"
                 />
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
         </head>
 
         <body>
             <!-- Header -->
             <c:import url="/WEB-INF/jsp/common/header.jsp"/>
             <!-- End header -->
+            <section class="hero-banner">
+                <div class="banner-content">
+                    <h1>Chào mừng bạn đến với <span>SVMarket</span></h1>
+                    <p>Nơi mua sắm lý tưởng cho sinh viên!</p>
+                    <div class="search-container in-banner">
+                        <form action="search" method="GET">
+                            <input type="text" name="query" placeholder="Tìm kiếm sản phẩm..." />
+                            <button type="submit" class="search-btn">Tìm</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
 
             <!-- Main content -->
             <main class="home-container">
-                <!-- Tìm kiếm -->
-                <div class="search-container">
-                    <form action="search" method="GET">
-                        <input type="text" name="query" placeholder="Tìm kiếm sản phẩm..." />
-                        <button type="submit" class="search-btn">Tìm</button>
-                    </form>
-                </div>
 
                 <!-- Danh mục -->
                 <section class="categories">
@@ -48,7 +55,21 @@
                             <c:when test="${not empty categories}">
                                 <c:forEach var="category" items="${categories}">
                                     <a href="${pageContext.request.contextPath}/productList?cid=${category.category_id}">
-                                        <i class="bi bi-collection"></i>
+                                        <i class="bi
+                                           <c:choose>
+                                               <c:when test="${category.category_name == 'Stationery'}">bi-pencil</c:when>
+                                               <c:when test="${category.category_name == 'Notebooks'}">bi-journal-bookmark</c:when>
+                                               <c:when test="${category.category_name == 'Writing Instruments'}">bi-pen</c:when>
+                                               <c:when test="${category.category_name == 'Art Supplies'}">bi-palette</c:when>
+                                               <c:when test="${category.category_name == 'Desk Organizers'}">bi-archive</c:when>
+                                               <c:when test="${category.category_name == 'Backpacks'}">bi-bag</c:when>
+                                               <c:when test="${category.category_name == 'School Uniforms'}">bi-person</c:when>
+                                               <c:when test="${category.category_name == 'Sports Gear'}">bi-trophy</c:when>
+                                               <c:otherwise>bi-box</c:otherwise>
+                                           </c:choose>
+                                           "></i>
+
+
                                         <span>${category.category_name}</span>
                                     </a>
                                 </c:forEach>

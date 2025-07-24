@@ -14,7 +14,6 @@ import java.util.List;
 import Model.Category;
 import java.sql.*;
 
-
 /**
  *
  * @author Haichann
@@ -31,8 +30,8 @@ public class categoryDAO extends DBcontext {
 
             while (catSet.next()) {
                 Category newCat = new Category(catSet.getInt("category_id"), catSet.getString("category_name"),
-                        catSet.getString("category_description"), catSet.getDate("created_at"),
-                        catSet.getDate("updated_at"), catSet.getString("category_image_url"));
+                         catSet.getDate("created_at"),
+                        catSet.getDate("updated_at"), catSet.getString("image_url"));
                 catList.add(newCat);
             }
         } catch (SQLException e) {
@@ -40,7 +39,7 @@ public class categoryDAO extends DBcontext {
         }
         return catList;
     }
-    
+
     public Category getCategoryById(int id) {
         String sql = "select * from Category where category_id = ?";
         try {
@@ -49,12 +48,11 @@ public class categoryDAO extends DBcontext {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Category(
-                    rs.getInt("category_id"),
-                    rs.getString("category_name"),
-                    rs.getString("category_description"),
-                    rs.getDate("created_at"),
-                    rs.getDate("updated_at"),
-                    rs.getString("category_image_url")
+                        rs.getInt("category_id"),
+                        rs.getString("category_name"),
+                        rs.getDate("created_at"),
+                        rs.getDate("updated_at"),
+                        rs.getString("image_url")
                 );
             }
         } catch (SQLException e) {
@@ -62,10 +60,10 @@ public class categoryDAO extends DBcontext {
         }
         return null;
     }
-    
+
     // Thêm mới một category
     public void addCategory(String category_name, String category_description, String category_image_url) {
-        String sql = "INSERT INTO Category (category_name, category_description, category_image_url, created_at, updated_at) VALUES (?, ?, ?, GETDATE(), GETDATE())";
+        String sql = "INSERT INTO Category (category_name, category_description, image_url, created_at, updated_at) VALUES (?, ?, ?, GETDATE(), GETDATE())";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, category_name);
@@ -79,7 +77,7 @@ public class categoryDAO extends DBcontext {
 
     // Sửa thông tin một category
     public void updateCategory(int category_id, String category_name, String category_description, String category_image_url) {
-        String sql = "UPDATE Category SET category_name = ?, category_description = ?, category_image_url = ?, updated_at = GETDATE() WHERE category_id = ?";
+        String sql = "UPDATE Category SET category_name = ?, category_description = ?, image_url = ?, updated_at = GETDATE() WHERE category_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, category_name);
@@ -103,7 +101,7 @@ public class categoryDAO extends DBcontext {
             e.printStackTrace();
         }
     }
-    
+
     public static void main(String[] args) {
         categoryDAO dao = new categoryDAO();
         List<Category> list = dao.getAll();

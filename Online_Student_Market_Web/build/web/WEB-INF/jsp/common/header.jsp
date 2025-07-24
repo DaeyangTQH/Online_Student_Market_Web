@@ -20,13 +20,35 @@
             href="${pageContext.request.contextPath}/resources/css/main.css"
             />
     </head>
-    
+
     <header>
         <div class="navbar">
             <div class="logo"><a href="${pageContext.request.contextPath}/home">SVMarket</a></div>
             <nav>
                 <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                <a href="${pageContext.request.contextPath}/category">Danh mục</a>
+                <div class="dropdown category-dropdown" style="display:inline-block; position:relative;">
+                    <a href="${pageContext.request.contextPath}/category" class="dropdown-toggle" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Danh mục 
+                    </a>
+                    <ul class="dropdown-menu category-menu" aria-labelledby="categoryDropdown" style="min-width:220px;">
+                        <c:forEach var="cat" items="${categories}">
+                            <li class="dropdown-submenu position-relative">
+                                <a class="dropdown-item d-flex justify-content-between align-items-center" href="${pageContext.request.contextPath}/subcategory?cid=${cat.category_id}">
+                                    ${cat.category_name}
+                                </a>
+                                <ul class="dropdown-menu subcategory-menu position-absolute start-100 top-0" style="min-width:200px;">
+                                    <c:forEach var="sub" items="${subCategories}">
+                                        <c:if test="${sub.category_id == cat.category_id}">
+                                            <li>
+                                                <a class="dropdown-item" href="${pageContext.request.contextPath}/productList?subCategoryId=${sub.subCategory_id}">${sub.subCategory_name}</a>
+                                            </li>
+                                        </c:if>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
                 <a href="${pageContext.request.contextPath}/cart" class="me-4">Giỏ hàng</a>
                 <c:choose>
                     <c:when test="${sessionScope.isLoggedIn}">
@@ -50,4 +72,111 @@
             </nav>
         </div>
     </header>
+    <style>
+        .category-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .category-dropdown .dropdown-toggle {
+            font-weight: 500;
+            /*color: #ff6b35;*/
+            background: none;
+            border: none;
+            outline: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: color 0.3s, background 0.3s;
+        }
+        .category-dropdown .dropdown-toggle:hover,
+        .category-dropdown .dropdown-toggle:focus {
+            color: #d35400;
+            background: #fff3eb;
+        }
+        .category-dropdown .dropdown-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: unset;
+            top: 100%;
+            z-index: 1000;
+            background: #fff;
+            border: none;
+            box-shadow: 0 8px 32px rgba(255,107,53,0.10);
+            min-width: 220px;
+            padding: 0.5rem 0;
+            border-radius: 12px;
+            margin-top: 6px;
+            transition: box-shadow 0.25s;
+        }
+        .category-dropdown:hover > .dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu > .dropdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #222;
+            border-radius: 8px;
+            padding: 10px 22px;
+            transition: background 0.25s, color 0.25s;
+        }
+        .dropdown-submenu > .dropdown-item:hover,
+        .dropdown-submenu > .dropdown-item:focus {
+            color: #ff6b35;
+            background: #fff3eb;
+        }
+        .dropdown-submenu > .subcategory-menu {
+            display: none;
+            position: absolute;
+            left: 100%;
+            right: unset;
+            top: 0;
+            min-width: 180px;
+            background: #fff;
+            box-shadow: 0 8px 32px rgba(255,107,53,0.10);
+            border-radius: 12px;
+            padding: 0.5rem 0;
+            margin-left: 4px;
+            transition: box-shadow 0.25s;
+        }
+        .dropdown-submenu:hover > .subcategory-menu {
+            display: block;
+        }
+        .subcategory-menu .dropdown-item {
+            padding-left: 2rem;
+            color: #444;
+            font-weight: 400;
+            border-radius: 8px;
+            transition: background 0.25s, color 0.25s;
+        }
+        .subcategory-menu .dropdown-item:hover,
+        .subcategory-menu .dropdown-item:focus {
+            color: #ff6b35;
+            background: #fff3eb;
+        }
+        .dropdown-item {
+            cursor: pointer;
+            border-radius: 8px;
+            padding: 10px 22px;
+            transition: background 0.25s, color 0.25s;
+        }
+        .dropdown-item i.bi {
+            margin-left: 8px;
+            font-size: 0.9em;
+        }
+        @media (max-width: 900px) {
+            .category-dropdown .dropdown-menu,
+            .dropdown-submenu > .subcategory-menu {
+                min-width: 140px;
+            }
+            .subcategory-menu .dropdown-item {
+                padding-left: 1.2rem;
+            }
+        }
+    </style>
 </html>

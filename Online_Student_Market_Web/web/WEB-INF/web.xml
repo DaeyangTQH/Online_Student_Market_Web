@@ -64,6 +64,14 @@
         <servlet-name>SearchServlet</servlet-name>
         <servlet-class>controller.SearchServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubCategoryServlet</servlet-name>
+        <servlet-class>controller.SubCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>headerDataFilter</servlet-name>
+        <servlet-class>controller.headerDataFilter</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -120,6 +128,11 @@
         <servlet-name>SearchServlet</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubCategoryServlet</servlet-name>
+        <url-pattern>/subcategory</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30

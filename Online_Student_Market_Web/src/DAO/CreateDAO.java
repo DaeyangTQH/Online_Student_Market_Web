@@ -24,7 +24,7 @@ public class CreateDAO extends DBcontext {
         String sql = "INSERT INTO Product (category_id, product_name, description, price, stock_quantity, image_url, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, GETDATE(), GETDATE())";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, product.getCategory_id());
+            ps.setInt(1, product.getSubCategory_id());
             ps.setString(2, product.getProduct_name());
             ps.setString(3, product.getDescription());
             ps.setBigDecimal(4, product.getPrice());
@@ -40,7 +40,7 @@ public class CreateDAO extends DBcontext {
         String sql = "UPDATE Product SET category_id=?, product_name=?, description=?, price=?, stock_quantity=?, image_url=?, updated_at=GETDATE() WHERE product_id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, product.getCategory_id());
+            ps.setInt(1, product.getSubCategory_id());
             ps.setString(2, product.getProduct_name());
             ps.setString(3, product.getDescription());
             ps.setBigDecimal(4, product.getPrice());

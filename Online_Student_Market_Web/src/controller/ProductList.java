@@ -1,8 +1,10 @@
 package controller;
 
 import DAO.Holder;
+import DAO.SubCategoryDAO;
 import DAO.productDAO;
 import Model.Product;
+import Model.SubCategory;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -23,21 +25,22 @@ public class ProductList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String cidParam = request.getParameter("cid");
+        String subCategoryIdParam = request.getParameter("subCategoryId");
         String typeSort = request.getParameter("type");
         String minPrice_raw = request.getParameter("minPrice");
         String maxPrice_raw = request.getParameter("maxPrice");
         String pageParam = request.getParameter("page");
 
-        int cid = 0;
+        int subCategoryId = 0;
         Double minPrice = null;
         Double maxPrice = null;
         int pageSize = 16;
         int page = 1;
+        int cid = 0;
 
-        if (cidParam != null && !cidParam.isBlank()) {
+        if (subCategoryIdParam != null && !subCategoryIdParam.isBlank()) {
             try {
-                cid = Integer.parseInt(cidParam);
+                subCategoryId = Integer.parseInt(subCategoryIdParam);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
@@ -51,7 +54,7 @@ public class ProductList extends HttpServlet {
             }
         }
 
-        if (minPrice_raw != null && !minPrice_raw.isBlank()) {       
+        if (minPrice_raw != null && !minPrice_raw.isBlank()) {
             try {
                 minPrice = Double.valueOf(minPrice_raw);
             } catch (NumberFormatException e) {
@@ -59,7 +62,7 @@ public class ProductList extends HttpServlet {
             }
         }
 
-        if (maxPrice_raw != null && !maxPrice_raw.isBlank()) {        
+        if (maxPrice_raw != null && !maxPrice_raw.isBlank()) {
             try {
                 maxPrice = Double.valueOf(maxPrice_raw);
             } catch (NumberFormatException e) {
@@ -69,29 +72,54 @@ public class ProductList extends HttpServlet {
 
         int offset = (page - 1) * pageSize;
         Holder<String> catName = new Holder<>();
+        String subCategoryName = null;
+        List<Product> pageProducts;
+        int totalRecords;
+        int totalPages;
+        Double minPriceValue;
+        Double maxPriceValue;
 
-        List<Product> pageProducts = dao.findProduct(
-                cid != 0 ? cid : null,
-                minPrice,
-                maxPrice,
-                typeSort,
-                pageSize,
-                offset,
-                catName
-        );
-
-        int totalRecords = dao.countProduct(
-                cid != 0 ? cid : null,
-                minPrice,
-                maxPrice
-        );
-        int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
-
-        Double minPriceValue = dao.getMinPrice(cid != 0 ? cid : null);
-        Double maxPriceValue = dao.getMaxPrice(cid != 0 ? cid : null);
+        if (subCategoryId != 0) {
+            SubCategoryDAO subDao = new SubCategoryDAO();
+            SubCategory sub = subDao.getSubCategoryById(subCategoryId);
+            if (sub != null) {
+                subCategoryName = sub.getSubCategory_name();
+                DAO.categoryDAO catDao = new DAO.categoryDAO();
+                Model.Category cat = catDao.getCategoryById(sub.getCategory_id());
+                if (cat != null) {
+                    catName.value = cat.getCategory_name();
+                    cid = cat.getCategory_id();
+                }
+            }
+            pageProducts = dao.findProductBySubCategory(subCategoryId, minPrice, maxPrice, typeSort, pageSize, offset);
+            totalRecords = dao.countProductBySubCategory(subCategoryId, minPrice, maxPrice);
+            totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+            minPriceValue = dao.getMinPriceBySubCategory(subCategoryId);
+            maxPriceValue = dao.getMaxPriceBySubCategory(subCategoryId);
+        } else {
+            pageProducts = dao.findProduct(
+                    subCategoryId != 0 ? subCategoryId : null,
+                    minPrice,
+                    maxPrice,
+                    typeSort,
+                    pageSize,
+                    offset,
+                    catName
+            );
+            totalRecords = dao.countProduct(
+                    subCategoryId != 0 ? subCategoryId : null,
+                    minPrice,
+                    maxPrice
+            );
+            totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+            minPriceValue = dao.getMinPrice(subCategoryId != 0 ? subCategoryId : null);
+            maxPriceValue = dao.getMaxPrice(subCategoryId != 0 ? subCategoryId : null);
+        }
 
         request.setAttribute("productlist", pageProducts);
         request.setAttribute("categoryName", catName.value);
+        request.setAttribute("subCategoryName", subCategoryName);
+        request.setAttribute("subCategoryId", subCategoryId);
         request.setAttribute("cid", cid);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
@@ -101,7 +129,6 @@ public class ProductList extends HttpServlet {
         request.getRequestDispatcher("WEB-INF/jsp/Haichan/productList.jsp").forward(request, response);
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);

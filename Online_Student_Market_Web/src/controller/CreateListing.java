@@ -103,7 +103,7 @@ public class CreateListing extends HttpServlet {
 
         // Lưu vào DB
         Product product = new Product();
-        product.setCategory_id(cid);
+        product.setSubCategory_id(cid);
         product.setProduct_name(title);
         product.setDescription(description);
         product.setPrice(priceVal);

@@ -20,7 +20,7 @@ public class productDAO extends DBcontext {
     private Product mapRow(ResultSet rs) throws SQLException {
         return new Product(
                 rs.getInt("product_id"),
-                rs.getInt("category_id"),
+                rs.getInt("subCategory_id"),
                 rs.getString("product_name"),
                 rs.getString("description"),
                 rs.getBigDecimal("price"),
@@ -31,17 +31,24 @@ public class productDAO extends DBcontext {
         );
     }
 
-    public Product getProductByID(int productID, Holder<String> catName) {
-        String sql = "select p.*, c.category_name from Product p "
-                + "join Category c on p.category_id = c.category_id "
-                + "where product_id = ? ";
+    public Product getProductByID(int productID) {
+        String sql = "select * from Product where product_id = ? ";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, productID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next() && catName.value == null) {
-                catName.value = rs.getString("category_name");
-                return mapRow(rs);
+            if (rs.next()) {
+                return new Product(
+                    rs.getInt("product_id"),
+                    rs.getInt("subCategory_id"),
+                    rs.getString("product_name"),
+                    rs.getString("description"),
+                    rs.getBigDecimal("price"),
+                    rs.getInt("stock_quantity"),
+                    rs.getString("image_url"),
+                    rs.getDate("created_at"),
+                    rs.getDate("updated_at")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -197,11 +204,7 @@ public class productDAO extends DBcontext {
         if (productIDs == null || productIDs.isEmpty()) {
             return productList;
         }
-
-        StringBuilder sql = new StringBuilder("SELECT p.*, c.category_name FROM Product p "
-                + "JOIN Category c ON p.category_id = c.category_id "
-                + "WHERE p.product_id IN (");
-
+        StringBuilder sql = new StringBuilder("SELECT * FROM Product WHERE product_id IN (");
         for (int i = 0; i < productIDs.size(); i++) {
             if (i > 0) {
                 sql.append(",");
@@ -209,33 +212,24 @@ public class productDAO extends DBcontext {
             sql.append("?");
         }
         sql.append(") ORDER BY CASE ");
-
         for (int i = 0; i < productIDs.size(); i++) {
-            sql.append("WHEN p.product_id = ? THEN ").append(i);
+            sql.append("WHEN product_id = ? THEN ").append(i);
             if (i < productIDs.size() - 1) {
                 sql.append(" ");
             }
         }
         sql.append(" END ");
         sql.append("OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY");
-
         try {
             PreparedStatement ps = connection.prepareStatement(sql.toString());
             int paramIndex = 1;
-
-            // Set product IDs for IN clause
             for (Integer productID : productIDs) {
                 ps.setInt(paramIndex++, productID);
             }
-
-            // Set product IDs for ORDER BY CASE
             for (Integer productID : productIDs) {
                 ps.setInt(paramIndex++, productID);
             }
-
-            // Set limit
             ps.setInt(paramIndex, limit);
-
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 productList.add(mapRow(rs));
@@ -362,6 +356,125 @@ public class productDAO extends DBcontext {
             e.printStackTrace();
         }
 
+    }
+
+    public List<Product> getProductsBySubCategoryId(int subCategoryId) {
+        List<Product> productList = new ArrayList<>();
+        String sql = "SELECT * FROM Product WHERE subCategory_id = ? ORDER BY created_at DESC";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, subCategoryId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                productList.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    public List<Product> findProductBySubCategory(Integer subCategoryId, Double minPrice, Double maxPrice, String sortDir, int limit, int offset) {
+        List<Product> productList = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM Product WHERE 1=1 ");
+        List<Object> params = new ArrayList<>();
+
+        if (subCategoryId != null) {
+            sql.append("AND subCategory_id = ? ");
+            params.add(subCategoryId);
+        }
+        if (minPrice != null) {
+            sql.append("AND price >= ? ");
+            params.add(minPrice);
+        }
+        if (maxPrice != null) {
+            sql.append("AND price <= ? ");
+            params.add(maxPrice);
+        }
+        if (sortDir != null && (sortDir.equalsIgnoreCase("desc") || sortDir.equalsIgnoreCase("asc"))) {
+            sql.append("ORDER BY price ").append(sortDir).append(" ");
+        } else {
+            sql.append("ORDER BY product_id ");
+        }
+        sql.append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        params.add(offset);
+        params.add(limit);
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                productList.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    public int countProductBySubCategory(Integer subCategoryId, Double minPrice, Double maxPrice) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM Product WHERE 1=1 ");
+        List<Object> params = new ArrayList<>();
+
+        if (subCategoryId != null) {
+            sql.append("AND subCategory_id = ? ");
+            params.add(subCategoryId);
+        }
+        if (minPrice != null) {
+            sql.append("AND price >= ? ");
+            params.add(minPrice);
+        }
+        if (maxPrice != null) {
+            sql.append("AND price <= ? ");
+            params.add(maxPrice);
+        }
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public Double getMinPriceBySubCategory(Integer subCategoryId) {
+        String sql = "SELECT MIN(price) FROM Product WHERE subCategory_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, subCategoryId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public Double getMaxPriceBySubCategory(Integer subCategoryId) {
+        String sql = "SELECT MAX(price) FROM Product WHERE subCategory_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, subCategoryId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
     }
 
     public static void main(String[] args) {

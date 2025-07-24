@@ -22,7 +22,7 @@ protected static Connection connection;
             String password = "123";
             String url
                     = "jdbc:sqlserver://localhost:1433;"
-                    + "databaseName=OSMW_WEB;"
+                    + "databaseName=OSMW_WEB234;"
                     + "encrypt=true;"
                     + "trustServerCertificate=true";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
