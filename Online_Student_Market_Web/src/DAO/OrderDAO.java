@@ -148,6 +148,7 @@ public class OrderDAO extends DBcontext {
 
     // Tạo class để chứa thông tin order item + product
     public static class OrderItemWithProduct {
+
         private OrderItem orderItem;
         private Product product;
 
@@ -173,13 +174,121 @@ public class OrderDAO extends DBcontext {
         }
     }
 
+    // Tạo class để chứa thông tin order + user info cho admin
+    public static class OrderWithUser {
+
+        private int order_id;
+        private int user_id;
+        private String user_name;
+        private String user_email;
+        private BigDecimal total_amount;
+        private String payment_method;
+        private java.sql.Date order_date;
+        private String status;
+        private String shipping_address;
+        private java.sql.Date created_at;
+        private java.sql.Date updated_at;
+
+        public OrderWithUser() {
+        }
+
+        // Getters and Setters
+        public int getOrder_id() {
+            return order_id;
+        }
+
+        public void setOrder_id(int order_id) {
+            this.order_id = order_id;
+        }
+
+        public int getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
+        }
+
+        public String getUser_name() {
+            return user_name;
+        }
+
+        public void setUser_name(String user_name) {
+            this.user_name = user_name;
+        }
+
+        public String getUser_email() {
+            return user_email;
+        }
+
+        public void setUser_email(String user_email) {
+            this.user_email = user_email;
+        }
+
+        public BigDecimal getTotal_amount() {
+            return total_amount;
+        }
+
+        public void setTotal_amount(BigDecimal total_amount) {
+            this.total_amount = total_amount;
+        }
+
+        public String getPayment_method() {
+            return payment_method;
+        }
+
+        public void setPayment_method(String payment_method) {
+            this.payment_method = payment_method;
+        }
+
+        public java.sql.Date getOrder_date() {
+            return order_date;
+        }
+
+        public void setOrder_date(java.sql.Date order_date) {
+            this.order_date = order_date;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getShipping_address() {
+            return shipping_address;
+        }
+
+        public void setShipping_address(String shipping_address) {
+            this.shipping_address = shipping_address;
+        }
+
+        public java.sql.Date getCreated_at() {
+            return created_at;
+        }
+
+        public void setCreated_at(java.sql.Date created_at) {
+            this.created_at = created_at;
+        }
+
+        public java.sql.Date getUpdated_at() {
+            return updated_at;
+        }
+
+        public void setUpdated_at(java.sql.Date updated_at) {
+            this.updated_at = updated_at;
+        }
+    }
+
     // Lấy order items kèm thông tin sản phẩm
     public List<OrderItemWithProduct> getOrderItemsWithProductInfo(int orderId) {
         List<OrderItemWithProduct> items = new ArrayList<>();
-        String sql = "SELECT oi.*, p.product_name, p.image_url, p.price " +
-                "FROM Order_Item oi " +
-                "INNER JOIN Product p ON oi.product_id = p.product_id " +
-                "WHERE oi.order_id = ?";
+        String sql = "SELECT oi.*, p.product_name, p.image_url, p.price "
+                + "FROM Order_Item oi "
+                + "INNER JOIN Product p ON oi.product_id = p.product_id "
+                + "WHERE oi.order_id = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -208,10 +317,90 @@ public class OrderDAO extends DBcontext {
         return items;
     }
 
-    // ...existing code...
+    // Lấy tất cả orders kèm thông tin user cho admin
+    public List<OrderWithUser> getAllOrdersWithUserInfo() {
+        List<OrderWithUser> orders = new ArrayList<>();
+        String sql = "SELECT o.*, u.full_name, u.email "
+                + "FROM [Order] o "
+                + "INNER JOIN [User] u ON o.user_id = u.user_id "
+                + "ORDER BY o.order_date DESC";
 
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
 
-// ...existing code...
+            while (rs.next()) {
+                OrderWithUser order = new OrderWithUser();
+                order.setOrder_id(rs.getInt("order_id"));
+                order.setUser_id(rs.getInt("user_id"));
+                order.setUser_name(rs.getString("full_name"));
+                order.setUser_email(rs.getString("email"));
+                order.setTotal_amount(rs.getBigDecimal("total_amount"));
+                order.setPayment_method(rs.getString("payment_method"));
+                order.setOrder_date(rs.getDate("order_date"));
+                order.setStatus(rs.getString("status"));
+                order.setShipping_address(rs.getString("shipping_address"));
+                order.setCreated_at(rs.getDate("created_at"));
+                order.setUpdated_at(rs.getDate("updated_at"));
+                orders.add(order);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    public boolean updateOrderStatusToShipping(int userId) {
+        String sql = "UPDATE [Order] SET status = ?, updated_at = GETDATE() WHERE user_id = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "SHIPPING");
+            ps.setInt(2, userId);
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method mới để cập nhật trạng thái order theo order_id
+    public boolean updateOrderStatus(int orderId, String newStatus) {
+        String sql = "UPDATE [Order] SET status = ?, updated_at = GETDATE() WHERE order_id = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, newStatus);
+            ps.setInt(2, orderId);
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method để cập nhật trạng thái từ PROCESSING sang SHIPPING theo order_id
+    public boolean updateOrderStatusToShippingByOrderId(int orderId) {
+        String sql = "UPDATE [Order] SET status = 'SHIPPING', updated_at = GETDATE() WHERE order_id = ? AND status = 'PROCESSING'";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, orderId);
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public static void main(String[] args) {
         OrderDAO dao = new OrderDAO();

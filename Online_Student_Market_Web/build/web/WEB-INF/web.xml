@@ -79,6 +79,7 @@
     <servlet>
         <servlet-name>subCategory</servlet-name>
         <servlet-class>controller.subCategory</servlet-class>
+
     </servlet>
     <servlet>
         <servlet-name>ForgotPasswordServlet</servlet-name>
