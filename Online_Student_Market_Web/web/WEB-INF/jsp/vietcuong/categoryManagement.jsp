@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
-<%@page import="Model.Category"%>
+<%@page import="model.Category"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     List<Category> categories = (List<Category>) request.getAttribute("categories");
@@ -187,7 +187,7 @@
             <tr>
                 <th>ID</th>
                 <th>Tên</th>
-                <th>Mô tả</th>
+                <th>Hình ảnh</th>
                 <th>Image URL</th>
                 <th>Hành động</th>
             </tr>
@@ -195,8 +195,8 @@
                 <tr>
                     <td>${cat.category_id}</td>
                     <td>${cat.category_name}</td>
-                    <td>${cat.category_description}</td>
-                    <td>${cat.category_image_url}</td>
+                    
+                    <td><img src="${cat.category_image_url}" alt="img" style="width:60px;height:60px;object-fit:cover;"></td>
                     <td>
                         <form action="categorymanagement" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa category này?');">
                             <input type="hidden" name="categoryId" value="${cat.category_id}" />

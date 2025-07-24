@@ -7,8 +7,8 @@ package controller;
 
 import DAO.SubCategoryDAO;
 import DAO.categoryDAO;
-import Model.Category;
-import Model.SubCategory;
+import model.Category;
+import model.SubCategory;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.Filter;

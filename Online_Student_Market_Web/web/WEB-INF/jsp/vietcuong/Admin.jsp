@@ -146,11 +146,15 @@
         <!-- Main content -->
         <div class="container">
             <h1>Admin Management</h1>
-            <ul class="admin-menu">
-                <li><a href="userManagement">Quản lý User</a></li>
-                <li><a href="categoryManagement">Quản lý Category</a></li>
-                <li><a href="productManagement">Quản lý Product</a></li>
-            </ul>
+            <!-- ...existing code... -->
+<ul class="admin-menu">
+    <li><a href="${pageContext.request.contextPath}/userManagement">Quản lý User</a></li>
+    <li><a href="${pageContext.request.contextPath}/categoryManagement">Quản lý Category</a></li>
+    <li><a href="${pageContext.request.contextPath}/subcategoryadmin">Quản lý Subcategory</a></li>
+    <li><a href="${pageContext.request.contextPath}/productManagement">Quản lý Product</a></li>
+    <li><a href="${pageContext.request.contextPath}/adminorder">Quản lý Order</a></li>
+</ul>
+<!-- ...existing code... -->
         </div>
         <!-- Footer -->
         <div class="footer">

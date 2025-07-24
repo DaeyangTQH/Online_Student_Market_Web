@@ -6,7 +6,7 @@ package controller;
 
 import DAO.productDAO;
 import DAO.CreateDAO;
-import Model.Product;
+import model.Product;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -104,7 +104,7 @@ public class EditListing extends HttpServlet {
                 java.math.BigDecimal priceVal = new java.math.BigDecimal(price);
                 int cid = Integer.parseInt(category); // category_id
                 String imageUrl = (imageUrls.length > 0) ? imageUrls[0] : null;
-                Model.Product product = new Model.Product();
+                model.Product product = new model.Product();
                 product.setProduct_id(pid);
                 product.setProduct_name(title);
                 product.setDescription(description);

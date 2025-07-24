@@ -6,8 +6,8 @@ package controller;
 
 import DAO.SubCategoryDAO;
 import DAO.categoryDAO;
-import Model.Category;
-import Model.SubCategory;
+import model.Category;
+import model.SubCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

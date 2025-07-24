@@ -2,5 +2,6 @@ controller.CreateListing=javax.servlet.annotation.WebServlet,javax.servlet.annot
 controller.EditListing=javax.servlet.annotation.WebServlet,javax.servlet.annotation.MultipartConfig
 controller.RemoveCartItemServlet=javax.servlet.annotation.WebServlet
 controller.categoryManagement=javax.servlet.annotation.WebServlet
+controller.headerDataFilter=javax.servlet.annotation.WebFilter
 controller.productManagement=javax.servlet.annotation.WebServlet
 controller.userManagement=javax.servlet.annotation.WebServlet

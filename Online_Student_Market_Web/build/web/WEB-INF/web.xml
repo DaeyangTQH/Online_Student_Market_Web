@@ -72,6 +72,14 @@
         <servlet-name>headerDataFilter</servlet-name>
         <servlet-class>controller.headerDataFilter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>orderadmin</servlet-name>
+        <servlet-class>controller.orderadmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>subCategory</servlet-name>
+        <servlet-class>controller.subCategory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -131,6 +139,14 @@
     <servlet-mapping>
         <servlet-name>SubCategoryServlet</servlet-name>
         <url-pattern>/subcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orderadmin</servlet-name>
+        <url-pattern>/adminorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>subCategory</servlet-name>
+        <url-pattern>/subcategoryadmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

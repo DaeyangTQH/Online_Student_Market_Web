@@ -5,8 +5,8 @@
 package controller;
 
 import DAO.categoryDAO;
-import Model.Category;
-import Model.User;
+import model.Category;
+import model.User;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;

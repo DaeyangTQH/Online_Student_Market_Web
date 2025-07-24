@@ -7,9 +7,9 @@ package controller;
 
 import DAO.CartItemDAO;
 import DAO.productDAO;
-import Model.Cart_Item;
-import Model.Product;
-import Model.User;
+import model.Cart_Item;
+import model.Product;
+import model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

@@ -2,7 +2,7 @@ package controller;
 
 import DAO.UserDAO;
 import DAO.UserOtpDAO;
-import Model.User;
+import model.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

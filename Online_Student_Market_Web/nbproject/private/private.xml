@@ -3,45 +3,42 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/EmailUtil.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/UserOtpDAO.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/forgot-password.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/OtpEmail.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/login.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/otp_email.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/Model/UserOtp.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/reset_password.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/UserDAO.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/ForgotPasswordServlet.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/productDAO.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/SearchDAO.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/SearchServlet.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/categoryDAO.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/categoryManagement.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/search.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/productManagement.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/Admin.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/userManagement.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/category.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/productDetail.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/Haichan/productList.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/InfoUser.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/home.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/login.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/DBcontext.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/signup.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/userManagement.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/PersonalInformation.java</file>
         </group>
         <group>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/EmailUtil.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/UserOtpDAO.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/forgot-password.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/OtpEmail.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/login.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/otp_email.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/Model/UserOtp.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/reset_password.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/UserDAO.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/ForgotPasswordServlet.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/DBcontext.java</file>
         </group>
         <group>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/forgot-password.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/OtpEmail.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/Model/UserOtp.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/reset_password.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/ForgotPasswordServlet.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/EmailUtil.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/UserOtpDAO.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/ResetPassword.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/login.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/otp_email.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/UserDAO.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/home.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/categoryManagement.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/subCategory.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/model/Category.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/productManagement.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/userManagement.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/DBcontext.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/orderManagement.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/search.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/OrderDAO.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/model/Order.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/subCategory.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/orderadmin.java</file>
         </group>
     </open-files>
 </project-private>
