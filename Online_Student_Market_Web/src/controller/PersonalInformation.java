@@ -6,7 +6,6 @@
 package controller;
 
 import DAO.CartItemDAO;
-import DAO.Holder;
 import DAO.productDAO;
 import Model.Cart_Item;
 import Model.Product;
@@ -111,7 +110,7 @@ public class PersonalInformation extends HttpServlet {
 
                     // Lấy thông tin sản phẩm
                     productDAO productDao = new productDAO();
-                    Product product = productDao.getProductByID(productId, new Holder<>());
+                    Product product = productDao.getProductByID(productId);
 
                     if (product != null) {
                         // Lưu thông tin Buy Now vào session
@@ -141,14 +140,5 @@ public class PersonalInformation extends HttpServlet {
         doGet(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     * 
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

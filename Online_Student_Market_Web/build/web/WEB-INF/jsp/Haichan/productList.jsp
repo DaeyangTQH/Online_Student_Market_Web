@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : productList
     Created on : Jun 14, 2025, 10:07:27 PM
     Author     : Haichann
@@ -44,7 +44,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-1">
                         <li class="breadcrumb-item"><a href="category">Danh mục</a></li>
-                        <li class="breadcrumb-item active catName" aria-current="page">${categoryName}</li>
+                        <c:if test="${not empty categoryName}">
+                            <li class="breadcrumb-item"><a href="subcategory?cid=${cid}">${categoryName}</a></li>
+                        </c:if>
+                        <c:if test="${not empty subCategoryName}">
+                            <li class="breadcrumb-item active" aria-current="page">${subCategoryName}</li>
+                        </c:if>
                     </ol>
                 </nav>
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -62,7 +67,7 @@
                             <div class="card-body">
                                 <h5 class="card-title mb-3"><i class="bi bi-funnel"></i> Bộ lọc</h5>
                                 <form class="row g-3" method="get" action="">
-                                    <input type="hidden" name="cid" value="${cid}"/>
+                                    <input type="hidden" name="subCategoryId" value="${subCategoryId}"/>
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Nhập khoảng giá phù hợp với bạn:</label>
                                         <div class="d-flex align-items-center gap-2 mb-2">
@@ -106,7 +111,7 @@
                                             </div>
                                             <div class="product-name fw-semibold">${p.product_name}</div>
                                             <div class="product-price text-muted">
-                                                <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="đ"/>
+                                                <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" maxFractionDigits="0"/>&nbsp;đ
                                             </div>
                                         </div>
                                     </a>
@@ -117,15 +122,15 @@
                         <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
                             <ul class="pagination">
                                 <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                    <a class="page-link" href="?cid=${cid}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${currentPage - 1}"><i class="bi bi-chevron-left"></i></a>
+                                    <a class="page-link" href="?subCategoryId=${subCategoryId}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${currentPage - 1}"><i class="bi bi-chevron-left"></i></a>
                                 </li>
                                 <c:forEach begin="1" end="${totalPages}" var="i">
                                     <li class="page-item ${currentPage == i ? 'active' : ''}">
-                                        <a class="page-link" href="?cid=${cid}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${i}">${i}</a>
+                                        <a class="page-link" href="?subCategoryId=${subCategoryId}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${i}">${i}</a>
                                     </li>
                                 </c:forEach>
                                 <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
-                                    <a class="page-link" href="?cid=${cid}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${currentPage + 1}"><i class="bi bi-chevron-right"></i></a>
+                                    <a class="page-link" href="?subCategoryId=${subCategoryId}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&type=${param.type}&page=${currentPage + 1}"><i class="bi bi-chevron-right"></i></a>
                                 </li>
                             </ul>
                         </nav>

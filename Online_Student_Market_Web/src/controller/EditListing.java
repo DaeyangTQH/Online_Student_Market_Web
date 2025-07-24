@@ -30,7 +30,7 @@ public class EditListing extends HttpServlet {
         if (pidRaw != null) {
             try {
                 int pid = Integer.parseInt(pidRaw);
-                Product product = new productDAO().getProductByID(pid, new DAO.Holder<>());
+                Product product = new productDAO().getProductByID(pid);
                 if (product != null) {
                     request.setAttribute("product", product);
                 }
@@ -109,7 +109,7 @@ public class EditListing extends HttpServlet {
                 product.setProduct_name(title);
                 product.setDescription(description);
                 product.setPrice(priceVal);
-                product.setCategory_id(cid);
+                product.setSubCategory_id(cid);
                 product.setStock_quantity(stock);
                 product.setImage_url(imageUrl);
                 new CreateDAO().updateProduct(product);

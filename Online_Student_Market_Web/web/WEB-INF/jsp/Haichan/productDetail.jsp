@@ -42,7 +42,12 @@
         <main class="container my-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/productList?cid=${product.category_id}">${categoryName}</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/subcategory?cid=${product.subCategory_id}">${categoryName}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/productList?subCategoryId=${product.subCategory_id}">${subCategoryName}</a>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">${product.product_name}</li>
                 </ol>
             </nav>
