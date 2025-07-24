@@ -243,8 +243,8 @@ public class productDAO extends DBcontext {
     // Lấy sản phẩm ngẫu nhiên (để hiển thị khi không có sản phẩm đã xem)
     public List<Product> getRandomProducts(int limit) {
         List<Product> productList = new ArrayList<>();
-        String sql = "SELECT p.*, c.category_name FROM Product p "
-                + "JOIN Category c ON p.category_id = c.category_id "
+        String sql = "SELECT p.*, s.subcategory_name FROM Product p "
+                + "JOIN Subcategory s ON p.subcategory_id = s.subcategory_id "
                 + "ORDER BY NEWID() "
                 + "OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
 

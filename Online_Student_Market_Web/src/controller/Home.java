@@ -58,7 +58,7 @@ public class Home extends HttpServlet {
             }
         }
 
-        List<Product> featuredProducts = productDao.getRandomProducts(6); // hoặc lấy theo logic bạn muốn
+        List<Product> featuredProducts = productDao.getRandomProducts(8); 
         request.setAttribute("featuredProducts", featuredProducts);
 
         request.setAttribute("categories", categories);

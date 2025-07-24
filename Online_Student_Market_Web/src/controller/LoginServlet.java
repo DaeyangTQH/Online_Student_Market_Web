@@ -6,7 +6,6 @@
 package controller;
 
 import DAO.UserDAO;
-import model.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
@@ -82,8 +82,13 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/home");
             }
         } else {
-            // Đăng nhập thất bại
-            request.setAttribute("errorMessage", "Sai tài khoản hoặc mật khẩu.");
+            // Kiểm tra nếu user tồn tại nhưng bị ban
+            User checkUser = userDAO.getUserByIdOrUsername(username);
+            if (checkUser != null && "banned".equalsIgnoreCase(checkUser.getRole())) {
+                request.setAttribute("errorMessage", "Tài khoản đã bị ban. Liên hệ admin để biết thêm thông tin chi tiết.");
+            } else {
+                request.setAttribute("errorMessage", "Sai tài khoản hoặc mật khẩu.");
+            }
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/t_son/login.jsp");
             rd.forward(request, response);
         }

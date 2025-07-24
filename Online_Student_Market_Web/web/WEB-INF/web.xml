@@ -79,10 +79,12 @@
     <servlet>
         <servlet-name>subCategory</servlet-name>
         <servlet-class>controller.subCategory</servlet-class>
+
     </servlet>
     <servlet>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <servlet-class>controller.ForgotPasswordServlet</servlet-class>
+
     </servlet>
     <servlet>
         <servlet-name>OtpEmail</servlet-name>
@@ -92,6 +94,11 @@
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>controller.ResetPassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -154,6 +161,10 @@
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/ForgotPasswordServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>orderadmin</servlet-name>
         <url-pattern>/adminorder</url-pattern>
     </servlet-mapping>
@@ -176,13 +187,12 @@
         <url-pattern>/reset_password</url-pattern>
     </servlet-mapping>
 
-
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
 </web-app>

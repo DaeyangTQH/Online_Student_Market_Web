@@ -743,3 +743,105 @@ footer {
     opacity: 0.8;
   }
 }
+
+/* Why Choose Us Section */
+.why-choose-us {
+    background: linear-gradient(135deg, #fff5f0 0%, #ffe4d6 100%);
+    padding: 60px 0 50px 0;
+    margin-bottom: 60px;
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.07);
+    border-radius: 24px;
+}
+.why-choose-us .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.why-choose-us h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ff6b35;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+}
+.why-choose-us h2 span {
+    color: #2c3e50;
+    background: linear-gradient(90deg, #ff6b35 0%, #ff8c69 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.why-choose-us .reasons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    align-items: stretch;
+}
+.why-choose-us .reason {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(255, 107, 53, 0.08);
+    padding: 36px 28px 28px 28px;
+    flex: 1 1 220px;
+    max-width: 260px;
+    min-width: 200px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+.why-choose-us .reason:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.15);
+    background: linear-gradient(120deg, #fff5f0 60%, #ffe4d6 100%);
+}
+.why-choose-us .reason i {
+    font-size: 2.7rem;
+    color: #ff6b35;
+    margin-bottom: 18px;
+    display: block;
+    transition: color 0.2s;
+}
+.why-choose-us .reason:hover i {
+    color: #ff8c69;
+}
+.why-choose-us .reason h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+.why-choose-us .reason p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+@media (max-width: 900px) {
+    .why-choose-us .reasons {
+        gap: 20px;
+    }
+    .why-choose-us .reason {
+        max-width: 48%;
+        min-width: 180px;
+        padding: 28px 12px 20px 12px;
+    }
+}
+@media (max-width: 600px) {
+    .why-choose-us {
+        padding: 40px 0 30px 0;
+    }
+    .why-choose-us .reasons {
+        flex-direction: column;
+        gap: 18px;
+    }
+    .why-choose-us .reason {
+        max-width: 100%;
+        min-width: 0;
+        padding: 22px 8px 16px 8px;
+    }
+    .why-choose-us h2 {
+        font-size: 1.5rem;
+    }
+}

@@ -1,9 +1,9 @@
 package DAO;
 
-import model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import model.User;
 
 public class UserDAO extends DBcontext {
 
@@ -16,6 +16,10 @@ public class UserDAO extends DBcontext {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                // Nếu user bị ban thì không cho đăng nhập
+                if ("banned".equalsIgnoreCase(rs.getString("role"))) {
+                    return null;
+                }
                 User user = new User();
                 user.setUser_id(rs.getInt("user_id"));
                 user.setUsername(rs.getString("username"));
@@ -26,6 +30,7 @@ public class UserDAO extends DBcontext {
                 user.setRole(rs.getString("role"));
                 user.setCreated_at(rs.getDate("created_at"));
                 user.setUpdated_at(rs.getDate("updated_at"));
+                user.setStatus("banned".equalsIgnoreCase(rs.getString("role")) ? "BANNED" : "ACTIVE");
                 return user;
             }
         } catch (SQLException e) {
@@ -100,7 +105,7 @@ public class UserDAO extends DBcontext {
     // Lấy danh sách tất cả user (bao gồm cả trạng thái banned)
     public java.util.List<User> getAllUsers() {
         java.util.List<User> list = new java.util.ArrayList<>();
-        String sql = "SELECT *, CASE WHEN role = 'banned' THEN 1 ELSE 0 END AS banned FROM [User]";
+        String sql = "SELECT * FROM [User] WHERE role = 'user' OR role = 'banned'";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -115,7 +120,7 @@ public class UserDAO extends DBcontext {
                 user.setRole(rs.getString("role"));
                 user.setCreated_at(rs.getDate("created_at"));
                 user.setUpdated_at(rs.getDate("updated_at"));
-                // custom field for JSP
+                user.setStatus("banned".equalsIgnoreCase(rs.getString("role")) ? "BANNED" : "ACTIVE");
                 list.add(user);
             }
         } catch (SQLException e) {
@@ -208,6 +213,40 @@ public class UserDAO extends DBcontext {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Lấy user theo username (ưu tiên) hoặc user_id nếu là số
+    public User getUserByIdOrUsername(String usernameOrId) {
+        String sql = "SELECT * FROM [User] WHERE username = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, usernameOrId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUser_id(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword_hash(rs.getString("password_hash"));
+                user.setFull_name(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone_number(rs.getString("phone_number"));
+                user.setRole(rs.getString("role"));
+                user.setCreated_at(rs.getDate("created_at"));
+                user.setUpdated_at(rs.getDate("updated_at"));
+                user.setStatus("banned".equalsIgnoreCase(rs.getString("role")) ? "BANNED" : "ACTIVE");
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Nếu không tìm thấy theo username, thử tìm theo user_id nếu là số
+        try {
+            int id = Integer.parseInt(usernameOrId);
+            return getUserById(id);
+        } catch (NumberFormatException e) {
+            // Không phải số, bỏ qua
         }
         return null;
     }

@@ -175,9 +175,8 @@
     <div class="container">
         <h1>Quản lý Danh mục</h1>
         
-        <form action="categoryManagement" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn thêm category này?');">
+        <form action="${pageContext.request.contextPath}/categoryManagement" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn thêm category này?');">
             <input type="text" name="categoryName" placeholder="Tên category" required />
-            <input type="text" name="categoryDescription" placeholder="Mô tả" required />
             <input type="text" name="categoryImageUrl" placeholder="Image URL" required />
             <input type="hidden" name="action" value="add" />
             <input type="submit" class="action-btn" value="Thêm mới" />
@@ -198,15 +197,14 @@
                     
                     <td><img src="${cat.category_image_url}" alt="img" style="width:60px;height:60px;object-fit:cover;"></td>
                     <td>
-                        <form action="categorymanagement" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa category này?');">
+                        <form action="${pageContext.request.contextPath}/categoryManagement" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa category này?');">
                             <input type="hidden" name="categoryId" value="${cat.category_id}" />
                             <input type="hidden" name="action" value="delete" />
                             <input type="submit" class="action-btn" value="Xóa" />
                         </form>
-                        <form action="categorymanagement" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn sửa category này?');">
+                        <form action="${pageContext.request.contextPath}/categoryManagement" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn sửa category này?');">
                             <input type="hidden" name="categoryId" value="${cat.category_id}" />
                             <input type="text" name="newName" placeholder="Tên mới" required />
-                            <input type="text" name="newDescription" placeholder="Mô tả mới" required />
                             <input type="text" name="newImageUrl" placeholder="Image URL mới" required />
                             <input type="hidden" name="action" value="edit" />
                             <input type="submit" class="action-btn" value="Sửa" />
@@ -216,7 +214,7 @@
             </c:forEach>
         </table>
 
-        <a href="<c:url value='/admin'/>" class="back-link">Quay lại Dashboard</a>
+        <a href="${pageContext.request.contextPath}/admin" class="back-link">Quay lại Dashboard</a>
     </div>
 
     <!-- Footer -->

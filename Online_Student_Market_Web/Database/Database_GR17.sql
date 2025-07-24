@@ -27,6 +27,18 @@ CREATE TABLE dbo.[User] (
 );
 GO
 
+/*================ USER_OTP ==================*/
+
+CREATE TABLE user_otp (
+                          id INT IDENTITY(1,1) PRIMARY KEY,
+                          user_id INT NOT NULL,
+                          otp_code VARCHAR(10) NOT NULL,
+                          created_at DATETIME DEFAULT GETDATE(),
+                          expires_at DATETIME NOT NULL,
+                          is_used BIT DEFAULT 0,
+                          FOREIGN KEY (user_id) REFERENCES [User](user_id) ON DELETE CASCADE
+);
+
 /*============== CATEGORY ================*/
 CREATE TABLE dbo.Category (
                               category_id   INT IDENTITY(1,1) PRIMARY KEY,
@@ -236,3 +248,5 @@ UPDATE dbo.Subcategory SET image_url = 'https://picsum.photos/id/240/800/800' WH
 UPDATE dbo.Subcategory SET image_url = 'https://picsum.photos/id/241/800/800' WHERE subcategory_id = 5;
 UPDATE dbo.Subcategory SET image_url = 'https://picsum.photos/id/242/800/800' WHERE subcategory_id = 6;
 GO
+
+select * from [User]
