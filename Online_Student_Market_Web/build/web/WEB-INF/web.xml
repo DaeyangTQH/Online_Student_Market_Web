@@ -72,7 +72,6 @@
         <servlet-name>headerDataFilter</servlet-name>
         <servlet-class>controller.headerDataFilter</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>orderadmin</servlet-name>
         <servlet-class>controller.orderadmin</servlet-class>
@@ -80,8 +79,7 @@
     <servlet>
         <servlet-name>subCategory</servlet-name>
         <servlet-class>controller.subCategory</servlet-class>
-
-    
+    </servlet>
     <servlet>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <servlet-class>controller.ForgotPasswordServlet</servlet-class>
@@ -93,7 +91,6 @@
     <servlet>
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>controller.ResetPassword</servlet-class>
-
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
