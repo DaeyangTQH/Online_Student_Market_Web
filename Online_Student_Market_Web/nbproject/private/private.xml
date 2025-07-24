@@ -18,23 +18,9 @@
             <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/home.jsp</file>
         </group>
         <group>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/forgot-password.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/OtpEmail.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/Model/UserOtp.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/reset_password.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/ForgotPasswordServlet.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/EmailUtil.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/UserOtpDAO.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/ResetPassword.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/login.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vanhuy/otp_email.jsp</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/UserDAO.java</file>
-            <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/t_son/home.jsp</file>
-        </group>
-        <group>
             <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
             <file>file:/E:/Project_web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/OrderManagement.java</file>
         </group>
+        <group/>
     </open-files>
 </project-private>
