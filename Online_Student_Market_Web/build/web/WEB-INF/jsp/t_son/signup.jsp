@@ -60,6 +60,7 @@
                         name="password"
                         placeholder="Enter your password"
                         required
+                        minlength="6"
                         />
 
                     <label for="confirm-password">Confirm Password</label>
@@ -69,6 +70,7 @@
                         name="confirm-password"
                         placeholder="Confirm your password"
                         required
+                        minlength="6"
                         />
 
                     <button type="submit" class="signup-btn">Sign Up</button>
