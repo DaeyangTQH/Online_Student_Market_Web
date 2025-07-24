@@ -62,7 +62,7 @@ public class OrderManagement extends HttpServlet {
             List<Order> shippingOrders = allOrders.stream()
                     .filter(order -> "SHIPPING".equals(order.getStatus()))
                     .collect(java.util.stream.Collectors.toList());
-                    
+                       
             request.setAttribute("pendingOrders", pendingOrders);
             request.setAttribute("shippingOrders", shippingOrders);
         }
@@ -100,9 +100,7 @@ public class OrderManagement extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/ordermanagement");
     }
 
-    // ---------------------------------------------------------------------
-    // Helpers
-    // ---------------------------------------------------------------------
+   
     /**
      * Xử lý form submission từ personalInformation.jsp
      */
