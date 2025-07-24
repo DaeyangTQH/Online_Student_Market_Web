@@ -6,8 +6,6 @@ package controller;
 
 import DAO.SubCategoryDAO;
 import DAO.categoryDAO;
-import model.Category;
-import model.SubCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Category;
+import model.SubCategory;
 
 /**
  *
@@ -75,6 +75,7 @@ public class SubCategoryServlet extends HttpServlet {
         }
         request.setAttribute("categoryName", name);
         request.setAttribute("subCategoryList", subCatList);
+        request.setAttribute("categories", list); 
         request.getRequestDispatcher("WEB-INF/jsp/Haichan/SubCategory.jsp").forward(request, response);
     }
 

@@ -3,11 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/web/resources/css/main.css</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/EmailUtil.java</file>
-            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/common/header.jsp</file>
-        </group>
-        <group>
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/src/DAO/EmailUtil.java</file>
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/common/header.jsp</file>
@@ -46,6 +41,11 @@
             <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/model/Order.java</file>
             <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/subCategory.jsp</file>
             <file>file:/C:/Users/DELL/Documents/GitHub/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/orderadmin.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/src/controller/subCategory.java</file>
+            <file>file:/C:/Users/pc/Desktop/FPT%20university/Semester_4/PRJ301_Project/Online_Student_Market_Web/Online_Student_Market_Web/Online_Student_Market_Web/web/WEB-INF/jsp/vietcuong/subCategory.jsp</file>
         </group>
     </open-files>
 </project-private>

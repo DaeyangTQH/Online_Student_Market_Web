@@ -73,17 +73,12 @@
         <servlet-class>controller.headerDataFilter</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>orderadmin</servlet-name>
         <servlet-class>controller.orderadmin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>subCategory</servlet-name>
         <servlet-class>controller.subCategory</servlet-class>
-    
-    <servlet>
-        <servlet-name>ForgotPasswordServlet</servlet-name>
-        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>OtpEmail</servlet-name>
@@ -162,7 +157,7 @@
     <servlet-mapping>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <url-pattern>/ForgotPasswordServlet</url-pattern>
-
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>orderadmin</servlet-name>
         <url-pattern>/adminorder</url-pattern>
@@ -192,6 +187,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
 </web-app>

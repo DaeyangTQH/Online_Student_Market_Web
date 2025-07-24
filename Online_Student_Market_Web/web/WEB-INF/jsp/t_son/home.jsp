@@ -47,40 +47,6 @@
             <!-- Main content -->
             <main class="home-container">
 
-                <!-- Danh mục -->
-                <section class="categories">
-                    <h2>Danh mục</h2>
-                    <div class="category-list">
-                        <c:choose>
-                            <c:when test="${not empty categories}">
-                                <c:forEach var="category" items="${categories}">
-                                    <a href="${pageContext.request.contextPath}/productList?cid=${category.category_id}">
-                                        <i class="bi
-                                           <c:choose>
-                                               <c:when test="${category.category_name == 'Stationery'}">bi-pencil</c:when>
-                                               <c:when test="${category.category_name == 'Notebooks'}">bi-journal-bookmark</c:when>
-                                               <c:when test="${category.category_name == 'Writing Instruments'}">bi-pen</c:when>
-                                               <c:when test="${category.category_name == 'Art Supplies'}">bi-palette</c:when>
-                                               <c:when test="${category.category_name == 'Desk Organizers'}">bi-archive</c:when>
-                                               <c:when test="${category.category_name == 'Backpacks'}">bi-bag</c:when>
-                                               <c:when test="${category.category_name == 'School Uniforms'}">bi-person</c:when>
-                                               <c:when test="${category.category_name == 'Sports Gear'}">bi-trophy</c:when>
-                                               <c:otherwise>bi-box</c:otherwise>
-                                           </c:choose>
-                                           "></i>
-
-
-                                        <span>${category.category_name}</span>
-                                    </a>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <p>Không có danh mục nào.</p>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </section>
-
                 <!-- Sản phẩm nổi bật -->
                 <section class="featured-products">
                     <h2>Sản phẩm nổi bật</h2>
@@ -100,6 +66,34 @@
                                 <div class="product-price">${product.price} VNĐ</div>
                             </a>
                         </c:forEach>
+                    </div>
+                </section>
+                <!-- Why Choose Us section -->
+                <section class="why-choose-us">
+                    <div class="container">
+                        <h2>Vì sao chọn <span>SVMarket</span>?</h2>
+                        <div class="reasons">
+                            <div class="reason">
+                                <i class="bi bi-stars"></i>
+                                <h3>Sản phẩm chất lượng</h3>
+                                <p>Chúng tôi cam kết cung cấp các sản phẩm chính hãng, chất lượng cao, phù hợp với nhu cầu của sinh viên.</p>
+                            </div>
+                            <div class="reason">
+                                <i class="bi bi-currency-dollar"></i>
+                                <h3>Giá cả hợp lý</h3>
+                                <p>Giá cả cạnh tranh, nhiều ưu đãi hấp dẫn giúp bạn tiết kiệm chi phí mua sắm.</p>
+                            </div>
+                            <div class="reason">
+                                <i class="bi bi-truck"></i>
+                                <h3>Giao hàng nhanh chóng</h3>
+                                <p>Dịch vụ giao hàng nhanh, đảm bảo sản phẩm đến tay bạn an toàn và đúng hẹn.</p>
+                            </div>
+                            <div class="reason">
+                                <i class="bi bi-people"></i>
+                                <h3>Hỗ trợ tận tâm</h3>
+                                <p>Đội ngũ hỗ trợ thân thiện, luôn sẵn sàng giải đáp mọi thắc mắc của bạn 24/7.</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </main>

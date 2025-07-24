@@ -4,15 +4,12 @@
  */
 package DAO;
 
-import model.Category;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Category;
-import java.sql.*;
 
 /**
  *
@@ -62,13 +59,12 @@ public class categoryDAO extends DBcontext {
     }
 
     // Thêm mới một category
-    public void addCategory(String category_name, String category_description, String category_image_url) {
-        String sql = "INSERT INTO Category (category_name, category_description, image_url, created_at, updated_at) VALUES (?, ?, ?, GETDATE(), GETDATE())";
+    public void addCategory(String category_name, String category_image_url) {
+        String sql = "INSERT INTO Category (category_name, image_url, created_at, updated_at) VALUES (?, ?, GETDATE(), GETDATE())";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, category_name);
-            ps.setString(2, category_description);
-            ps.setString(3, category_image_url);
+            ps.setString(2, category_image_url);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,14 +72,13 @@ public class categoryDAO extends DBcontext {
     }
 
     // Sửa thông tin một category
-    public void updateCategory(int category_id, String category_name, String category_description, String category_image_url) {
-        String sql = "UPDATE Category SET category_name = ?, category_description = ?, image_url = ?, updated_at = GETDATE() WHERE category_id = ?";
+    public void updateCategory(int category_id, String category_name, String category_image_url) {
+        String sql = "UPDATE Category SET category_name = ?, image_url = ?, updated_at = GETDATE() WHERE category_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, category_name);
-            ps.setString(2, category_description);
-            ps.setString(3, category_image_url);
-            ps.setInt(4, category_id);
+            ps.setString(2, category_image_url);
+            ps.setInt(3, category_id);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

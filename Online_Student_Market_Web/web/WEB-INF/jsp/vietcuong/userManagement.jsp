@@ -155,12 +155,46 @@
                 <th>ID</th>
                 <th>Tên</th>
                 <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Mật khẩu</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
             </tr>
             <c:forEach var="user" items="${users}">
                 <tr>
                     <td>${user.user_id}</td>
                     <td>${user.username}</td>
                     <td>${user.email}</td>
+                    <td>${user.phone_number}</td>
+                    <td>${user.password_hash}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${user.status eq 'BANNED'}">
+                                <span style="color: red; font-weight: bold;">BANNED</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span style="color: green; font-weight: bold;">ACTIVE</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${user.status eq 'BANNED'}">
+                                <form action="userManagement" method="post" style="display:inline;">
+                                    <input type="hidden" name="userId" value="${user.user_id}" />
+                                    <input type="hidden" name="action" value="unban" />
+                                    <button type="submit" style="background:#4caf50;color:white;border:none;padding:6px 14px;border-radius:8px;cursor:pointer;">Unban</button>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <form action="userManagement" method="post" style="display:inline;">
+                                    <input type="hidden" name="userId" value="${user.user_id}" />
+                                    <input type="hidden" name="action" value="ban" />
+                                    <button type="submit" style="background:#e53935;color:white;border:none;padding:6px 14px;border-radius:8px;cursor:pointer;">Ban</button>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
