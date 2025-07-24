@@ -1,11 +1,12 @@
 package Model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 
 public class Product {
 
     private int product_id;
-    private int category_id;
+    private int subCategory_id;
     private String product_name;
     private String description;
     private BigDecimal price;
@@ -17,9 +18,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_id, int category_id, String product_name, String description, java.math.BigDecimal price, int stock_quantity, String image_url, java.sql.Date created_at, java.sql.Date updated_at) {
+    public Product(int product_id, int subCategory_id, String product_name, String description, BigDecimal price, int stock_quantity, String image_url, Date created_at, Date updated_at) {
         this.product_id = product_id;
-        this.category_id = category_id;
+        this.subCategory_id = subCategory_id;
         this.product_name = product_name;
         this.description = description;
         this.price = price;
@@ -29,6 +30,8 @@ public class Product {
         this.updated_at = updated_at;
     }
 
+    
+
     public int getProduct_id() {
         return product_id;
     }
@@ -37,13 +40,15 @@ public class Product {
         this.product_id = product_id;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getSubCategory_id() {
+        return subCategory_id;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setSubCategory_id(int subCategory_id) {
+        this.subCategory_id = subCategory_id;
     }
+
+    
 
     public String getProduct_name() {
         return product_name;
@@ -85,23 +90,21 @@ public class Product {
         this.image_url = image_url;
     }
 
-    public java.sql.Date getCreated_at() {
+    public Date getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(java.sql.Date created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
-    public java.sql.Date getUpdated_at() {
+    public Date getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(java.sql.Date updated_at) {
+    public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
     }
 
-    public void setQuantity(int quantity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

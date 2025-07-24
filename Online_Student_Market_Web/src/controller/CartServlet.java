@@ -2,7 +2,6 @@ package controller;
 
 import DAO.CartDAO;
 import DAO.CartItemDAO;
-import DAO.Holder;
 import DAO.productDAO;
 import Model.Cart;
 import Model.Cart_Item;
@@ -64,7 +63,7 @@ public class CartServlet extends HttpServlet {
             if (quantity < 1)
                 quantity = 1;
 
-            Product product = productDao.getProductByID(productId, new Holder<>());
+            Product product = productDao.getProductByID(productId);
             if (product == null) {
                 response.sendRedirect("productList");
                 return;

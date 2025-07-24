@@ -4,10 +4,12 @@
  */
 package controller;
 
+import DAO.SubCategoryDAO;
 import DAO.categoryDAO;
 import DAO.productDAO;
 import Model.Category;
 import Model.Product;
+import Model.SubCategory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -38,10 +40,11 @@ public class Home extends HttpServlet {
             throws ServletException, IOException {
         productDAO productDao = new productDAO();
         categoryDAO categoryDao = new categoryDAO();
-        
-        // Lấy tất cả categories
+        SubCategoryDAO subDao = new SubCategoryDAO();
+
         List<Category> categories = categoryDao.getAll();
-        
+        List<SubCategory> subCategories = subDao.getAllSubCategories();
+
         // Lấy sản phẩm nổi bật từ mỗi category (tối đa 4 sản phẩm mỗi category)
         Map<Integer, List<Product>> featuredProductsByCategory = new HashMap<>();
         if (categories != null) {
@@ -54,11 +57,12 @@ public class Home extends HttpServlet {
                 }
             }
         }
-        
+
         List<Product> featuredProducts = productDao.getRandomProducts(6); // hoặc lấy theo logic bạn muốn
         request.setAttribute("featuredProducts", featuredProducts);
-        
+
         request.setAttribute("categories", categories);
+        request.setAttribute("subCategories", subCategories);
         request.setAttribute("featuredProductsByCategory", featuredProductsByCategory);
         request.getRequestDispatcher("/WEB-INF/jsp/t_son/home.jsp").forward(request, response);
     }
@@ -76,15 +80,5 @@ public class Home extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Home Servlet for SVMarket";
-    }// </editor-fold>
 
 }
