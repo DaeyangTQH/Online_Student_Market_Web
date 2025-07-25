@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class subCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         categoryDAO catDao = new categoryDAO();
         List<Category> categories = catDao.getAll();
         request.setAttribute("categories", categories);

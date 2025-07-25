@@ -15,8 +15,8 @@ import java.util.List;
  *
  * @author Haichann
  */
-public class SubCategoryDAO extends DBcontext{
-    
+public class SubCategoryDAO extends DBcontext {
+
     public List<SubCategory> getSubCategoriesByCategoryId(int categoryId) {
         List<SubCategory> list = new ArrayList<>();
         String sql = "SELECT * FROM SubCategory WHERE category_id = ?";
@@ -39,7 +39,7 @@ public class SubCategoryDAO extends DBcontext{
         }
         return list;
     }
-    
+
     public SubCategory getSubCategoryById(int subCategoryId) {
         String sql = "SELECT * FROM SubCategory WHERE subCategory_id = ?";
         try {
@@ -61,7 +61,7 @@ public class SubCategoryDAO extends DBcontext{
         }
         return null;
     }
-    
+
     public List<SubCategory> getAllSubCategories() {
         List<SubCategory> list = new ArrayList<>();
         String sql = "SELECT * FROM SubCategory";
@@ -83,12 +83,13 @@ public class SubCategoryDAO extends DBcontext{
         }
         return list;
     }
-    
+
     public static void main(String[] args) {
         SubCategoryDAO dao = new SubCategoryDAO();
         List<SubCategory> list = dao.getSubCategoriesByCategoryId(1);
         for (SubCategory subCategory : list) {
-            System.out.println(subCategory.getSubCategory_name() + " " + subCategory.getSubCategory_id() + " " + subCategory.getCategory_id());            
+            System.out.println(subCategory.getSubCategory_name() + " " + subCategory.getSubCategory_id() + " "
+                    + subCategory.getCategory_id());
         }
     }
 }

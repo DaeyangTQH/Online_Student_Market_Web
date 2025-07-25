@@ -20,15 +20,14 @@ public class productDAO extends DBcontext {
     private Product mapRow(ResultSet rs) throws SQLException {
         return new Product(
                 rs.getInt("product_id"),
-                rs.getInt("subCategory_id"),
+                rs.getInt("category_id"),
                 rs.getString("product_name"),
                 rs.getString("description"),
                 rs.getBigDecimal("price"),
                 rs.getInt("stock_quantity"),
                 rs.getString("image_url"),
                 rs.getDate("created_at"),
-                rs.getDate("updated_at")
-        );
+                rs.getDate("updated_at"));
     }
 
     public Product getProductByID(int productID) {
@@ -38,17 +37,7 @@ public class productDAO extends DBcontext {
             ps.setInt(1, productID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return new Product(
-                    rs.getInt("product_id"),
-                    rs.getInt("subCategory_id"),
-                    rs.getString("product_name"),
-                    rs.getString("description"),
-                    rs.getBigDecimal("price"),
-                    rs.getInt("stock_quantity"),
-                    rs.getString("image_url"),
-                    rs.getDate("created_at"),
-                    rs.getDate("updated_at")
-                );
+                return mapRow(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,7 +45,8 @@ public class productDAO extends DBcontext {
         return null;
     }
 
-    public List<Product> findProduct(Integer categoryID, Double minPrice, Double maxPrice, String sortDir, int limit, int offset, Holder<String> catName) {
+    public List<Product> findProduct(Integer categoryID, Double minPrice, Double maxPrice, String sortDir, int limit,
+            int offset, Holder<String> catName) {
         List<Product> productList = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT p.*, c.category_name FROM Product p "
                 + "JOIN Category c ON p.category_id = c.category_id WHERE 1=1 ");
@@ -300,8 +290,7 @@ public class productDAO extends DBcontext {
                         rs.getInt("stock_quantity"),
                         rs.getString("image_url"),
                         rs.getDate("created_at"),
-                        rs.getDate("updated_at")
-                );
+                        rs.getDate("updated_at"));
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -311,7 +300,8 @@ public class productDAO extends DBcontext {
     }
 
     // Thêm mới một sản phẩm
-    public void addProduct(int category_id, String product_name, String description, java.math.BigDecimal price, int stock_quantity, String image_url) {
+    public void addProduct(int category_id, String product_name, String description, java.math.BigDecimal price,
+            int stock_quantity, String image_url) {
         String sql = "INSERT INTO Product (category_id, product_name, description, price, stock_quantity, image_url, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, GETDATE(), GETDATE())";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -328,7 +318,8 @@ public class productDAO extends DBcontext {
     }
 
     // Sửa thông tin một sản phẩm
-    public void updateProduct(int product_id, int category_id, String product_name, String description, java.math.BigDecimal price, int stock_quantity, String image_url) {
+    public void updateProduct(int product_id, int category_id, String product_name, String description,
+            java.math.BigDecimal price, int stock_quantity, String image_url) {
         String sql = "UPDATE Product SET category_id = ?, product_name = ?, description = ?, price = ?, stock_quantity = ?, image_url = ?, updated_at = GETDATE() WHERE product_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -374,7 +365,8 @@ public class productDAO extends DBcontext {
         return productList;
     }
 
-    public List<Product> findProductBySubCategory(Integer subCategoryId, Double minPrice, Double maxPrice, String sortDir, int limit, int offset) {
+    public List<Product> findProductBySubCategory(Integer subCategoryId, Double minPrice, Double maxPrice,
+            String sortDir, int limit, int offset) {
         List<Product> productList = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM Product WHERE 1=1 ");
         List<Object> params = new ArrayList<>();

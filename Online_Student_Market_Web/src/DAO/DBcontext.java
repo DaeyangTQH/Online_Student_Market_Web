@@ -14,14 +14,13 @@ import java.sql.SQLException;
  */
 public class DBcontext {
 
-protected static Connection connection;
+    protected static Connection connection;
 
     public DBcontext() {
         try {
             String user = "sa";
             String password = "123";
-            String url
-                    = "jdbc:sqlserver://localhost:1433;"
+            String url = "jdbc:sqlserver://localhost:1433;"
                     + "databaseName=OSMW_WEB234;"
                     + "encrypt=true;"
                     + "trustServerCertificate=true";

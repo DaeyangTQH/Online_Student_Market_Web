@@ -198,7 +198,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <a href="<c:url value='/admin' />" class="back-link">Quay lại Dashboard</a>
+        <a href="<c:url value='/admin'/>" class="back-link">Quay lại Dashboard</a>
     </div>
 
     <!-- Footer -->
@@ -207,4 +207,3 @@
     </div>
 </body>
 </html>
-

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<web-app version="4.0"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <!-- Servlets -->
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -33,8 +39,8 @@
         <servlet-class>controller.Home</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>category</servlet-name>
-        <servlet-class>controller.categoryServlet</servlet-class>
+        <servlet-name>CategoryServlet</servlet-name>
+        <servlet-class>controller.CategoryServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductList</servlet-name>
@@ -45,8 +51,8 @@
         <servlet-class>controller.SignUp</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>productDetail</servlet-name>
-        <servlet-class>controller.productDetail</servlet-class>
+        <servlet-name>ProductDetail</servlet-name>
+        <servlet-class>controller.ProductDetail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
@@ -57,7 +63,7 @@
         <servlet-class>controller.InfoUser</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>admin</servlet-name>
+        <servlet-name>Admin</servlet-name>
         <servlet-class>controller.admin</servlet-class>
     </servlet>
     <servlet>
@@ -69,22 +75,20 @@
         <servlet-class>controller.SubCategoryServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>headerDataFilter</servlet-name>
-        <servlet-class>controller.headerDataFilter</servlet-class>
+        <servlet-name>HeaderDataFilter</servlet-name>
+        <servlet-class>controller.HeaderDataFilter</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>orderadmin</servlet-name>
+        <servlet-name>OrderAdmin</servlet-name>
         <servlet-class>controller.orderadmin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>subCategory</servlet-name>
+        <servlet-name>SubCategory</servlet-name>
         <servlet-class>controller.subCategory</servlet-class>
-
     </servlet>
     <servlet>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <servlet-class>controller.ForgotPasswordServlet</servlet-class>
-
     </servlet>
     <servlet>
         <servlet-name>OtpEmail</servlet-name>
@@ -94,11 +98,8 @@
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>controller.ResetPassword</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ForgotPasswordServlet</servlet-name>
-        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
-    </servlet>
 
+    <!-- Servlet Mappings -->
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -124,7 +125,7 @@
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>category</servlet-name>
+        <servlet-name>CategoryServlet</servlet-name>
         <url-pattern>/category</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -136,7 +137,7 @@
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>productDetail</servlet-name>
+        <servlet-name>ProductDetail</servlet-name>
         <url-pattern>/product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -148,7 +149,7 @@
         <url-pattern>/infouser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>admin</servlet-name>
+        <servlet-name>Admin</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -159,21 +160,18 @@
         <servlet-name>SubCategoryServlet</servlet-name>
         <url-pattern>/subcategory</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <url-pattern>/ForgotPasswordServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>orderadmin</servlet-name>
+        <servlet-name>OrderAdmin</servlet-name>
         <url-pattern>/adminorder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>subCategory</servlet-name>
+        <servlet-name>SubCategory</servlet-name>
         <url-pattern>/subcategoryadmin</url-pattern>
     </servlet-mapping>
-
-    
     <servlet-mapping>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <url-pattern>/forgot-password</url-pattern>
@@ -188,9 +186,7 @@
     </servlet-mapping>
 
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

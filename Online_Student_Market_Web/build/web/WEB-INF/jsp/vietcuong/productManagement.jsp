@@ -181,6 +181,14 @@
     <!-- Main content -->
     <div class="container">
         <h1>Quản lý Sản phẩm</h1>
+        
+        <!-- Hiển thị thông báo -->
+        <c:if test="${not empty sessionScope.message}">
+            <div class="alert alert-info">
+                ${sessionScope.message}
+                <c:remove var="message" scope="session"/>
+            </div>
+        </c:if>
 
         <!-- Bộ lọc -->
         <form method="get" action="productManagement" style="margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
