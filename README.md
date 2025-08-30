@@ -7,7 +7,7 @@ Online Student Market is an online e-commerce platform specifically designed for
 - 👤 **Student Account Registration and Management:** Users can create accounts, log in, and manage their personal information.
 - 🛍️ **Product Buying and Selling:** Students can list items such as textbooks, study supplies, electronic devices, clothing, and other goods for sale.
 - 🔍 **Search and Filter Products:** An intelligent search system helps users easily find products or services by category, price, location, or rating.
-- 📱 **User-Friendly and Mobile-Optimized Interface:** Ensures smooth user experience on both computers and smartphones.
+- 📱 **User-Friendly and Mobile-Optimized Interface:** Ensures smooth user experience on computers.
 - 💬 **Real-Time Chat Feature:** Supports quick communication between buyers and sellers for negotiation and inquiries.
 - 🔔 **Notifications and Updates:** Keeps users informed about the latest products, promotions, and student events.
 
@@ -19,7 +19,7 @@ Online Student Market is an online e-commerce platform specifically designed for
 ## 🛠️ Main Technologies Used
 - **Backend:** Java Servlet, JSP
 - **Frontend:** HTML, CSS, JavaScript
-- **Database:** MySQL
+- **Database:** SQlServer
 
 
 ## 📞 Contact
